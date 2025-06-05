@@ -1,37 +1,18 @@
-# Miscellaneous
+# -----------------------------------
+# Общие артефакты и IDE-конфиги
+# -----------------------------------
 *.class
 *.lock
 *.log
 *.pyc
 *.swp
 .buildlog/
+.idea/
 .history
 
-
-
-# Flutter repo-specific
-/bin/cache/
-/bin/internal/bootstrap.bat
-/bin/internal/bootstrap.sh
-/bin/mingit/
-/dev/benchmarks/mega_gallery/
-/dev/bots/.recipe_deps
-/dev/bots/android_tools/
-/dev/devicelab/ABresults*.json
-/dev/docs/doc/
-/dev/docs/flutter.docs.zip
-/dev/docs/lib/
-/dev/docs/pubspec.yaml
-/dev/integration_tests/**/xcuserdata
-/dev/integration_tests/**/Pods
-/packages/flutter/coverage/
-version
-analysis_benchmark.json
-
-# packages file containing multi-root paths
-.packages.generated
-
-# Flutter/Dart/Pub related
+# -----------------------------------
+# Flutter/Dart
+# -----------------------------------
 **/doc/api/
 .dart_tool/
 .flutter-plugins
@@ -41,12 +22,11 @@ analysis_benchmark.json
 .pub-preload-cache/
 .pub/
 build/
-flutter_*.png
-linked_*.ds
-unlinked.ds
-unlinked_spec.ds
+# и др. из вашего шаблона Flutter
 
-# Android related
+# -----------------------------------
+# Android-специфичные
+# -----------------------------------
 **/android/**/gradle-wrapper.jar
 .gradle/
 **/android/captures/
@@ -57,7 +37,9 @@ unlinked_spec.ds
 **/android/key.properties
 *.jks
 
-# iOS/XCode related
+# -----------------------------------
+# iOS/Xcode
+# -----------------------------------
 **/ios/**/*.mode1v3
 **/ios/**/*.mode2v3
 **/ios/**/*.moved-aside
@@ -87,33 +69,59 @@ unlinked_spec.ds
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
 
+# -----------------------------------
 # macOS
+# -----------------------------------
 **/Flutter/ephemeral/
 **/Pods/
 **/macos/Flutter/GeneratedPluginRegistrant.swift
 **/macos/Flutter/ephemeral
 **/xcuserdata/
 
+# -----------------------------------
 # Windows
+# -----------------------------------
 **/windows/flutter/generated_plugin_registrant.cc
 **/windows/flutter/generated_plugin_registrant.h
 **/windows/flutter/generated_plugins.cmake
 
+# -----------------------------------
 # Linux
+# -----------------------------------
 **/linux/flutter/generated_plugin_registrant.cc
 **/linux/flutter/generated_plugin_registrant.h
 **/linux/flutter/generated_plugins.cmake
 
-# Coverage
+# -----------------------------------
+# Покрытие
+# -----------------------------------
 coverage/
 
-# Symbols
+# Символы
+# -----------------------------------
 app.*.symbols
 
-# Exceptions to above rules.
+# -----------------------------------
+# ИСКЛЮЧЕНИЯ (если нужно оставить что-то из выше)
+# -----------------------------------
 !**/ios/**/default.mode1v3
 !**/ios/**/default.mode2v3
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
+
+# -----------------------------------
+# Node.js / React / Backend
+# -----------------------------------
+# игнорируем зависимости
+backend/node_modules/
+web/node_modules/
+
+# логи npm / Yarn
+npm-debug.log*
+yarn-error.log*
+
+# средовые файлы (dev, prod и т.д.)
+backend/.env
+web/.env
