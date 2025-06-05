@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Stock Market App</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+    />
+    <!-- ChartJS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Ваши стили -->
+    <link rel="stylesheet" href="css/custom.css" />
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/" data-link>StockApp</a>
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/" data-link>Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/news" data-link>News</a></li>
+                <li class="nav-item"><a class="nav-link" href="/portfolio" data-link>Portfolio</a></li>
+                <li class="nav-item"><a class="nav-link" href="/buyPro" data-link>Buy Pro</a></li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/login" data-link>Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register" data-link>Register</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div id="app" class="container mt-4"><!-- сюда подгружаются страницы --></div>
+
+<!-- Bootstrap 5 JS Bundle (Popper.js внутри) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Ваш основной скрипт (роутинг, инициализация) -->
+<script src="js/main.js"></script>
+</body>
+</html>
