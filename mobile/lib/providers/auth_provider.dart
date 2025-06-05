@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import '../services/api_service.dart';
+import 'package:stock_market_app/services/api_service.dart';
+
 
 class AuthProvider extends ChangeNotifier {
   final _storage = FlutterSecureStorage();

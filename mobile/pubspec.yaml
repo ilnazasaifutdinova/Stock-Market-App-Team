@@ -27,11 +27,11 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
-ddependencies:
+dependencies:
   flutter:
     sdk: flutter
 
-  # HTTP-клиент для запросов
+  # HTTP-клиент
   http: ^0.13.0
 
   # State management через Provider
@@ -40,11 +40,12 @@ ddependencies:
   # Безопасное хранилище для JWT
   flutter_secure_storage: ^8.0.0
 
-  # Библиотека для графиков (когда понадобятся графики)
+  # Библиотека для графиков
   fl_chart: ^0.55.1
 
   # Cupertino Icons
   cupertino_icons: ^1.0.8
+
 
 
 dev_dependencies:

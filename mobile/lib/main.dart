@@ -1,14 +1,17 @@
-// mobile/lib/main.dart
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:mobile/providers/auth_provider.dart';
-import 'package:mobile/screens/login_screen.dart';
-import 'package:mobile/screens/home_screen.dart';
-import 'package:mobile/screens/news_screen.dart';
-import 'package:mobile/screens/detail_screen.dart';
-import 'package:mobile/screens/portfolio_screen.dart';
-import 'package:mobile/screens/buy_pro_screen.dart';
+
+// Импорт экранов (путь ‘screens/…’, без опечаток)
+import 'package:stock_market_app/screens/login_screen.dart';
+import 'package:stock_market_app/screens/home_screen.dart';
+import 'package:stock_market_app/screens/news_screen.dart';
+import 'package:stock_market_app/screens/detail_screen.dart';
+import 'package:stock_market_app/screens/portfolio_screen.dart';
+import 'package:stock_market_app/screens/buy_pro_screen.dart';
+
+// Импорт AuthProvider (убедитесь, что файл существует)
+import 'package:stock_market_app/providers/auth_provider.dart';
+import 'package:stock_market_app/screens/register_screen.dart';
 
 void main() {
   runApp(
@@ -27,7 +30,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Stock Market App',
       theme: ThemeData(primarySwatch: Colors.blue),
-      // Если пользователь уже залогинен, сразу показываем Home, иначе — Login
       home: Consumer<AuthProvider>(
         builder: (context, auth, _) {
           return auth.isAuthenticated ? HomeScreen() : LoginScreen();
@@ -35,9 +37,10 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/login': (context) => LoginScreen(),
+        '/register': (context) => RegisterScreen(),
         '/home': (context) => HomeScreen(),
         '/news': (context) => NewsScreen(),
-        '/detail': (context) => DetailScreen(),      // ожидание аргумента через ModalRoute
+        '/detail': (context) => DetailScreen(),
         '/portfolio': (context) => PortfolioScreen(),
         '/buyPro': (context) => BuyProScreen(),
       },
