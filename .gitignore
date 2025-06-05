@@ -125,3 +125,12 @@ yarn-error.log*
 # средовые файлы (dev, prod и т.д.)
 backend/.env
 web/.env
+
+mobile/.dart_tool/
+mobile/.idea/
+mobile/build/
+web/node_modules/
+web/build/
+backend/node_modules/
+.env
+
