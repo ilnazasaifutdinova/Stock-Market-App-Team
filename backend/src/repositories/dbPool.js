@@ -1,8 +1,8 @@
-// backend/src/repositories/dbPool.js
+//backend/src/repositories/dbPool.js
 
 const { Pool } = require('pg');
 
-// Параметры подключения берутся из переменных окружения
+//Connection Parameters are taken from env variables
 const pgPool = new Pool({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,

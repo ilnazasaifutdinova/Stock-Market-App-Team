@@ -11,7 +11,7 @@ const routes = {
     '/login': loadLogin,
     '/register': loadRegister,
     '/news': loadNews,
-    '/detail': loadDetail,       // detail.js будет читать symbol из queryString (например, ?symbol=AAPL)
+    '/detail': loadDetail,       //detail.js will read symbol from queryString (for example, ?symbol=AAPL)
     '/portfolio': loadPortfolio,
     '/buyPro': loadBuyPro
 };

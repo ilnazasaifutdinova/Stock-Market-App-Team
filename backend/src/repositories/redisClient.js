@@ -1,4 +1,4 @@
-// backend/src/repositories/redisClient.js
+//backend/src/repositories/redisClient.js
 
 const Redis = require('redis');
 
@@ -9,7 +9,7 @@ const redisClient = Redis.createClient({
     },
 });
 
-// Не забываем подключиться сразу
+//Do not forget to connect immediately
 redisClient.connect().catch(console.error);
 
 module.exports = redisClient;

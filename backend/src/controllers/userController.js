@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const pool = require('../repositories/dbPool'); // pgPool, экспортируется
+const pool = require('../repositories/dbPool'); // export pgPool from repositories/
 module.exports = {
     register: async (req, res) => {
         const { email, password } = req.body;
@@ -34,7 +34,7 @@ module.exports = {
         }
     },
     me: (req, res) => {
-        // authMiddleware добавил в req.user { userId, email, isPremium }
+        // added authMiddleware in req.user { userId, email, isPremium }
         const { userId, email, isPremium } = req.user;
         res.json({ userId, email, isPremium });
     }
