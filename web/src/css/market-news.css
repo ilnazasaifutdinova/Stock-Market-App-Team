@@ -1,0 +1,165 @@
+/* css/market-news.css */
+
+/* Universal Styles & Variables */
+/* These variables are generally consistent across your theme.
+   Ideally, they should be defined once in a central file like potfolio.css
+   and then used universally. For now, keeping them here as they were in your
+   original inline style, but note that duplication can lead to maintenance issues. */
+:root {
+    --bg-color: #1A1A1A;
+    --card-bg-color: #242424;
+    --text-color: #E0E0E0;
+    --accent-green: #00A86B; /* For positive changes, active states */
+    --accent-red: #FF4B4B; /* For negative changes */
+    --search-bar-bg: #333333; /* Background for search bar (in header) and time filters */
+    --table-header-bg: #333333;
+    --border-color: #444444;
+    --light-border-color: #383838; /* For table cell borders, separators */
+}
+
+
+/* Main Content Structure */
+.main-content {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: grid;
+    gap: 30px;
+}
+
+.page-title { /* New: for main page heading "Market News & Stock Snapshot" */
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.section-heading { /* For "Market News" and "Stock Snapshot" sub-headings */
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.card { /* Basic card style, defined for consistency across app */
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Market News Section */
+.market-news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 5 columns or wrap */
+    gap: 20px;
+    margin-bottom: 40px; /* Space below this section */
+}
+
+.news-card {
+    background-color: var(--card-bg-color); /* Same as main cards */
+    border: 1px solid var(--light-border-color);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes content and icon to ends */
+    align-items: flex-start; /* Align text left */
+    gap: 15px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.news-card:hover {
+    border-color: var(--accent-green);
+    transform: translateY(-3px);
+}
+
+.news-card .icon-wrapper {
+    font-size: 18px;
+    color: var(--text-color);
+    opacity: 0.7;
+    margin-bottom: 5px; /* Space between icon and text */
+}
+
+.news-card h3 {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-color);
+    line-height: 1.4;
+}
+
+/* Stock Snapshot Table */
+.stock-snapshot-table .table-wrapper {
+    overflow-x: auto; /* Enable horizontal scroll for small screens */
+}
+
+.stock-snapshot-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.stock-snapshot-table th,
+.stock-snapshot-table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--light-border-color);
+}
+
+.stock-snapshot-table th {
+    background-color: var(--table-header-bg);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.stock-snapshot-table td {
+    font-size: 14px;
+}
+
+.stock-snapshot-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Price Change Colors */
+.change-positive {
+    color: var(--accent-green);
+    font-weight: 500;
+}
+
+.change-negative {
+    color: var(--accent-red);
+    font-weight: 500;
+}
+
+/* Basic Responsiveness for Market News & Stock Snapshot sections */
+@media (max-width: 900px) {
+    .main-content {
+        padding: 0 15px;
+        margin-top: 20px;
+    }
+
+    .market-news-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Adjust min-width for news cards */
+    }
+}
+
+@media (max-width: 600px) {
+    .page-title {
+        font-size: 28px;
+    }
+    .section-heading {
+        font-size: 22px;
+    }
+    .news-card {
+        padding: 15px;
+    }
+    .news-card h3 {
+        font-size: 14px;
+    }
+    .stock-snapshot-table th,
+    .stock-snapshot-table td {
+        padding: 12px 10px;
+        font-size: 13px;
+    }
+}

@@ -1,17 +1,15 @@
 /* Universal Styles & Variables */
 :root {
-    --bg-color: #121712;
+    --bg-color: #1A1A1A;
     --card-bg-color: #242424;
-    --text-color: #FFFFFF;
-    --button-text:#121712;
-    --additional-text:#A6B5A1;
-    --button-background-green:#54D12B;
-    --button-background-gray:#2E3829;
-    --search-bar-bg: #333333; /* Used for search and tabs background */
+    --text-color: #E0E0E0;
+    --accent-green: #00A86B; /* For positive changes, active states */
+    --accent-red: #FF4B4B; /* For negative changes */
+    --search-bar-bg: #333333;
+    --table-header-bg: #333333;
     --border-color: #444444;
-    --light-border-color: #383838;
-    --positive-change-color: #54D12B; /* For positive percentage changes */
-    --negative-change-color: #FF4D4D; /* Example for negative, adjust if needed */
+    --light-border-color: #383838; /* For table cell borders, separators */
+    --chart-line-color: #00A86B; /* Green for chart lines */
 }
 
 * {
@@ -21,418 +19,168 @@
 }
 
 body {
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif; /* Note: The HTML links to Manrope, consider consistency. */
     background-color: var(--bg-color);
     color: var(--text-color);
     line-height: 1.6;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    padding-top: 70px; /* Space for fixed header */
 }
 
 a {
     color: var(--text-color);
     text-decoration: none;
-    transition: color 0.3s ease;
 }
 
 a:hover {
-    color: var(--button-background-green);
+    color: var(--accent-green);
 }
 
-/* Header Styles */
+/* Header (Reused from previous pages) */
 .header {
     background-color: var(--bg-color);
-    padding: 20px 50px;
+    color: var(--text-color);
+    padding: 0 30px;
     display: flex;
+    justify-content: space-between; /* Ensures header-left group and header-right group are on opposite ends */
     align-items: center;
-    justify-content: space-between; /* Keeps left and right header sections apart */
-    border-bottom: 1px solid var(--light-border-color);
+    height: 70px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     z-index: 1000;
+    border-bottom: 1px solid var(--light-border-color);
 }
 
 .header-left {
-    display: flex; /* Make header-left a flex container */
+    display: flex;
     align-items: center;
-    gap: 50px; /* Increased space between logo and navigation links */
+    gap: 30px; /* This creates space between the logo elements and the navigation links */
 }
 
 .logo-icon {
     font-size: 24px;
-    color: var(--button-background-green);
+    margin-right: 10px; /* Still useful for space between the icon and "StockVision" text */
+    color: var(--accent-green);
 }
 
 .logo-text {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--text-color);
-    /* No margin-right needed here, gap handles spacing */
+    font-size: 20px;
+    font-weight: 600;
 }
 
 .header-nav ul {
     list-style: none;
     display: flex;
     align-items: center;
-    gap: 20px; /* Space between links and separators */
 }
 
-.header-nav li {
-    font-weight: 500;
-    font-size: 16px;
+.header-nav ul li {
+    padding: 0 15px;
+    position: relative;
 }
 
-.header-nav .separator {
+.header-nav ul li.separator {
     width: 1px;
-    height: 15px;
-    background-color: var(--border-color);
+    height: 20px;
+    background-color: var(--light-border-color);
+    margin: 0 10px;
+    padding: 0;
+}
+
+.header-nav ul li a {
+    font-size: 15px;
+    font-weight: 500;
 }
 
 .header-right {
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 20px;
 }
 
 .search-bar {
-    position: relative;
+    background-color: var(--search-bar-bg);
+    border-radius: 20px;
+    padding: 8px 15px;
     display: flex;
     align-items: center;
-    background-color: var(--button-background-gray);
-    border-radius: 20px;
-    padding: 0 15px;
-    width: 180px;
 }
 
-.search-bar input[type="text"] {
+.search-bar input {
     background: transparent;
     border: none;
-    padding: 8px 0;
+    outline: none;
     color: var(--text-color);
     font-size: 14px;
-    outline: none;
-    width: 100%;
+    padding-left: 10px;
 }
 
 .search-bar input::placeholder {
-    color: var(--additional-text);
+    color: var(--text-color);
     opacity: 0.7;
 }
 
-.search-bar .search-icon {
-    color: var(--additional-text);
+.search-icon {
+    color: var(--text-color);
     font-size: 14px;
     opacity: 0.7;
-    margin-right: 8px;
 }
 
 .icon-button {
-    font-size: 20px;
-    color: var(--additional-text);
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.icon-button:hover {
-    color: var(--text-color);
-}
-
-
-/* Main Content Layout */
-.main-content {
-    flex-grow: 1;
-    padding: 40px 50px;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    /* Updated to stack vertically */
-    grid-template-columns: 1fr;
-    gap: 30px;
-}
-
-.section {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.section-title {
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--text-color);
-    text-align: left;
-    margin-bottom: 10px;
-}
-
-/* Card Styles */
-.card {
-    background-color: var(--card-bg-color);
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 30px;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.card-title {
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--text-color);
-}
-
-/* Portfolio Distribution Card */
-.portfolio-distribution {
-    /* Specific styles for this card if needed, e.g., fixed height */
-}
-
-.distribution-summary {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 20px;
-}
-
-.total-value {
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--text-color);
-}
-
-.percentage-change {
     font-size: 18px;
-    font-weight: 600;
-    color: var(--positive-change-color);
-}
-/* You'd use JavaScript to apply a class like .negative-change */
-.percentage-change.negative {
-    color: var(--negative-change-color);
+    cursor: pointer;
+    color: var(--text-color);
 }
 
-
-.bar-chart {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-    height: 200px;
-    gap: 15px;
-}
-
-.bar-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 40px;
-}
-
-.bar {
-    width: 100%;
-    background-color: var(--button-background-green);
-    border-radius: 5px 5px 0 0;
-    transition: height 0.5s ease;
-    min-height: 5px;
-}
-
-.category {
-    margin-top: 10px;
-    font-size: 14px;
-    color: var(--additional-text);
-    font-weight: 500;
-    text-align: center;
-}
-
-/* My Holdings Table Card */
-.holdings-table {
-    overflow-x: auto;
-}
-
-.holdings-table table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.holdings-table th,
-.holdings-table td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.holdings-table th {
-    background-color: var(--button-background-gray);
-    color: var(--additional-text);
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 14px;
-}
-
-.holdings-table tr:last-child td {
-    border-bottom: none;
-}
-
-.holdings-table tbody tr:hover {
-    background-color: var(--search-bar-bg);
-}
-
-
-/* Responsive Adjustments */
-@media (max-width: 1024px) {
-    .header {
-        padding: 15px 30px;
-    }
-
-    .header-left {
-        gap: 20px; /* Adjust gap for smaller screens */
-    }
-
-    .header-nav ul {
-        gap: 15px;
-    }
-
-    .header-nav li a {
-        font-size: 15px;
-    }
-
-    .header-right {
-        gap: 20px;
-    }
-
-    .search-bar {
-        width: 150px;
-    }
-
-    .main-content {
-        padding: 30px;
-        /* Already 1fr, no change needed here */
-    }
-
-    .card {
-        padding: 25px;
-    }
-
-    .card-title {
-        font-size: 20px;
-    }
-}
-
-@media (max-width: 768px) {
+/* Basic Responsiveness */
+@media (max-width: 900px) {
     .header {
         flex-wrap: wrap;
+        height: auto;
+        padding: 15px 20px;
         justify-content: center;
         gap: 15px;
-        padding: 15px 20px;
-    }
-
-    .header-left {
-        flex-wrap: wrap; /* Allow logo and nav to wrap */
-        justify-content: center; /* Center items when wrapped */
-        width: 100%;
-        gap: 10px; /* Adjust gap for tighter spacing when wrapped */
-    }
-
-    .logo-icon, .logo-text {
-        flex-shrink: 0; /* Prevent logo from shrinking */
     }
 
     .header-nav {
-        width: 100%; /* Make nav take full width when wrapped */
+        order: 3; /* Puts navigation below logo/search on smaller screens */
+        width: 100%;
+        text-align: center;
     }
 
     .header-nav ul {
-        flex-wrap: wrap;
         justify-content: center;
-        gap: 10px;
-        margin-top: 5px; /* Add slight margin after logo */
     }
 
-    .header-nav .separator {
-        display: none;
-    }
-
-    .header-right {
-        width: 100%;
+    .header-left, .header-right {
+        flex: 1; /* Allows them to take available space */
         justify-content: center;
-        margin-top: 10px; /* Space from wrapped nav */
     }
 
     .search-bar {
         width: 100%;
         max-width: 300px;
-        margin-top: 0; /* Already handled by header-right margin-top */
     }
 
-    .icon-button {
-        font-size: 18px;
-    }
-
-    .section-title {
-        font-size: 24px;
-        text-align: center;
-    }
-
-    .card {
-        padding: 20px;
-    }
-
-    .total-value {
-        font-size: 28px;
-    }
-    .percentage-change {
-        font-size: 16px;
-    }
-
-    .bar-chart {
-        height: 180px;
-        gap: 10px;
-    }
-    .bar-item {
-        width: 35px;
-    }
-    .category {
-        font-size: 12px;
-    }
-
-    .holdings-table th,
-    .holdings-table td {
-        padding: 12px;
-        font-size: 14px;
+    /* Main content padding adjustment for smaller screens */
+    .main-content {
+        padding: 0 15px;
+        margin-top: 20px;
     }
 }
 
-@media (max-width: 480px) {
-    .header {
-        padding: 10px 15px;
+@media (max-width: 600px) {
+    .header-nav ul {
+        flex-direction: column;
+        align-items: center;
     }
-    .logo-text, .logo-icon {
-        font-size: 20px;
+
+    .header-nav ul li {
+        padding: 8px 0;
     }
-    .header-nav li a {
-        font-size: 14px;
-    }
-    .main-content {
-        padding: 20px 15px;
-    }
-    .section-title {
-        font-size: 20px;
-    }
-    .card-title {
-        font-size: 18px;
-    }
-    .total-value {
-        font-size: 24px;
-    }
-    .percentage-change {
-        font-size: 14px;
-    }
-    .bar-chart {
-        height: 150px;
-    }
-    .bar-item {
-        width: 30px;
-    }
-    .holdings-table th,
-    .holdings-table td {
-        padding: 10px;
-        font-size: 12px;
+
+    .header-nav ul li.separator {
+        display: none;
     }
 }
