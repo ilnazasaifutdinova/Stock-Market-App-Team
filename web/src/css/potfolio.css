@@ -46,15 +46,15 @@ a:hover {
     padding: 20px 50px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; /* Keeps left and right header sections apart */
     border-bottom: 1px solid var(--light-border-color);
     z-index: 1000;
 }
 
 .header-left {
-    display: flex;
+    display: flex; /* Make header-left a flex container */
     align-items: center;
-    gap: 10px;
+    gap: 50px; /* Increased space between logo and navigation links */
 }
 
 .logo-icon {
@@ -66,6 +66,7 @@ a:hover {
     font-size: 24px;
     font-weight: 700;
     color: var(--text-color);
+    /* No margin-right needed here, gap handles spacing */
 }
 
 .header-nav ul {
@@ -98,7 +99,7 @@ a:hover {
     align-items: center;
     background-color: var(--button-background-gray);
     border-radius: 20px;
-    padding: 0 15px; /* Adjust padding for icon inside */
+    padding: 0 15px;
     width: 180px;
 }
 
@@ -121,7 +122,7 @@ a:hover {
     color: var(--additional-text);
     font-size: 14px;
     opacity: 0.7;
-    margin-right: 8px; /* Space between icon and text */
+    margin-right: 8px;
 }
 
 .icon-button {
@@ -140,17 +141,18 @@ a:hover {
 .main-content {
     flex-grow: 1;
     padding: 40px 50px;
-    max-width: 1200px; /* Max width for content to keep it readable */
-    margin: 0 auto; /* Center the content */
+    max-width: 1200px;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Flexible grid for sections */
+    /* Updated to stack vertically */
+    grid-template-columns: 1fr;
     gap: 30px;
 }
 
 .section {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Space between title and card */
+    gap: 20px;
 }
 
 .section-title {
@@ -200,7 +202,7 @@ a:hover {
 .percentage-change {
     font-size: 18px;
     font-weight: 600;
-    color: var(--positive-change-color); /* Assuming positive, change dynamically if needed */
+    color: var(--positive-change-color);
 }
 /* You'd use JavaScript to apply a class like .negative-change */
 .percentage-change.negative {
@@ -211,16 +213,16 @@ a:hover {
 .bar-chart {
     display: flex;
     justify-content: space-around;
-    align-items: flex-end; /* Align bars to the bottom */
-    height: 200px; /* Fixed height for the chart area */
-    gap: 15px; /* Space between bars */
+    align-items: flex-end;
+    height: 200px;
+    gap: 15px;
 }
 
 .bar-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 40px; /* Fixed width for each bar item */
+    width: 40px;
 }
 
 .bar {
@@ -228,7 +230,7 @@ a:hover {
     background-color: var(--button-background-green);
     border-radius: 5px 5px 0 0;
     transition: height 0.5s ease;
-    min-height: 5px; /* Ensure bar is visible even with small percentage */
+    min-height: 5px;
 }
 
 .category {
@@ -241,7 +243,7 @@ a:hover {
 
 /* My Holdings Table Card */
 .holdings-table {
-    overflow-x: auto; /* Enable horizontal scrolling for tables on small screens */
+    overflow-x: auto;
 }
 
 .holdings-table table {
@@ -269,7 +271,7 @@ a:hover {
 }
 
 .holdings-table tbody tr:hover {
-    background-color: var(--search-bar-bg); /* Slight hover effect for rows */
+    background-color: var(--search-bar-bg);
 }
 
 
@@ -277,6 +279,10 @@ a:hover {
 @media (max-width: 1024px) {
     .header {
         padding: 15px 30px;
+    }
+
+    .header-left {
+        gap: 20px; /* Adjust gap for smaller screens */
     }
 
     .header-nav ul {
@@ -297,7 +303,7 @@ a:hover {
 
     .main-content {
         padding: 30px;
-        grid-template-columns: 1fr; /* Stack sections vertically */
+        /* Already 1fr, no change needed here */
     }
 
     .card {
@@ -311,34 +317,48 @@ a:hover {
 
 @media (max-width: 768px) {
     .header {
-        flex-wrap: wrap; /* Allow header items to wrap */
+        flex-wrap: wrap;
         justify-content: center;
         gap: 15px;
         padding: 15px 20px;
     }
 
-    .header-left,
-    .header-nav,
-    .header-right {
+    .header-left {
+        flex-wrap: wrap; /* Allow logo and nav to wrap */
+        justify-content: center; /* Center items when wrapped */
         width: 100%;
-        justify-content: center; /* Center items when stacked */
+        gap: 10px; /* Adjust gap for tighter spacing when wrapped */
+    }
+
+    .logo-icon, .logo-text {
+        flex-shrink: 0; /* Prevent logo from shrinking */
+    }
+
+    .header-nav {
+        width: 100%; /* Make nav take full width when wrapped */
     }
 
     .header-nav ul {
         flex-wrap: wrap;
         justify-content: center;
         gap: 10px;
-        margin-top: 10px;
+        margin-top: 5px; /* Add slight margin after logo */
     }
 
     .header-nav .separator {
-        display: none; /* Hide separators when wrapped */
+        display: none;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px; /* Space from wrapped nav */
     }
 
     .search-bar {
         width: 100%;
-        max-width: 300px; /* Limit width even when full width */
-        margin-top: 10px;
+        max-width: 300px;
+        margin-top: 0; /* Already handled by header-right margin-top */
     }
 
     .icon-button {
