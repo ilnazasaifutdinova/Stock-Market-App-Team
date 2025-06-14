@@ -1,50 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>StockVision Register</title>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/register.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>StockVision Register</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="stylesheet" href="css/potfolio.css">
+    <link rel="stylesheet" href="css/register.css">
 </head>
 <body>
 
-  <nav class="page-nav">
-    <div class="logo">StockVision</div>
-    <div class="nav-links-left">
-      <a href="#">News</a>
-      <a href="#">Portfolio</a>
-      <a href="#">Pro</a>
-    </div>
-    <div class="nav-right">
-      <div class="search-container"> <input class="search-box" type="text" placeholder="Search" />
-        <i class="fas fa-search search-icon"></i>
-      </div>
-      <div class="profile-icon"></div>
-    </div>
-  </nav>
+    <header class="header">
+        <div class="header-left">
+            <i class="fa-solid fa-chart-line logo-icon"></i>
+            <span class="logo-text">StockVision</span>
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="#">My Stocks</a></li>
+                    <li class="separator"></li>
+                    <li><a href="#">News</a></li>
+                    <li class="separator"></li>
+                    <li><a href="#">Pro Version</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header-right">
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" placeholder="Search">
+            </div>
+            <i class="fa-regular fa-bell icon-button"></i>
+            <i class="fa-regular fa-user icon-button"></i>
+        </div>
+    </header>
 
-  <div class="container">
-    <h1>Welcome to StockVision</h1>
+    <main class="main-content">
+        <div class="auth-container">
+            <h1 class="welcome-title">Welcome to StockVision</h1>
 
-    <div class="tabs">
-      <div class="tab">Login</div>
-      <div class="tab active">Register</div>
-    </div>
+            <div class="tab-buttons">
+                <button class="tab-button">Login</button>
+                <button class="tab-button active">Register</button>
+            </div>
 
-    <form>
-    <div class="form-row">
-        <input type="text" placeholder="First Name">
-        <input type="email" placeholder="Email">
-    </div>
-    <div class="form-row">
-        <input type="text" placeholder="Last Name">
-        <input type="password" placeholder="Password">
-    </div>
-    <div class="form-row-bottom">
-        <input type="date" placeholder="Date of Birth"> <div class="login-link">Already have an account? <a href="login.html">Login</a></div>
-    </div>
-    <button type="submit" class="register-btn">Register</button>
-</form>
+            <form class="auth-form"> <input type="text" placeholder="First Name">
+                <input type="email" placeholder="Email">
+                <input type="text" placeholder="Last Name">
+                <input type="password" placeholder="Password">
+                <input type="date" placeholder="Date of Birth">
+                <div class="login-link">Already have an account? <a href="login.html">Login</a></div>
+                <button type="submit" class="btn-login">Register</button> </form>
+
+            <p class="or-separator">Or continue with</p> <div class="social-login"> <button class="social-button">Continue with Google</button>
+                <button class="social-button">Continue with Apple</button>
+            </div>
+        </div>
+    </main>
+
 </body>
 </html>
