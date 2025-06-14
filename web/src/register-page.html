@@ -5,19 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>StockVision Register</title>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/register.css">
 </head>
 <body>
 
-  <nav>
-    <div class="nav-left">
-      <div class="logo">★ StockVision</div>
-      <a href="#">My Stocks</a>
+  <nav class="page-nav">
+    <div class="logo">StockVision</div>
+    <div class="nav-links-left">
       <a href="#">News</a>
-      <a href="#">Pro Version</a>
+      <a href="#">Portfolio</a>
+      <a href="#">Pro</a>
     </div>
     <div class="nav-right">
-      <input class="search-box" type="text" placeholder="Search" />
+      <div class="search-container"> <input class="search-box" type="text" placeholder="Search" />
+        <i class="fas fa-search search-icon"></i>
+      </div>
       <div class="profile-icon"></div>
     </div>
   </nav>
@@ -31,22 +33,18 @@
     </div>
 
     <form>
-      <input type="text" placeholder="First Name">
-      <input type="email" placeholder="Email">
-      <input type="text" placeholder="Last Name">
-      <input type="password" placeholder="Password">
-      <input type="date" class="full-width" placeholder="Date of Birth">
-      <div class="login-link">Already have an account?</div>
-      <button type="submit" class="register-btn">Register</button>
-    </form>
-
-    <div class="divider">Or continue with</div>
-
-    <div class="alt-login">
-      <button class="alt-btn">Continue with Google</button>
-      <button class="alt-btn">Continue with Apple</button>
+    <div class="form-row">
+        <input type="text" placeholder="First Name">
+        <input type="email" placeholder="Email">
     </div>
-  </div>
-
+    <div class="form-row">
+        <input type="text" placeholder="Last Name">
+        <input type="password" placeholder="Password">
+    </div>
+    <div class="form-row-bottom">
+        <input type="date" placeholder="Date of Birth"> <div class="login-link">Already have an account? <a href="login.html">Login</a></div>
+    </div>
+    <button type="submit" class="register-btn">Register</button>
+</form>
 </body>
 </html>

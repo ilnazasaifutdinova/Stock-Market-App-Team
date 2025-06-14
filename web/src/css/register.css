@@ -57,8 +57,8 @@ a:hover {
     background-color: #008f5a;
 }
 
-/* Nav Bar Styles */
-nav { /* Changed from .page-nav to nav to match your HTML */
+/* Nav Bar Styles (FROM YOUR PROVIDED SNIPPET) */
+nav.page-nav {
     background-color: var(--bg-color);
     padding: 20px 50px;
     display: flex;
@@ -67,58 +67,64 @@ nav { /* Changed from .page-nav to nav to match your HTML */
     z-index: 1000;
 }
 
-nav .nav-left { /* Changed from .logo and .nav-links-left to match your HTML */
+nav.page-nav .logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-right: 40px;
+}
+
+nav.page-nav .nav-links-left {
     display: flex;
     align-items: center;
     gap: 40px;
     margin-right: auto;
 }
 
-nav .nav-left .logo {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--text-color);
+nav.page-nav .nav-links-left a {
+    font-weight: 500;
+    font-size: 16px;
 }
 
-
-nav .nav-right { /* Changed from .nav-right to match your HTML */
+nav.page-nav .nav-right {
     display: flex;
     align-items: center;
     gap: 25px;
 }
 
-/* Search Container Styling (simplified as there's no wrapper div for search and icon in your HTML) */
-nav .search-box {
+/* Search Container Styling (FROM YOUR PROVIDED SNIPPET) */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
     background-color: var(--button-background-gray);
-    border: none;
     border-radius: 20px;
-    padding: 8px 15px;
+    padding: 0 15px 0 15px;
+    width: 180px;
+}
+
+.search-box { /* This applies to .search-box inside .search-container */
+    background: transparent;
+    border: none;
+    padding: 8px 0;
     color: var(--text-color);
     font-size: 14px;
     outline: none;
-    width: 180px; /* Consistent with login page search bar width */
+    width: 100%;
 }
 
-nav .search-box::placeholder {
+.search-box::placeholder {
     color: var(--additional-text);
     opacity: 0.7;
 }
 
-/* Note: Your HTML for the register page does not have a search-icon element in the nav.
-   If you want a search icon like the login page, you'll need to add
-   <i class="fas fa-search search-icon"></i> next to the search-box input in your HTML.
-   If added, the following style would apply:
-*/
-/*
 .search-icon {
     color: var(--additional-text);
     font-size: 14px;
     opacity: 0.7;
-    margin-left: -30px; // Adjust as needed to position over the input
+    margin-left: 8px;
     cursor: pointer;
-    position: relative; // May need this or absolute depending on layout
 }
-*/
 
 .profile-icon {
     width: 30px;
@@ -135,15 +141,15 @@ nav .search-box::placeholder {
 }
 
 
-/* Login/Register Container */
+/* Login/Register Container (Consistent with Login Page and image_2e1499.png) */
 .container {
     background-color: var(--card-bg-color);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 700px; /* Consistent width with login page to match screenshot */
+    max-width: 700px; /* Consistent width with login page and image_2e1499.png */
     margin: 50px auto;
-    padding: 40px 60px; /* Adjusted padding to give more space on sides, helping elements appear wider */
-    text-align: center;
+    padding: 40px 60px; /* Adjusted padding for better visual spacing, seen in image_2e1499.png */
+    text-align: center; /* Still center overall content within the container */
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -162,7 +168,7 @@ nav .search-box::placeholder {
     display: flex;
     justify-content: center;
     margin-bottom: 30px;
-    background-color: var(--search-bar-bg);
+    background-color: var(--search-bar-bg); /* Use search-bar-bg for tabs background */
     border-radius: 5px;
     overflow: hidden;
 }
@@ -186,11 +192,32 @@ nav .search-box::placeholder {
     background-color: #444444;
 }
 
-/* Form Inputs for Register Page */
+/* Form Layout and Inputs for Register Page (matching image_2e1499.png) */
+.container form {
+    display: grid; /* Use CSS Grid for 2-column layout */
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 20px; /* Space between grid items */
+    margin-bottom: 30px;
+    text-align: left; /* Align input labels/placeholders to the left */
+}
+
+/* Ensure inputs within form-row span 1 column, and form-row itself is a grid item */
+.container form .form-row {
+    display: contents; /* Makes children participate in parent's grid, effectively allowing two inputs per "row" */
+}
+
+.container form .form-row-bottom {
+    display: grid;
+    grid-template-columns: 1fr auto; /* Date input takes 1fr, login link takes auto width */
+    align-items: center;
+    gap: 20px; /* Space between date input and login link */
+    grid-column: span 2; /* Make this row span both columns of the parent grid */
+}
+
 .container form input[type="text"],
 .container form input[type="email"],
 .container form input[type="password"],
-.container form input[type="date"] { /* Target all input types in the form */
+.container form input[type="date"] {
     background-color: var(--button-background-gray);
     border: 1px solid var(--border-color);
     border-radius: 5px;
@@ -199,9 +226,34 @@ nav .search-box::placeholder {
     font-size: 16px;
     outline: none;
     transition: border-color 0.3s ease;
-    width: 100%; /* Ensure full width */
-    margin-bottom: 20px; /* Add margin between inputs */
+    width: 100%; /* Ensure full width within its grid cell */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); /* Slight inner shadow for depth */
 }
+
+/* Date input specific adjustments */
+.container form input[type="date"] {
+    appearance: none; /* Remove default browser date input styling */
+    -webkit-appearance: none;
+    position: relative;
+    padding-right: 15px; /* Adjust padding if needed, assuming no custom icon added */
+    text-align: left; /* Explicitly align date text to left */
+}
+
+/* Remove default browser date placeholder color/styling */
+.container form input[type="date"]::-webkit-datetime-edit-year-field:not([aria-valuenow]),
+.container form input[type="date"]::-webkit-datetime-edit-month-field:not([aria-valuenow]),
+.container form input[type="date"]::-webkit-datetime-edit-day-field:not([aria-valuenow]) {
+    color: var(--additional-text); /* Use additional-text for placeholder */
+}
+.container form input[type="date"]::-webkit-input-placeholder { /* For other browsers */
+    color: var(--additional-text);
+}
+.container form input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Invert color for dark background */
+    cursor: pointer;
+    font-size: 18px; /* Make calendar icon larger */
+}
+
 
 .container form input:focus {
     border-color: var(--button-background-green);
@@ -216,19 +268,40 @@ nav .search-box::placeholder {
 .login-link {
     color: var(--additional-text);
     font-size: 14px;
-    margin-bottom: 20px;
-    text-align: right; /* Align to the right as is common for such links */
+    text-align: right; /* Align to the right within its grid cell */
+    white-space: nowrap; /* Prevent wrapping if space is tight */
 }
 
-.login-link a { /* If you make this a link in HTML */
-    color: var(--additional-text);
-    text-decoration: underline;
+.login-link a {
+    color: var(--button-background-green); /* Make the link text green */
+    text-decoration: none; /* No underline by default */
+    font-weight: 500;
 }
 
-/* Register Button */
+.login-link a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+
+/* Register Button (placed after the grid layout) */
 .register-btn {
-    @extend .btn-primary; /* Inherit primary button styles */
-    margin-bottom: 30px; /* Space before divider */
+    grid-column: span 2; /* Make the register button span both columns */
+    margin-top: 10px; /* Adjust margin as needed */
+    margin-bottom: 30px;
+    background-color: var(--button-background-green);
+    color: var(--button-text);
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.register-btn:hover {
+    background-color: #008f5a;
 }
 
 /* Divider */
@@ -238,6 +311,7 @@ nav .search-box::placeholder {
     margin-bottom: 30px;
     color: var(--text-color);
     opacity: 0.8;
+    grid-column: span 2; /* Ensure divider spans both columns */
 }
 
 .divider::before,
@@ -263,6 +337,7 @@ nav .search-box::placeholder {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    grid-column: span 2; /* Ensure alt-login section spans both columns */
 }
 
 .alt-btn {
@@ -284,7 +359,8 @@ nav .search-box::placeholder {
 
 /* Responsive Adjustments */
 @media (max-width: 900px) {
-    nav { /* Changed from .page-nav to nav */
+    /* NAV RESPONSIVE FROM YOUR PROVIDED SNIPPET */
+    nav.page-nav {
         flex-direction: column;
         align-items: flex-start;
         padding: 15px 20px;
@@ -292,34 +368,42 @@ nav .search-box::placeholder {
         gap: 15px;
     }
 
-    nav .nav-left { /* Changed from .logo and .nav-links-left */
+    nav.page-nav .logo {
         margin-bottom: 15px;
         margin-right: 0;
+    }
+
+    nav.page-nav .nav-links-left {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-right: 0;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    nav.page-nav .nav-links-left a {
+        width: 100%;
+        text-align: left;
+    }
+
+    nav.page-nav .nav-right {
         flex-direction: column;
         align-items: flex-start;
         width: 100%;
         gap: 10px;
     }
 
-    nav .nav-left .logo {
-        margin-bottom: 0; /* No extra margin here */
-    }
-
-    nav .nav-right { /* Changed from .nav-right */
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-        gap: 10px;
-    }
-
-    nav .nav-right .search-box {
+    .search-container { /* This applies to the .search-container within the nav */
         width: 100%;
         max-width: 300px;
+        justify-content: space-between;
     }
 
+    /* CONTAINER AND FORM RESPONSIVE (from previous iteration) */
     .container {
         max-width: 450px; /* Keep a reasonable max-width for tablets */
-        padding: 30px; /* Revert to default padding for smaller screens */
+        padding: 30px; /* Adjusted padding for smaller screens */
     }
     .container h1 {
         font-size: 24px;
@@ -334,32 +418,41 @@ nav .search-box::placeholder {
         border-bottom: none;
     }
 
-    /* Adjust search container for smaller screens */
-    .search-container { /* This class is no longer used in your nav HTML */
-        width: 100%;
-        max-width: 300px;
-        justify-content: space-between;
+    /* Change grid to single column on smaller screens */
+    .container form {
+        grid-template-columns: 1fr; /* Single column layout */
+    }
+    .container form .form-row-bottom {
+        grid-template-columns: 1fr; /* Stack date and link */
+        grid-column: span 1;
+    }
+    .register-btn,
+    .divider,
+    .alt-login {
+        grid-column: span 1; /* Ensure these also span 1 column */
     }
 }
 
 @media (max-width: 600px) {
-    nav {
+    /* NAV RESPONSIVE (from your provided snippet) */
+    nav.page-nav {
         padding: 10px 15px;
     }
 
-    nav .nav-left .logo {
+    nav.page-nav .logo {
         font-size: 20px;
     }
 
+    /* CONTAINER AND FORM RESPONSIVE (from previous iteration) */
     .container {
         padding: 20px;
     }
-    .container form input, /* Target all inputs */
+    .container form input,
     .alt-btn {
         padding: 10px;
         font-size: 14px;
     }
-    .register-btn { /* Use the specific class for register button */
+    .register-btn {
         padding: 12px;
         font-size: 16px;
     }
