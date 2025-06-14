@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockVision - My Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <i class="fa-solid fa-chart-line logo-icon"></i>
+            <span class="logo-text">StockVision</span>
+        </div>
+        <nav class="header-nav">
+            <ul>
+                <li><a href="#">My Stocks</a></li>
+                <li class="separator"></li>
+                <li><a href="#">News</a></li>
+                <li class="separator"></li>
+                <li><a href="#">Pro Version</a></li>
+            </ul>
+        </nav>
+        <div class="header-right">
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" placeholder="Search">
+            </div>
+            <i class="fa-regular fa-bell icon-button"></i>
+            <i class="fa-regular fa-user icon-button"></i>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="section">
+            <h1 class="section-title">My Portfolio</h1>
+
+            <div class="card portfolio-distribution">
+                <h2 class="card-title">Portfolio Distribution</h2>
+                <div class="distribution-summary">
+                    <span class="total-value">$12,345</span>
+                    <span class="percentage-change">+12%</span>
+                </div>
+                <div class="bar-chart">
+                    <div class="bar-item">
+                        <div class="bar" style="height: 80%;"></div>
+                        <span class="category">Tech</span>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar" style="height: 60%;"></div>
+                        <span class="category">Finance</span>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar" style="height: 70%;"></div>
+                        <span class="category">Healthcare</span>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar" style="height: 50%;"></div>
+                        <span class="category">Consumer</span>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar" style="height: 40%;"></div>
+                        <span class="category">Energy</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h1 class="section-title">My Holdings</h1>
+
+            <div class="card holdings-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ticker</th>
+                            <th>Quantity</th>
+                            <th>Total Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>TSLA</td>
+                            <td>10</td>
+                            <td>$2,000</td>
+                        </tr>
+                        <tr>
+                            <td>AAPL</td>
+                            <td>5</td>
+                            <td>$1,500</td>
+                        </tr>
+                        <tr>
+                            <td>MSFT</td>
+                            <td>8</td>
+                            <td>$2,400</td>
+                        </tr>
+                        <tr>
+                            <td>AMZN</td>
+                            <td>2</td>
+                            <td>$1,200</td>
+                        </tr>
+                        <tr>
+                            <td>GOOG</td>
+                            <td>5</td>
+                            <td>$1,800</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
