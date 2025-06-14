@@ -1,11 +1,16 @@
 /* Universal Styles & Variables */
 :root {
-    --bg-color: #1A1A1A;
-    --card-bg-color: #242424; /* Not directly used on landing, but good to keep if layout might reuse it */
-    --text-color: #E0E0E0;
-    --accent-green: #54D12B;
-    --search-bar-bg: #333333;
+    --bg-color: #121712;
+    --card-bg-color: #242424;
+    --text-color: #FFFFFF;
+    --button-text:#121712;
+    --additional-text:#A6B5A1;
+    --button-background-green:#54D12B;
+    --button-background-gray:#2E3829;
+    --search-bar-bg: #333333; /* This variable name is used in .tabs background in this file */
+    --border-color: #444444;
     --light-border-color: #383838;
+    /* Removed positive/negative colors as they are for portfolio only, or should be in potfolio.css */
 }
 
 * {
@@ -46,7 +51,7 @@ a:hover {
 }
 
 .btn-signup-get-started {
-    background-color: var(--accent-green);
+    background-color: var(--button-background-green);
     color: var(--bg-color); /* Dark text on green button */
     margin-right: 15px; /* Space between the two buttons */
 }
