@@ -1,15 +1,16 @@
 /* Universal Styles & Variables */
 :root {
-    --bg-color: #1A1A1A;
+    --bg-color: #121712;
     --card-bg-color: #242424;
-    --text-color: #E0E0E0;
-    --accent-green: #00A86B; /* For positive changes, active states */
-    --accent-red: #FF4B4B; /* For negative changes */
-    --search-bar-bg: #333333;
-    --table-header-bg: #333333;
+    --text-color: #FFFFFF;
+    --button-text:#121712;
+    --additional-text:#A6B5A1;
+    --button-background-green:#54D12B;
+    --button-background-gray:#2E3829;
+    --search-bar-bg: #333333; /* This variable name is used in .tabs background in this file */
     --border-color: #444444;
-    --light-border-color: #383838; /* For table cell borders, separators */
-    --chart-line-color: #00A86B; /* Green for chart lines */
+    --light-border-color: #383838;
+    /* Removed positive/negative colors as they are for portfolio only, or should be in potfolio.css */
 }
 
 * {
@@ -61,7 +62,7 @@ a:hover {
 .logo-icon {
     font-size: 24px;
     margin-right: 10px; /* Still useful for space between the icon and "StockVision" text */
-    color: var(--accent-green);
+    color: var(--button-background-green);
 }
 
 .logo-text {
