@@ -1,0 +1,232 @@
+/* Universal Styles & Variables */
+:root {
+    --bg-color: #1A1A1A;
+    --card-bg-color: #242424; /* Not directly used on landing, but good to keep if layout might reuse it */
+    --text-color: #E0E0E0;
+    --accent-green: #54D12B;
+    --search-bar-bg: #333333;
+    --light-border-color: #383838;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Manrope', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent-green);
+}
+
+/* General Button Styles for Landing Page */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-signup-get-started {
+    background-color: var(--accent-green);
+    color: var(--bg-color); /* Dark text on green button */
+    margin-right: 15px; /* Space between the two buttons */
+}
+
+.btn-signup-get-started:hover {
+    background-color: #008f5a; /* Slightly darker green on hover */
+}
+
+.btn-login {
+    background-color: transparent; /* Transparent background for login button */
+    border: 1px solid var(--text-color); /* White/light gray border */
+    color: var(--text-color);
+}
+
+.btn-login:hover {
+    background-color: var(--text-color); /* Background on hover */
+    color: var(--bg-color); /* Dark text on hover */
+}
+
+/* Nav Bar Styles */
+nav.page-nav {
+    background-color: var(--bg-color);
+    padding: 20px 50px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--light-border-color);
+    z-index: 1000;
+}
+
+nav.page-nav .logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-right: 40px;
+}
+
+nav.page-nav .nav-links-left {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-right: auto;
+}
+
+nav.page-nav .nav-links-left a {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+nav.page-nav .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.search-box {
+    background-color: var(--search-bar-bg);
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    color: var(--text-color);
+    font-size: 14px;
+    outline: none;
+    width: 180px;
+}
+
+.search-box::placeholder {
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.profile-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: var(--accent-green);
+    color: var(--bg-color);
+    cursor: pointer;
+}
+
+/* Hero Section Styles */
+.hero {
+    flex-grow: 1; /* Allows hero section to fill available vertical space */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 50px 20px;
+    background-color: var(--bg-color);
+}
+
+.hero-overlay {
+    max-width: 800px;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+    nav.page-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 20px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    nav.page-nav .logo {
+        margin-bottom: 15px;
+        margin-right: 0;
+    }
+
+    nav.page-nav .nav-links-left {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-right: 0;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    nav.page-nav .nav-links-left a {
+        width: 100%;
+        text-align: left;
+    }
+
+    nav.page-nav .nav-right {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    nav.page-nav {
+        padding: 10px 15px;
+    }
+
+    nav.page-nav .logo {
+        font-size: 20px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .hero p {
+        font-size: 15px;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}

@@ -3,11 +3,14 @@
     --bg-color: #1A1A1A;
     --card-bg-color: #242424;
     --text-color: #E0E0E0;
-    --accent-green: #00A86B;
+    --accent-green: #54D12B;
     --search-bar-bg: #333333;
     --table-header-bg: #333333;
     --border-color: #444444;
     --light-border-color: #383838; /* For table cell borders */
+
+    --button-background-important-2:#2E3829;
+    
 }
 
 * {
@@ -58,8 +61,8 @@ a:hover {
 
 .btn-login { /* Used on landing page and login page */
     background-color: transparent;
+    background-color: var(--button-background-important-2);
     color: var(--text-color);
-    border: 1px solid var(--accent-green);
 }
 
 .btn-login:hover {
@@ -69,7 +72,7 @@ a:hover {
 
 
 /* --- Landing Page Specific Styles --- */
-nav.landing-page-nav {
+nav.page-nav {
     background-color: var(--bg-color);
     padding: 20px 50px;
     display: flex;
@@ -77,27 +80,41 @@ nav.landing-page-nav {
     align-items: center;
     border-bottom: 1px solid var(--light-border-color);
     z-index: 1000;
-    flex-wrap: wrap;
+    /* Removed flex-wrap here to ensure desktop layout has fixed spacing */
 }
 
-nav.landing-page-nav .logo {
+.logo {
+    color: var(--text-color);
+}
+
+ .nav .logo {
     font-size: 24px;
     font-weight: 700;
-    color: var(--accent-green);
-    margin-right: 30px;
+    /* Removed margin-right as flexbox gap/justify-content will handle this */
 }
 
-nav.landing-page-nav .nav-links {
+nav.page-nav .nav-links {
     display: flex;
     align-items: center;
-    gap: 25px;
-    flex-wrap: wrap;
+    gap: 40px; /* Increased gap for more space between News, Portfolio, Pro */
+    /* Removed flex-wrap here to ensure desktop layout has fixed spacing */
+    padding-left: 55%;
 }
 
-nav.landing-page-nav .nav-links a {
+nav.page-nav .nav-links a {
     font-weight: 500;
     font-size: 16px;
 }
+
+/* Specific styling for the buttons section in the landing page navigation */
+/* Assuming the buttons are within nav.landing-page-nav and have the .nav-right class */
+nav.page-nav .nav-right {
+    display: flex; /* Ensure buttons are a flex container */
+    align-items: center;
+    gap: 25px; /* Increased gap for more space between Sign Up and Log In buttons */
+    margin-left: 50px; /* Crucial: Adds significant space between the links group and the buttons group */
+}
+
 
 .hero {
     flex-grow: 1;
@@ -131,10 +148,6 @@ nav.landing-page-nav .nav-links a {
 
 
 /* --- Login/Register Page General Styles --- */
-
-/* Navigation Bar for Login/Register Pages (and Pro Version page header) */
-/* This targets the bare <nav> element in login-page.html and register-page.html
-   AND the <header class="header"> element in pro-version-page.html as they share similar structural styles. */
 .header, nav {
     background-color: var(--bg-color);
     padding: 15px 30px;
@@ -142,14 +155,14 @@ nav.landing-page-nav .nav-links a {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--light-border-color);
-    z-index: 1000; /* Ensure header/nav is on top */
+    z-index: 1000;
 }
 
-.header-left, nav .nav-left {
+/* .header-left, nav .nav-left {
     display: flex;
     align-items: center;
     gap: 25px;
-}
+} */
 
 .header-left .logo-icon, nav .nav-left .logo {
     font-size: 20px;
@@ -184,13 +197,12 @@ nav.landing-page-nav .nav-links a {
 .header-nav ul li a, nav .nav-left a {
     font-size: 15px;
     font-weight: 500;
-    white-space: nowrap; /* Prevent nav links from wrapping prematurely */
+    white-space: nowrap;
 }
 .header-nav ul li a.active {
     color: var(--accent-green);
     font-weight: 600;
 }
-
 
 .header-right, nav .nav-right {
     display: flex;
@@ -207,17 +219,17 @@ nav.landing-page-nav .nav-links a {
     font-size: 14px;
     outline: none;
     width: 180px;
-    display: flex; /* For search bar with icon */
+    display: flex;
     align-items: center;
 }
-.search-bar input, .search-box { /* Apply input styles to both */
+.search-bar input, .search-box {
     background: transparent;
     border: none;
     outline: none;
     color: var(--text-color);
     font-size: 14px;
     padding-left: 10px;
-    width: 100%; /* Make input fill its container */
+    width: 100%;
 }
 
 .search-bar input::placeholder, .search-box::placeholder {
@@ -234,27 +246,25 @@ nav.landing-page-nav .nav-links a {
 .icon-button, .profile-icon {
     width: 30px;
     height: 30px;
-    /* background-color: var(--accent-green); Remove for font-awesome icons */
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px; /* Slightly larger for buttons */
+    font-size: 18px;
     font-weight: bold;
-    color: var(--text-color); /* General icon color */
+    color: var(--text-color);
     cursor: pointer;
     transition: color 0.3s ease;
 }
 .icon-button:hover, .profile-icon:hover {
     color: var(--accent-green);
 }
-/* If profile icon is just a circle, add background */
 .profile-icon {
     background-color: var(--accent-green);
-    color: var(--bg-color); /* Dark text on green background */
-    font-size: 16px; /* Slightly smaller if it's initials */
+    color: var(--bg-color);
+    font-size: 16px;
 }
-
+*/
 
 /* Login/Register Container (shared styles) */
 .container {
@@ -350,6 +360,7 @@ nav.landing-page-nav .nav-links a {
 }
 
 /* --- Register Page Specific Form Styles --- */
+/*
 .container form {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -393,6 +404,7 @@ nav.landing-page-nav .nav-links a {
 .register-btn:hover {
     background-color: #008f5a;
 }
+*/
 
 /* --- Login Page Specific Form Styles (re-using .form class) --- */
 .container .form {
@@ -416,6 +428,7 @@ nav.landing-page-nav .nav-links a {
 .container .form .btn-login:hover {
     background-color: #008f5a;
 }
+
 
 
 /* Divider (shared styles) */
@@ -469,16 +482,15 @@ nav.landing-page-nav .nav-links a {
     border-color: var(--accent-green);
 }
 
-
 /* --- Pro Version Page Specific Styles --- */
-/* Main Content Layout */
+/*
 .main-content {
     max-width: 1200px;
-    margin: 70px auto 50px auto; /* Add margin-top for fixed header */
+    margin: 70px auto 50px auto;
     padding: 0 20px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center align content */
+    align-items: center;
     text-align: center;
 }
 
@@ -487,7 +499,7 @@ nav.landing-page-nav .nav-links a {
     font-weight: 700;
     margin-bottom: 15px;
     color: var(--text-color);
-    max-width: 800px; /* Limit width for better readability */
+    max-width: 800px;
 }
 
 .page-description {
@@ -504,8 +516,8 @@ nav.landing-page-nav .nav-links a {
     border-bottom: 1px solid var(--light-border-color);
 }
 .section:last-of-type {
-    border-bottom: none; /* No border for the last section */
-    margin-bottom: 0; /* No extra margin for the last section */
+    border-bottom: none;
+    margin-bottom: 0;
 }
 
 .section-heading {
@@ -514,13 +526,15 @@ nav.landing-page-nav .nav-links a {
     margin-bottom: 30px;
     color: var(--text-color);
 }
+*/
 
 /* Features Grid */
+/*
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
-    max-width: 900px; /* Limit width for features grid */
+    max-width: 900px;
     margin: 0 auto;
 }
 
@@ -558,13 +572,15 @@ nav.landing-page-nav .nav-links a {
     color: var(--text-color);
     opacity: 0.8;
 }
+*/
 
 /* Pricing Grid */
+/*
 .pricing-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
-    max-width: 700px; /* Limit width for pricing cards */
+    max-width: 700px;
     margin: 0 auto;
 }
 
@@ -578,12 +594,12 @@ nav.landing-page-nav .nav-links a {
     align-items: center;
     text-align: center;
     position: relative;
-    border: 1px solid var(--border-color); /* Default border */
+    border: 1px solid var(--border-color);
 }
 
 .pricing-card.pro {
-    border-color: var(--accent-green); /* Highlight pro card */
-    box-shadow: 0 0 15px rgba(0, 168, 107, 0.4); /* Green glow for pro */
+    border-color: var(--accent-green);
+    box-shadow: 0 0 15px rgba(0, 168, 107, 0.4);
 }
 
 .best-value-tag {
@@ -623,7 +639,7 @@ nav.landing-page-nav .nav-links a {
     list-style: none;
     margin-bottom: 30px;
     text-align: left;
-    width: 100%; /* Ensure list items align */
+    width: 100%;
 }
 
 .pricing-card ul li {
@@ -641,7 +657,7 @@ nav.landing-page-nav .nav-links a {
 }
 
 .current-plan, .upgrade-btn {
-    width: calc(100% - 60px); /* Account for padding in card */
+    width: calc(100% - 60px);
     padding: 12px 25px;
     border: none;
     border-radius: 5px;
@@ -654,7 +670,7 @@ nav.landing-page-nav .nav-links a {
 .current-plan {
     background-color: var(--search-bar-bg);
     color: var(--text-color);
-    pointer-events: none; /* Make it non-clickable */
+    pointer-events: none;
     opacity: 0.7;
 }
 
@@ -683,21 +699,18 @@ nav.landing-page-nav .nav-links a {
 .upgrade-full-btn:hover {
     background-color: #008f5a;
 }
-
+*/
 
 /* --- Existing Portfolio/General Styles (keep these for other pages if needed) --- */
 
-/* Removed duplicate header/nav styles as they are now integrated with .header, nav selector above */
-
-
-/* Main Content (general for portfolio/news, but specific to this file too) */
-/* The top margin here will apply to this main content as well */
+/*
 .main-content {
-    /* Kept previous margin-top for portfolio, but added more for pro version page */
-    padding-top: 20px; /* Add internal padding */
+    padding-top: 20px;
 }
+*/
 
 /* Portfolio Distribution */
+/*
 .portfolio-distribution {
     display: flex;
     flex-direction: column;
@@ -747,8 +760,10 @@ nav.landing-page-nav .nav-links a {
     color: var(--text-color);
     opacity: 0.8;
 }
+*/
 
 /* My Holdings Table */
+/*
 .holdings-table table {
     width: 100%;
     border-collapse: collapse;
@@ -775,10 +790,12 @@ nav.landing-page-nav .nav-links a {
 .holdings-table tbody tr:last-child td {
     border-bottom: none;
 }
+*/
 
 /* Basic Responsiveness (adjust as needed) */
-@media (max-width: 900px) {
+    @media (max-width: 900px) {
     /* General Header (if applicable) */
+    /*
     .header, nav {
         flex-wrap: wrap;
         height: auto;
@@ -788,7 +805,7 @@ nav.landing-page-nav .nav-links a {
     }
 
     .header-nav {
-        order: 3; /* Push nav to a new line */
+        order: 3;
         width: 100%;
         text-align: center;
     }
@@ -800,39 +817,60 @@ nav.landing-page-nav .nav-links a {
     .header-left, .header-right, nav .nav-left, nav .nav-right {
         flex: 1;
         justify-content: center;
-        flex-direction: column; /* Stack items vertically if needed */
+        flex-direction: column;
         align-items: center;
         width: 100%;
     }
     nav .nav-left, nav .nav-right {
-        align-items: flex-start; /* For login/register pages */
+        align-items: flex-start;
+        margin-left: 0;
+        gap: 10px;
     }
+
 
     .search-bar, .search-box {
         width: 100%;
         max-width: 300px;
     }
+    */
 
     /* Landing Page Responsiveness */
-    nav.landing-page-nav {
-        flex-direction: column;
-        align-items: flex-start;
+    nav.page-nav {
+        flex-direction: column; /* Stack items vertically */
+        align-items: flex-start; /* Align items to the start when stacked */
         padding: 15px 20px;
+        flex-wrap: wrap; /* Re-enable flex-wrap for this specific nav when stacked */
     }
 
-    nav.landing-page-nav .nav-links {
+    nav.page-nav .logo {
+        /* No margin-right needed, flex-direction column handles spacing */
+        margin-bottom: 15px; /* Add space below the logo when stacked */
+    }
+
+    nav.page-nav .nav-links {
         margin-top: 15px;
-        flex-direction: column;
+        flex-direction: column; /* Stack links vertically */
         align-items: flex-start;
-        gap: 10px;
+        gap: 10px; /* Adjusted gap for stacked links */
+        /* Remove desktop-specific margin-right */
+        margin-right: 0;
         width: 100%;
+        margin-bottom: 15px; /* Space between links and buttons when stacked */
     }
 
-    nav.landing-page-nav .nav-links a,
-    nav.landing-page-nav .nav-links .btn {
+    nav.page-nav .nav-links a,
+    nav.page-nav .nav-links .btn {
         width: 100%;
         text-align: left;
         padding-left: 0;
+    }
+
+    nav.page-nav .nav-right {
+        /* These properties are now handled by the general nav .nav-right rule above for stacking */
+        /* You can explicitly set them here if you need different stacking behavior for landing page buttons */
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
     }
 
     .hero h1 {
@@ -860,7 +898,6 @@ nav.landing-page-nav .nav-links a {
     .tab:last-child {
         border-bottom: none;
     }
-    /* Register form specific adjustments */
     .container form {
         grid-template-columns: 1fr;
     }
@@ -869,10 +906,12 @@ nav.landing-page-nav .nav-links a {
     .register-btn {
         grid-column: span 1;
     }
+   
 
     /* Pro Version Page Responsiveness */
+    /*
     .main-content {
-        margin-top: 100px; /* More space for stacked header */
+        margin-top: 100px;
         padding: 0 15px;
     }
     .page-heading {
@@ -885,7 +924,7 @@ nav.landing-page-nav .nav-links a {
         font-size: 28px;
     }
     .features-grid, .pricing-grid {
-        grid-template-columns: 1fr; /* Stack cards vertically */
+        grid-template-columns: 1fr;
     }
     .feature-card, .pricing-card {
         padding: 25px;
@@ -894,16 +933,18 @@ nav.landing-page-nav .nav-links a {
         font-size: 40px;
     }
     .current-plan, .upgrade-btn {
-        width: calc(100% - 50px); /* Adjust for padding */
+        width: calc(100% - 50px);
     }
     .upgrade-full-btn {
         font-size: 18px;
         padding: 12px 25px;
     }
+    */
 }
 
 @media (max-width: 600px) {
     /* General Header (if applicable) */
+    /*
     .header-nav ul {
         flex-direction: column;
         align-items: center;
@@ -917,34 +958,35 @@ nav.landing-page-nav .nav-links a {
         display: none;
     }
 
-    .section-title { /* For portfolio page if still used */
+    .section-title {
         font-size: 24px;
     }
 
-    .card { /* For portfolio page if still used */
+    .card {
         padding: 15px;
     }
 
-    .total-value { /* For portfolio page if still used */
+    .total-value {
         font-size: 30px;
     }
 
-    .percentage-change { /* For portfolio page if still used */
+    .percentage-change {
         font-size: 16px;
     }
 
     .holdings-table th,
-    .holdings-table td { /* For portfolio page if still used */
+    .holdings-table td {
         padding: 12px 10px;
         font-size: 13px;
     }
+    */
 
     /* Landing Page Responsiveness */
-    nav.landing-page-nav {
+    nav.page-nav {
         padding: 10px 15px;
     }
 
-    nav.landing-page-nav .logo {
+    nav.page-nav .logo {
         font-size: 20px;
     }
 
@@ -962,6 +1004,7 @@ nav.landing-page-nav .nav-links a {
     }
 
     /* Login/Register Page Responsiveness */
+    /*
     .container {
         padding: 20px;
     }
@@ -984,10 +1027,12 @@ nav.landing-page-nav .nav-links a {
     .tab {
         padding: 10px 15px;
     }
+    */
 
     /* Pro Version Page Responsiveness */
+    /*
     .main-content {
-        margin-top: 100px; /* Ensure enough space for fixed header */
+        margin-top: 100px;
     }
     .page-heading {
         font-size: 28px;
@@ -1018,4 +1063,5 @@ nav.landing-page-nav .nav-links a {
         padding: 10px 20px;
         font-size: 16px;
     }
+    */
 }
