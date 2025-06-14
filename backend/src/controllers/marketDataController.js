@@ -1,23 +1,23 @@
-const redisClient = require('../repositories/redisClient'); // экспорт клиента
+const redisClient = require('../repositories/redisClient'); // client's export
 const fetch = require('node-fetch');
 module.exports = {
     getBySymbol: async (req, res) => {
         const symbol = req.params.symbol.toUpperCase();
         try {
-            // Сначала проверяем Redis
+            //Check Redis in the first place
             const cached = await redisClient.get(symbol);
             if (cached) return res.json(JSON.parse(cached));
 
-            // Если нет в кэше, делаем запрос к внешнему API (например, Marketstack)
+            //If nothing is in cache, then make a request to public API (For instance, Marketstack)
             const apiKey = process.env.MARKETSTACK_KEY;
             const resp = await fetch(`http://api.marketstack.com/v1/eod?access_key=${apiKey}&symbols=${symbol}`);
             const json = await resp.json();
-            // Подготавливаем данные: берем последние X дней и текущую цену
+            //Prepare the data: catch the last X days and currect price
             const history = json.data.map(d => ({ date: d.date, price: d.close }));
             const currentPrice = history[history.length - 1].price;
             const result = { symbol, currentPrice, history };
 
-            // Кэшируем в Redis на 10 минут
+            //Caching in Redis for 10 minutes
             await redisClient.setEx(symbol, 600, JSON.stringify(result));
             res.json(result);
         } catch (err) {
