@@ -207,7 +207,7 @@ a:hover {
 }
 
 .pricing-card .upgrade-btn {
-    background-color: var(--accent-green);
+    background-color: var(--button-background-green);
     color: var(--bg-color);
 }
 
@@ -241,7 +241,7 @@ a:hover {
 }
 
 .upgrade-full-btn {
-    background-color: var(--accent-green);
+    background-color: var(--button-background-green);
     color: var(--bg-color);
     padding: 18px 40px;
     border-radius: 10px;
