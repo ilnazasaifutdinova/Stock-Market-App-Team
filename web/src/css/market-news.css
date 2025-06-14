@@ -6,15 +6,16 @@
    and then used universally. For now, keeping them here as they were in your
    original inline style, but note that duplication can lead to maintenance issues. */
 :root {
-    --bg-color: #1A1A1A;
+    --bg-color: #121712;
     --card-bg-color: #242424;
-    --text-color: #E0E0E0;
-    --accent-green: #00A86B; /* For positive changes, active states */
-    --accent-red: #FF4B4B; /* For negative changes */
-    --search-bar-bg: #333333; /* Background for search bar (in header) and time filters */
-    --table-header-bg: #333333;
+    --text-color: #FFFFFF;
+    --button-text:#121712;
+    --additional-text:#A6B5A1;
+    --button-background-green:#54D12B;
+    --button-background-gray:#2E3829;
+    --search-bar-bg: #333333; /* Renamed to auth-tab-bg for clarity in auth forms */
     --border-color: #444444;
-    --light-border-color: #383838; /* For table cell borders, separators */
+    --light-border-color: #383838;
 }
 
 
