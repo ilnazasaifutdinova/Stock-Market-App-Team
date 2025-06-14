@@ -1,0 +1,372 @@
+/* Universal Styles & Variables */
+:root {
+    --bg-color: #121712;
+    --card-bg-color: #242424;
+    --text-color: #FFFFFF;
+    --button-text:#121712;
+    --additional-text:#A6B5A1;
+    --button-background-green:#54D12B;
+    --button-background-gray:#2E3829;
+    --search-bar-bg: #333333;
+    --border-color: #444444;
+    --light-border-color: #383838;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Manrope', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--button-background-green);
+}
+
+/* General Button Styles */
+.btn-primary { /* General green button style for consistency */
+    background-color: var(--button-background-green);
+    color: var(--button-text);
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #008f5a;
+}
+
+/* Nav Bar Styles */
+nav { /* Changed from .page-nav to nav to match your HTML */
+    background-color: var(--bg-color);
+    padding: 20px 50px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--light-border-color);
+    z-index: 1000;
+}
+
+nav .nav-left { /* Changed from .logo and .nav-links-left to match your HTML */
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-right: auto;
+}
+
+nav .nav-left .logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+
+nav .nav-right { /* Changed from .nav-right to match your HTML */
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+/* Search Container Styling (simplified as there's no wrapper div for search and icon in your HTML) */
+nav .search-box {
+    background-color: var(--button-background-gray);
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    color: var(--text-color);
+    font-size: 14px;
+    outline: none;
+    width: 180px; /* Consistent with login page search bar width */
+}
+
+nav .search-box::placeholder {
+    color: var(--additional-text);
+    opacity: 0.7;
+}
+
+/* Note: Your HTML for the register page does not have a search-icon element in the nav.
+   If you want a search icon like the login page, you'll need to add
+   <i class="fas fa-search search-icon"></i> next to the search-box input in your HTML.
+   If added, the following style would apply:
+*/
+/*
+.search-icon {
+    color: var(--additional-text);
+    font-size: 14px;
+    opacity: 0.7;
+    margin-left: -30px; // Adjust as needed to position over the input
+    cursor: pointer;
+    position: relative; // May need this or absolute depending on layout
+}
+*/
+
+.profile-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: var(--button-background-green);
+    color: var(--button-text);
+    cursor: pointer;
+}
+
+
+/* Login/Register Container */
+.container {
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 700px; /* Consistent width with login page to match screenshot */
+    margin: 50px auto;
+    padding: 40px 60px; /* Adjusted padding to give more space on sides, helping elements appear wider */
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: var(--text-color);
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    background-color: var(--search-bar-bg);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.tab {
+    flex: 1;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-color);
+    transition: background-color 0.3s ease;
+}
+
+.tab.active {
+    background-color: var(--button-background-green);
+    color: var(--button-text);
+    font-weight: 700;
+}
+
+.tab:not(.active):hover {
+    background-color: #444444;
+}
+
+/* Form Inputs for Register Page */
+.container form input[type="text"],
+.container form input[type="email"],
+.container form input[type="password"],
+.container form input[type="date"] { /* Target all input types in the form */
+    background-color: var(--button-background-gray);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 12px 15px;
+    color: var(--text-color);
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    width: 100%; /* Ensure full width */
+    margin-bottom: 20px; /* Add margin between inputs */
+}
+
+.container form input:focus {
+    border-color: var(--button-background-green);
+}
+
+.container form input::placeholder {
+    color: var(--additional-text);
+    opacity: 0.6;
+}
+
+/* Login Link */
+.login-link {
+    color: var(--additional-text);
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: right; /* Align to the right as is common for such links */
+}
+
+.login-link a { /* If you make this a link in HTML */
+    color: var(--additional-text);
+    text-decoration: underline;
+}
+
+/* Register Button */
+.register-btn {
+    @extend .btn-primary; /* Inherit primary button styles */
+    margin-bottom: 30px; /* Space before divider */
+}
+
+/* Divider */
+.divider {
+    position: relative;
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background-color: var(--border-color);
+}
+
+.divider::before {
+    left: 0;
+}
+
+.divider::after {
+    right: 0;
+}
+
+/* Alternative Login Buttons */
+.alt-login {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.alt-btn {
+    width: 100%; /* Explicitly ensure full width */
+    background-color: var(--button-background-gray);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 12px 15px;
+    color: var(--text-color);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.alt-btn:hover {
+    background-color: var(--search-bar-bg);
+    border-color: var(--button-background-green);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+    nav { /* Changed from .page-nav to nav */
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 20px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    nav .nav-left { /* Changed from .logo and .nav-links-left */
+        margin-bottom: 15px;
+        margin-right: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: 10px;
+    }
+
+    nav .nav-left .logo {
+        margin-bottom: 0; /* No extra margin here */
+    }
+
+    nav .nav-right { /* Changed from .nav-right */
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: 10px;
+    }
+
+    nav .nav-right .search-box {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .container {
+        max-width: 450px; /* Keep a reasonable max-width for tablets */
+        padding: 30px; /* Revert to default padding for smaller screens */
+    }
+    .container h1 {
+        font-size: 24px;
+    }
+    .tabs {
+        flex-direction: column;
+    }
+    .tab {
+        border-bottom: 1px solid var(--border-color);
+    }
+    .tab:last-child {
+        border-bottom: none;
+    }
+
+    /* Adjust search container for smaller screens */
+    .search-container { /* This class is no longer used in your nav HTML */
+        width: 100%;
+        max-width: 300px;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 600px) {
+    nav {
+        padding: 10px 15px;
+    }
+
+    nav .nav-left .logo {
+        font-size: 20px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+    .container form input, /* Target all inputs */
+    .alt-btn {
+        padding: 10px;
+        font-size: 14px;
+    }
+    .register-btn { /* Use the specific class for register button */
+        padding: 12px;
+        font-size: 16px;
+    }
+    .tabs {
+        margin-bottom: 20px;
+    }
+    .tab {
+        padding: 10px 15px;
+    }
+}
