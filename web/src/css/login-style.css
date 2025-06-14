@@ -1,4 +1,6 @@
-/* Universal Styles & Variables */
+/* css/login-style.css - Cleaned: Contains ONLY login/register specific styles */
+
+/* Universal Styles & Variables (Can be in a shared 'variables.css' or kept here if needed for local overrides) */
 :root {
     --bg-color: #121712;
     --card-bg-color: #242424;
@@ -7,36 +9,14 @@
     --additional-text:#A6B5A1;
     --button-background-green:#54D12B;
     --button-background-gray:#2E3829;
-    --search-bar-bg: #333333;
+    --search-bar-bg: #333333; /* This variable name is used in .tabs background in this file */
     --border-color: #444444;
     --light-border-color: #383838;
+    /* Removed positive/negative colors as they are for portfolio only, or should be in potfolio.css */
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Manrope', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-a {
-    color: var(--text-color);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-a:hover {
-    color: var(--button-background-green);
-}
+/* Base styles for body and 'a' tags are expected to be loaded from potfolio.css */
+/* Removed: *, body, a */
 
 /* General Button Styles for Login Page */
 .btn-login {
@@ -57,174 +37,121 @@ a:hover {
     background-color: #008f5a;
 }
 
-/* Nav Bar Styles */
-nav.page-nav {
-    background-color: var(--bg-color);
-    padding: 20px 50px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid var(--light-border-color);
-    z-index: 1000;
-}
-
-nav.page-nav .logo {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--text-color);
-    margin-right: 40px;
-}
-
-nav.page-nav .nav-links-left {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    margin-right: auto;
-}
-
-nav.page-nav .nav-links-left a {
-    font-weight: 500;
-    font-size: 16px;
-}
-
-nav.page-nav .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-/* Search Container Styling */
-.search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background-color: var(--button-background-gray);
-    border-radius: 20px;
-    padding: 0 15px 0 15px;
-    width: 180px;
-}
-
-.search-box {
-    background: transparent;
-    border: none;
-    padding: 8px 0;
-    color: var(--text-color);
-    font-size: 14px;
-    outline: none;
-    width: 100%;
-}
-
-.search-box::placeholder {
-    color: var(--additional-text);
-    opacity: 0.7;
-}
-
-.search-icon {
-    color: var(--additional-text);
-    font-size: 14px;
-    opacity: 0.7;
-    margin-left: 8px;
-    cursor: pointer;
-}
-
-.profile-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: bold;
-    background-color: var(--button-background-green);
-    color: var(--button-text);
-    cursor: pointer;
-}
+/* Removed ALL old Nav Bar Styles (nav.page-nav, .logo, .nav-links-left, .nav-links-left a, .nav-right) */
+/* Removed ALL old Search Container Styling (.search-container, .search-box, .search-box::placeholder, .search-icon) */
+/* Removed .profile-icon */
 
 
-/* Login/Register Container */
-.container {
+/* Login/Register Container (Renamed to .auth-container for consistency with other examples) */
+.auth-container {
     background-color: var(--card-bg-color);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 700px; /* Increased width to match the screenshot */
-    margin: 50px auto;
-    padding: 40px 60px; /* Adjusted padding to give more space on sides, helping elements appear wider */
+    max-width: 500px; /* Adjusted to a more typical size for auth forms */
+    margin: 60px auto; /* Center with appropriate top/bottom margin */
+    padding: 40px;
     text-align: center;
-    flex-grow: 1;
+    flex-grow: 1; /* Allows it to take available space in a flex column body */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    gap: 25px; /* Space between major elements inside container */
 }
 
-.container h1 {
+/* Renamed h1 inside container to .welcome-title for consistency */
+.welcome-title {
     font-size: 28px;
     font-weight: 600;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     color: var(--text-color);
 }
 
-/* Tabs */
-.tabs {
+/* Tabs (Renamed to .tab-buttons for consistency) */
+.tab-buttons {
     display: flex;
     justify-content: center;
-    margin-bottom: 30px;
-    background-color: var(--search-bar-bg);
+    margin-bottom: 25px;
+    background-color: var(--search-bar-bg); /* Retained background from your original tabs */
     border-radius: 5px;
-    overflow: hidden;
+    overflow: hidden; /* Ensures tab background is clipped */
+    border-bottom: 1px solid var(--border-color); /* Added for consistency with previous discussion */
+    position: relative; /* For active tab underline */
 }
 
-.tab {
+/* Tab (Renamed to .tab-button for consistency) */
+.tab-button {
     flex: 1;
     padding: 12px 20px;
     cursor: pointer;
     font-weight: 500;
     color: var(--text-color);
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
+    z-index: 1;
+    background-color: transparent; /* Ensure default is transparent */
+    border: none; /* No individual borders for tabs */
 }
 
-.tab.active {
+.tab-button.active {
     background-color: var(--button-background-green);
     color: var(--button-text);
     font-weight: 700;
 }
 
-.tab:not(.active):hover {
-    background-color: #444444;
+.tab-button:not(.active):hover {
+    background-color: #444444; /* Retained hover from your original tabs */
 }
 
-/* Form Inputs */
-.container input[type="email"],
-.container input[type="password"] {
+.tab-buttons::after { /* Active tab underline */
+    content: '';
+    position: absolute;
+    bottom: -1px; /* Position it on the border */
+    left: 0;
+    width: 50%; /* For 2 tabs (Login/Register) */
+    height: 2px;
+    background-color: var(--button-background-green);
+    transition: transform 0.3s ease;
+}
+
+.tab-button:nth-child(2).active ~ .tab-buttons::after { /* For 'Register' tab (second button) */
+    transform: translateX(100%);
+}
+
+
+/* Form Inputs (Renamed .container input to .auth-form input for consistency) */
+.auth-form input[type="email"],
+.auth-form input[type="password"],
+.auth-form input[type="text"], /* Added for register page consistency */
+.auth-form input[type="date"] { /* Added for register page consistency */
     background-color: var(--button-background-gray);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-color); /* Retained border from your original, for clarity */
     border-radius: 5px;
     padding: 12px 15px;
     color: var(--text-color);
     font-size: 16px;
     outline: none;
     transition: border-color 0.3s ease;
-    width: 100%; /* Explicitly ensure full width */
+    width: 100%;
 }
 
-.container input:focus {
+.auth-form input:focus {
     border-color: var(--button-background-green);
 }
 
-.container input::placeholder {
+.auth-form input::placeholder {
     color: var(--additional-text);
     opacity: 0.6;
 }
 
-/* Login Form Specific Layout */
-.container .form {
+/* Login Form Specific Layout (Renamed .container .form to .auth-form for consistency) */
+.auth-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
     margin-bottom: 30px;
 }
 
-/* Divider */
-.divider {
+/* Divider (Renamed to .or-separator for consistency) */
+.or-separator {
     position: relative;
     text-align: center;
     margin-bottom: 30px;
@@ -232,8 +159,8 @@ nav.page-nav .nav-right {
     opacity: 0.8;
 }
 
-.divider::before,
-.divider::after {
+.or-separator::before,
+.or-separator::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -242,23 +169,24 @@ nav.page-nav .nav-right {
     background-color: var(--border-color);
 }
 
-.divider::before {
+.or-separator::before {
     left: 0;
 }
 
-.divider::after {
+.or-separator::after {
     right: 0;
 }
 
-/* Alternative Login Buttons */
-.alt-login {
+/* Alternative Login Buttons (Renamed to .social-login for consistency) */
+.social-login {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.alt-btn {
-    width: 100%; /* Explicitly ensure full width */
+/* Alt Button (Renamed to .social-button for consistency) */
+.social-button {
+    width: 100%;
     background-color: var(--button-background-gray);
     border: 1px solid var(--border-color);
     border-radius: 5px;
@@ -269,98 +197,55 @@ nav.page-nav .nav-right {
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.alt-btn:hover {
+.social-button:hover {
     background-color: var(--search-bar-bg);
     border-color: var(--button-background-green);
 }
 
-/* Responsive Adjustments */
+/* Responsive Adjustments (Only for login/register content) */
 @media (max-width: 900px) {
-    nav.page-nav {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 15px 20px;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
+    /* Removed all nav.page-nav responsive styles */
 
-    nav.page-nav .logo {
-        margin-bottom: 15px;
-        margin-right: 0;
+    .auth-container { /* Changed from .container */
+        max-width: 450px;
+        padding: 30px;
     }
-
-    nav.page-nav .nav-links-left {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        margin-right: 0;
-        width: 100%;
-        margin-bottom: 15px;
-    }
-
-    nav.page-nav .nav-links-left a {
-        width: 100%;
-        text-align: left;
-    }
-
-    nav.page-nav .nav-right {
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-        gap: 10px;
-    }
-
-    .container {
-        max-width: 450px; /* Keep a reasonable max-width for tablets */
-        padding: 30px; /* Revert to default padding for smaller screens */
-    }
-    .container h1 {
+    .welcome-title { /* Changed from .container h1 */
         font-size: 24px;
     }
-    .tabs {
+    .tab-buttons { /* Changed from .tabs */
         flex-direction: column;
     }
-    .tab {
+    .tab-button { /* Changed from .tab */
         border-bottom: 1px solid var(--border-color);
     }
-    .tab:last-child {
+    .tab-button:last-child {
         border-bottom: none;
     }
 
-    /* Adjust search container for smaller screens */
-    .search-container {
-        width: 100%;
-        max-width: 300px;
-        justify-content: space-between;
-    }
+    /* Removed search-container adjustments as it's now handled by header */
 }
 
 @media (max-width: 600px) {
-    nav.page-nav {
-        padding: 10px 15px;
-    }
+    /* Removed nav.page-nav responsive styles */
 
-    nav.page-nav .logo {
-        font-size: 20px;
-    }
-
-    .container {
+    .auth-container { /* Changed from .container */
         padding: 20px;
     }
-    .container input[type="email"],
-    .container input[type="password"],
-    .alt-btn {
+    .auth-form input[type="email"], /* Changed from .container input */
+    .auth-form input[type="password"], /* Changed from .container input */
+    .social-button { /* Changed from .alt-btn */
         padding: 10px;
         font-size: 14px;
     }
-    .container .form .btn-login {
+    .btn-login { /* Changed from .container .form .btn-login */
         padding: 12px;
         font-size: 16px;
     }
-    .tabs {
+    .tab-buttons { /* Changed from .tabs */
         margin-bottom: 20px;
     }
-    .tab {
+    .tab-button { /* Changed from .tab */
         padding: 10px 15px;
     }
 }
