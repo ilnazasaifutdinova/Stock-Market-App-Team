@@ -1,0 +1,418 @@
+/* Universal Styles & Variables */
+:root {
+    --bg-color: #121712;
+    --card-bg-color: #242424;
+    --text-color: #FFFFFF;
+    --button-text:#121712;
+    --additional-text:#A6B5A1;
+    --button-background-green:#54D12B;
+    --button-background-gray:#2E3829;
+    --search-bar-bg: #333333; /* Used for search and tabs background */
+    --border-color: #444444;
+    --light-border-color: #383838;
+    --positive-change-color: #54D12B; /* For positive percentage changes */
+    --negative-change-color: #FF4D4D; /* Example for negative, adjust if needed */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Manrope', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--button-background-green);
+}
+
+/* Header Styles */
+.header {
+    background-color: var(--bg-color);
+    padding: 20px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--light-border-color);
+    z-index: 1000;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    font-size: 24px;
+    color: var(--button-background-green);
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.header-nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Space between links and separators */
+}
+
+.header-nav li {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.header-nav .separator {
+    width: 1px;
+    height: 15px;
+    background-color: var(--border-color);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--button-background-gray);
+    border-radius: 20px;
+    padding: 0 15px; /* Adjust padding for icon inside */
+    width: 180px;
+}
+
+.search-bar input[type="text"] {
+    background: transparent;
+    border: none;
+    padding: 8px 0;
+    color: var(--text-color);
+    font-size: 14px;
+    outline: none;
+    width: 100%;
+}
+
+.search-bar input::placeholder {
+    color: var(--additional-text);
+    opacity: 0.7;
+}
+
+.search-bar .search-icon {
+    color: var(--additional-text);
+    font-size: 14px;
+    opacity: 0.7;
+    margin-right: 8px; /* Space between icon and text */
+}
+
+.icon-button {
+    font-size: 20px;
+    color: var(--additional-text);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.icon-button:hover {
+    color: var(--text-color);
+}
+
+
+/* Main Content Layout */
+.main-content {
+    flex-grow: 1;
+    padding: 40px 50px;
+    max-width: 1200px; /* Max width for content to keep it readable */
+    margin: 0 auto; /* Center the content */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Flexible grid for sections */
+    gap: 30px;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between title and card */
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text-color);
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+/* Card Styles */
+.card {
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* Portfolio Distribution Card */
+.portfolio-distribution {
+    /* Specific styles for this card if needed, e.g., fixed height */
+}
+
+.distribution-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 20px;
+}
+
+.total-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.percentage-change {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--positive-change-color); /* Assuming positive, change dynamically if needed */
+}
+/* You'd use JavaScript to apply a class like .negative-change */
+.percentage-change.negative {
+    color: var(--negative-change-color);
+}
+
+
+.bar-chart {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end; /* Align bars to the bottom */
+    height: 200px; /* Fixed height for the chart area */
+    gap: 15px; /* Space between bars */
+}
+
+.bar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40px; /* Fixed width for each bar item */
+}
+
+.bar {
+    width: 100%;
+    background-color: var(--button-background-green);
+    border-radius: 5px 5px 0 0;
+    transition: height 0.5s ease;
+    min-height: 5px; /* Ensure bar is visible even with small percentage */
+}
+
+.category {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--additional-text);
+    font-weight: 500;
+    text-align: center;
+}
+
+/* My Holdings Table Card */
+.holdings-table {
+    overflow-x: auto; /* Enable horizontal scrolling for tables on small screens */
+}
+
+.holdings-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.holdings-table th,
+.holdings-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.holdings-table th {
+    background-color: var(--button-background-gray);
+    color: var(--additional-text);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.holdings-table tr:last-child td {
+    border-bottom: none;
+}
+
+.holdings-table tbody tr:hover {
+    background-color: var(--search-bar-bg); /* Slight hover effect for rows */
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .header {
+        padding: 15px 30px;
+    }
+
+    .header-nav ul {
+        gap: 15px;
+    }
+
+    .header-nav li a {
+        font-size: 15px;
+    }
+
+    .header-right {
+        gap: 20px;
+    }
+
+    .search-bar {
+        width: 150px;
+    }
+
+    .main-content {
+        padding: 30px;
+        grid-template-columns: 1fr; /* Stack sections vertically */
+    }
+
+    .card {
+        padding: 25px;
+    }
+
+    .card-title {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-wrap: wrap; /* Allow header items to wrap */
+        justify-content: center;
+        gap: 15px;
+        padding: 15px 20px;
+    }
+
+    .header-left,
+    .header-nav,
+    .header-right {
+        width: 100%;
+        justify-content: center; /* Center items when stacked */
+    }
+
+    .header-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .header-nav .separator {
+        display: none; /* Hide separators when wrapped */
+    }
+
+    .search-bar {
+        width: 100%;
+        max-width: 300px; /* Limit width even when full width */
+        margin-top: 10px;
+    }
+
+    .icon-button {
+        font-size: 18px;
+    }
+
+    .section-title {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .total-value {
+        font-size: 28px;
+    }
+    .percentage-change {
+        font-size: 16px;
+    }
+
+    .bar-chart {
+        height: 180px;
+        gap: 10px;
+    }
+    .bar-item {
+        width: 35px;
+    }
+    .category {
+        font-size: 12px;
+    }
+
+    .holdings-table th,
+    .holdings-table td {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 10px 15px;
+    }
+    .logo-text, .logo-icon {
+        font-size: 20px;
+    }
+    .header-nav li a {
+        font-size: 14px;
+    }
+    .main-content {
+        padding: 20px 15px;
+    }
+    .section-title {
+        font-size: 20px;
+    }
+    .card-title {
+        font-size: 18px;
+    }
+    .total-value {
+        font-size: 24px;
+    }
+    .percentage-change {
+        font-size: 14px;
+    }
+    .bar-chart {
+        height: 150px;
+    }
+    .bar-item {
+        width: 30px;
+    }
+    .holdings-table th,
+    .holdings-table td {
+        padding: 10px;
+        font-size: 12px;
+    }
+}
