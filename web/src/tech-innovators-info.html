@@ -4,13 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StockVision - TechCorp (TCC)</title>
+
+    <!-- Fonts and Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/stock-info.css">
+
+    <style>
+    .fade-out {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    /* Make table rows look clickable */
+    .stock-snapshot-table tbody tr {
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .stock-snapshot-table tbody tr:hover {
+      background-color: #f0f0f0;
+    }
+  </style>
 </head>
 <body>
     <header class="header">

@@ -10,7 +10,6 @@
     --search-bar-bg: #333333; /* This variable name is used in .tabs background in this file */
     --border-color: #444444;
     --light-border-color: #383838;
-    /* Removed positive/negative colors as they are for portfolio only, or should be in potfolio.css */
 }
 
 * {
@@ -20,11 +19,13 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif; /* Note: The HTML links to Manrope, consider consistency. */
+    font-family: 'Manrope', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     line-height: 1.6;
-    padding-top: 70px; /* Space for fixed header */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 a {

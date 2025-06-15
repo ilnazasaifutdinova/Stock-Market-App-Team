@@ -16,13 +16,13 @@
 
 /* Main Content Structure */
 .main-content {
-    max-width: 1200px;
+    width: 70%;
+    max-width: 1600px; /* or 1400px depending on how wide you want it */
     margin: 30px auto;
     padding: 0 20px;
     display: grid;
     gap: 30px;
 
-    /* Page fade-in */
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInPage 0.8s ease forwards;
@@ -30,8 +30,8 @@
 }
 
 /* Title and Heading Animations */
-.page-title,
-.section-heading {
+.page-title {
+    margin-top: 10%;
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 0.6s ease forwards;

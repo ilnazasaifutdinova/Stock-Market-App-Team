@@ -44,6 +44,7 @@
 .company-info h1 {
     font-size: 32px;
     font-weight: 700;
+    margin-top: 10%;
     margin-bottom: 5px;
 }
 
@@ -302,5 +303,59 @@
     }
     .news-item .news-thumbnail {
         margin-bottom: 10px;
+    }
+}
+
+
+
+/* Main Content Structure */
+.main-content {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: grid;
+    gap: 30px;
+
+    /* Page fade-in */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInPage 0.8s ease forwards;
+    animation-delay: 0.2s;
+}
+
+
+/* Header Fade */
+.header-left,
+.header-right {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.5s;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInPage {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInCard {
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
