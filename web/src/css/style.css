@@ -19,11 +19,13 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif; /* Note: The HTML links to Manrope, consider consistency. */
+    font-family: 'Manrope', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     line-height: 1.6;
-    padding-top: 70px; /* Space for fixed header */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 a {

@@ -1,158 +1,11 @@
-/* css/register.css */
+@import url('common-auth.css');
 
-/* Universal Styles & Variables */
-:root {
-    --bg-color: #121712;
-    --card-bg-color: #242424;
-    --text-color: #FFFFFF;
-    --button-text: #121712;
-    --additional-text: #A6B5A1;
-    --button-background-green: #54D12B;
-    --button-background-gray: #2E3829;
-    --search-bar-bg: #333333; /* Renamed to auth-tab-bg for clarity in auth forms */
-    --border-color: #444444;
-    --light-border-color: #383838;
-}
+/* Register-specific additions */
 
-/* Reset & Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Manrope', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-a {
-    color: var(--text-color);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-a:hover {
-    color: var(--button-background-green);
-}
-
-/* Buttons */
-.btn-login {
-    background-color: var(--button-background-green);
-    color: var(--button-text);
-    padding: 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: 700;
-    transition: background-color 0.3s ease;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.btn-login:hover {
-    background-color: #008f5a; /* Darker green on hover */
-}
-
-/* Auth Container */
-.auth-container {
-    background-color: var(--card-bg-color);
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 500px;
-    margin: 60px auto;
-    padding: 40px;
-    text-align: center;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    animation: slideInUp 0.6s ease-out both;
-}
-
-/* Welcome Title */
-.welcome-title {
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: var(--text-color);
-}
-
-/* Tabs */
-.tab-buttons {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 25px;
-    border-bottom: 1px solid var(--border-color);
-    position: relative;
-}
-
-.tab-button {
-    background: none;
-    border: none;
-    padding: 10px 20px;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--additional-text);
-    cursor: pointer;
-    transition: color 0.3s ease;
-    position: relative;
-    z-index: 1;
-}
-
-.tab-button.active {
-    background-color: transparent;
-    color: var(--text-color);
-}
-
-.tab-buttons::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--button-background-green);
-    transition: transform 0.3s ease;
-}
-
-.tab-button:nth-child(2).active ~ .tab-buttons::after {
-    transform: translateX(100%);
-}
-
-.tab-button:not(.active):hover {
-    background-color: transparent;
-    color: var(--text-color);
-}
-
-/* Auth Form - Grid Layout */
 .auth-form {
-    display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-bottom: 25px;
-    text-align: left;
 }
 
-.auth-form input {
-    background-color: var(--button-background-gray);
-    border: none;
-    border-radius: 6px;
-    padding: 15px;
-    color: var(--text-color);
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.3s ease;
-    width: 100%;
-}
-
-/* Date Input Specific */
 .auth-form input[type="date"] {
     grid-column: span 1;
     appearance: none;
@@ -178,17 +31,6 @@ a:hover {
     font-size: 18px;
 }
 
-.auth-form input:focus {
-    border-color: var(--button-background-green);
-}
-
-/* Placeholder Text */
-.auth-form input::placeholder {
-    color: var(--additional-text);
-    opacity: 0.7;
-}
-
-/* Login Link */
 .login-link {
     grid-column: span 1;
     color: var(--additional-text);
@@ -208,140 +50,12 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Register Button spans both columns */
 .auth-form .btn-login {
     grid-column: span 2;
     margin-top: 5px;
     margin-bottom: 0;
 }
 
-/* Divider */
-.or-separator {
-    color: var(--additional-text);
-    margin: 15px 0;
-    position: relative;
-    text-align: center;
-    opacity: 1;
-}
-
-.or-separator::before,
-.or-separator::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 40%;
-    height: 1px;
-    background-color: var(--border-color);
-}
-
-.or-separator::before {
-    left: 0;
-}
-
-.or-separator::after {
-    right: 0;
-}
-
-/* Social Login Buttons */
 .social-login {
-    display: flex;
-    flex-direction: column;
     gap: 10px;
-}
-
-.social-button {
-    width: 100%;
-    background-color: var(--button-background-gray);
-    border: none;
-    border-radius: 6px;
-    padding: 15px;
-    color: var(--additional-text);
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.social-button:hover {
-    background-color: #3b4535;
-    color: var(--text-color);
-    border-color: transparent;
-}
-
-/* Responsive Styles */
-@media (max-width: 900px) {
-    .auth-container {
-        max-width: 450px;
-        padding: 30px;
-        margin: 40px auto;
-    }
-
-    .welcome-title {
-        font-size: 24px;
-    }
-
-    .tab-button {
-        font-size: 16px;
-        padding: 8px 15px;
-    }
-
-    .auth-form {
-        grid-template-columns: 1fr;
-    }
-
-    .auth-form input,
-    .btn-login,
-    .social-button {
-        font-size: 15px;
-        padding: 12px;
-    }
-
-    .auth-form input[type="date"],
-    .login-link {
-        grid-column: span 1;
-    }
-
-    .login-link {
-        text-align: left;
-    }
-}
-
-@media (max-width: 600px) {
-    .auth-container {
-        padding: 20px;
-        margin: 20px auto;
-        gap: 15px;
-    }
-
-    .welcome-title {
-        font-size: 20px;
-    }
-
-    .tab-button {
-        font-size: 14px;
-        padding: 6px 10px;
-    }
-
-    .auth-form input,
-    .btn-login,
-    .social-button {
-        padding: 10px;
-        font-size: 14px;
-    }
-
-    .or-separator {
-        font-size: 14px;
-    }
-}
-
-/* Animations */
-@keyframes slideInUp {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
