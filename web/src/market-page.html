@@ -144,7 +144,11 @@
       rows.forEach((row, index) => {
         row.addEventListener('click', () => {
           if (index === 0) {
-            window.location.href = 'stock-info-page.html';
+            window.location.href = 'stock-info-page.html'; // Tech Innovators
+          } else if (index == 1) {
+            window.location.href = 'energy-dynamics-info.html'; // Energy Dynamics Corp.
+          } else if (index == 2) {
+            window.location.href = 'health-solutions-info.html';
           }
           // else do nothing, or add other behavior if needed
         });
