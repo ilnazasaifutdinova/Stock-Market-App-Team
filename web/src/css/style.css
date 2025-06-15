@@ -10,7 +10,6 @@
     --search-bar-bg: #333333; /* This variable name is used in .tabs background in this file */
     --border-color: #444444;
     --light-border-color: #383838;
-    /* Removed positive/negative colors as they are for portfolio only, or should be in potfolio.css */
 }
 
 * {

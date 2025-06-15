@@ -16,12 +16,12 @@
     <link rel="stylesheet" href="css/register.css">
 
     <!-- Fade-out helper -->
-     <style>
+    <style>
         .fade-out {
             opacity: 0;
             transition: opacity 0.5s ease;
         }
-     </style>
+    </style>
 </head>
 <body>
     <header class="header">
@@ -53,26 +53,55 @@
             <h1 class="welcome-title">Welcome to StockVision</h1>
 
             <div class="tab-buttons">
-                <button class="tab-button">Login</button>
-                <button class="tab-button active">Register</button>
+                <button class="tab-button active" id="register-tab-button">Register</button>
             </div>
 
-            <form class="auth-form"> <input type="text" placeholder="First Name">
-                <input type="email" placeholder="Email">
-                <input type="text" placeholder="Last Name">
-                <input type="password" placeholderx="Password">
-                <input type="date" placeholder="Date of Birth">
-                <div class="login-link">Already have an account? <a href="login-page.html" class="fade-link">Login</a></div>
-                <button type="submit" class="btn-login">Register</button> </form>
+            <form class="auth-form" id="register-form">
+                <input type="text" placeholder="First Name" required>
+                <input type="email" placeholder="Email" required>
+                <input type="text" placeholder="Last Name" required>
+                <input type="password" placeholder="Password" required>
+                <input type="date" placeholder="Date of Birth" required>
+                <div class="login-link">
+                    Already have an account? 
+                    <a href="login-page.html" class="fade-link">Login</a>
+                </div>
+                <button type="submit" class="btn-login" id="register-submit">Register</button>
+            </form>
 
-            <p class="or-separator">Or continue with</p> <div class="social-login"> <button class="social-button">Continue with Google</button>
+            <p>Or continue with</p>
+            <div class="social-login">
+                <button class="social-button">Continue with Google</button>
                 <button class="social-button">Continue with Apple</button>
             </div>
         </div>
     </main>
 
     <!-- Fade out logic -->
-    <script src="js/pages/fade-out-animation.js" defer></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const body = document.body;
+
+        // Register form submission
+        const registerForm = document.getElementById('register-form');
+        registerForm.addEventListener('submit', e => {
+          e.preventDefault(); // prevent actual submit (demo purpose)
+          body.classList.add('fade-out');
+          setTimeout(() => {
+            window.location.href = 'dashboard.html'; // change as needed
+          }, 500);
+        });
+
+        // Login tab button click
+        const loginButton = document.getElementById('login-tab-button');
+        loginButton.addEventListener('click', () => {
+          body.classList.add('fade-out');
+          setTimeout(() => {
+            window.location.href = 'login-page.html'; // login page url
+          }, 500);
+        });
+      });
+    </script>
 
 </body>
 </html>
