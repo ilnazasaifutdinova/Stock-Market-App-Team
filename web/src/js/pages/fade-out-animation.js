@@ -1,4 +1,4 @@
-// js/login-script.js
+// js/fade-out-animation.js
 
 document.addEventListener("DOMContentLoaded", () => {
     const tabButtons = document.querySelectorAll(".tab-button");
