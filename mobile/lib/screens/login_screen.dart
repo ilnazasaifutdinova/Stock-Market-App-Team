@@ -1,28 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:stock_market_app/screens/main_navigation.dart';
+import 'package:stock_market_app/screens/register_screen.dart';
 
-void main() {
-  runApp(const StockVisionApp());
-}
-
-class StockVisionApp extends StatelessWidget {
-  const StockVisionApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'StockVision',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        fontFamily: 'Manrope',
-      ),
-      home: const SplashScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-// Login Screen
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({Key? key}): 
+super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();

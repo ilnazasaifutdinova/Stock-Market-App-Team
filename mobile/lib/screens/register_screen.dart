@@ -1,26 +1,6 @@
-// mobile/lib/screens/home_screen.dart
 import 'package:flutter/material.dart';
+import 'package:stock_market_app/screens/main_navigation.dart';
 
-void main() {
-  runApp(const StockVisionApp());
-}
-
-class StockVisionApp extends StatelessWidget {
-  const StockVisionApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'StockVision',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        fontFamily: 'Manrope',
-      ),
-      home: const SplashScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
