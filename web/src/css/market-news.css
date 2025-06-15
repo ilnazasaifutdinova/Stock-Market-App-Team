@@ -30,8 +30,8 @@
 }
 
 /* Title and Heading Animations */
-.page-title,
-.section-heading {
+.page-title {
+    margin-top: 15%;
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 0.6s ease forwards;
