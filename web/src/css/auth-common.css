@@ -55,7 +55,7 @@ a:hover {
     background-color: var(--card-bg-color);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 50%;
+    max-width: 70%;
     margin: 7% auto;
     padding: 40px;
     padding-top: 100px; /* extra top padding so content sits below navigation */
