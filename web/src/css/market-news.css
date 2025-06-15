@@ -29,6 +29,18 @@
     animation-delay: 0.2s;
 }
 
+/* Make table rows look clickable */
+    .stock-snapshot-table tbody tr {
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .stock-snapshot-table tbody tr:hover {
+      background-color: var(--button-background-gray);
+    }
+
+
+
 /* Title and Heading Animations */
 .page-title {
     margin-top: 10%;
