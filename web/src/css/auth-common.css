@@ -55,7 +55,7 @@ a:hover {
     background-color: var(--card-bg-color);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 500px;
+    max-width: 50%;
     margin: 7% auto;
     padding: 40px;
     padding-top: 100px; /* extra top padding so content sits below navigation */
@@ -67,13 +67,7 @@ a:hover {
     animation: slideInUp 0.6s ease-out both;
 }
 
-/* Welcome Title */
-.welcome-title {
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: var(--text-color);
-}
+
 
 /* Tabs */
 .tab-buttons {
