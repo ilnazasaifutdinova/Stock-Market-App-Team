@@ -70,52 +70,47 @@
     display: flex;
     justify-content: center;
     margin-bottom: 25px;
-    background-color: var(--search-bar-bg); /* Retained background from your original tabs */
-    border-radius: 5px;
-    overflow: hidden; /* Ensures tab background is clipped */
-    border-bottom: 1px solid var(--border-color); /* Added for consistency with previous discussion */
-    position: relative; /* For active tab underline */
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
 }
 
-/* Tab (Renamed to .tab-button for consistency) */
 .tab-button {
-    flex: 1;
-    padding: 12px 20px;
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--additional-text);
     cursor: pointer;
-    font-weight: 500;
-    color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: color 0.3s ease;
     position: relative;
     z-index: 1;
-    background-color: transparent; /* Ensure default is transparent */
-    border: none; /* No individual borders for tabs */
 }
 
 .tab-button.active {
-    background-color: var(--button-background-green);
-    color: var(--button-text);
-    font-weight: 700;
+    background-color: transparent;
+    color: var(--text-color);
 }
 
-.tab-button:not(.active):hover {
-    background-color: #444444; /* Retained hover from your original tabs */
-}
-
-.tab-buttons::after { /* Active tab underline */
+.tab-buttons::after {
     content: '';
     position: absolute;
-    bottom: -1px; /* Position it on the border */
+    bottom: -1px;
     left: 0;
-    width: 50%; /* For 2 tabs (Login/Register) */
+    width: 100%;
     height: 2px;
     background-color: var(--button-background-green);
     transition: transform 0.3s ease;
 }
 
-.tab-button:nth-child(2).active ~ .tab-buttons::after { /* For 'Register' tab (second button) */
+.tab-button:nth-child(2).active ~ .tab-buttons::after {
     transform: translateX(100%);
 }
 
+.tab-button:not(.active):hover {
+    background-color: transparent;
+    color: var(--text-color);
+}
 
 /* Form Inputs (Renamed .container input to .auth-form input for consistency) */
 .auth-form input[type="email"],
