@@ -58,7 +58,7 @@ a:hover {
     max-width: 70%;
     margin: 7% auto;
     padding: 40px;
-    padding-top: 100px; /* extra top padding so content sits below navigation */
+    padding-top: 2.5%; /* extra top padding so content sits below navigation */
     text-align: center;
     flex-grow: 1;
     display: flex;
@@ -66,7 +66,6 @@ a:hover {
     gap: 25px;
     animation: slideInUp 0.6s ease-out both;
 }
-
 
 
 /* Tabs */
