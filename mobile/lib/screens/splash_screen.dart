@@ -1,3 +1,26 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const StockVisionApp());
+}
+
+class StockVisionApp extends StatelessWidget {
+  const StockVisionApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'StockVision',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        fontFamily: 'Manrope',
+      ),
+      home: const SplashScreen(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
 // Splash Screen
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
