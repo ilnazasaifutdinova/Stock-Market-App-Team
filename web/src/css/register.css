@@ -1,20 +1,20 @@
 /* css/register.css */
 
-/* Universal Styles & Variables (Kept here for convenience, but truly global variables are best in one place like potfolio.css) */
+/* Universal Styles & Variables */
 :root {
     --bg-color: #121712;
     --card-bg-color: #242424;
     --text-color: #FFFFFF;
-    --button-text:#121712;
-    --additional-text:#A6B5A1;
-    --button-background-green:#54D12B;
-    --button-background-gray:#2E3829;
+    --button-text: #121712;
+    --additional-text: #A6B5A1;
+    --button-background-green: #54D12B;
+    --button-background-gray: #2E3829;
     --search-bar-bg: #333333; /* Renamed to auth-tab-bg for clarity in auth forms */
     --border-color: #444444;
     --light-border-color: #383838;
 }
 
-/* Base body styles and global 'a' styles are now covered by potfolio.css if linked first */
+/* Reset & Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -41,7 +41,7 @@ a:hover {
     color: var(--button-background-green);
 }
 
-/* General Button Styles (Renamed .btn-primary to .btn-login for consistency with login page) */
+/* Buttons */
 .btn-login {
     background-color: var(--button-background-green);
     color: var(--button-text);
@@ -57,45 +57,40 @@ a:hover {
 }
 
 .btn-login:hover {
-    background-color: #008f5a; /* A slightly darker green for hover */
+    background-color: #008f5a; /* Darker green on hover */
 }
 
-/* --- NAVIGATION AND HEADER STYLES REMOVED FROM HERE --- */
-/* These styles (nav.page-nav, .logo, .nav-links-left, .nav-right, .search-container, .search-box, .search-icon, .profile-icon)
-   are now assumed to be in 'potfolio.css' as part of the centralized header.
-*/
-
-
-/* Login/Register Container (Renamed from .container to .auth-container) */
+/* Auth Container */
 .auth-container {
     background-color: var(--card-bg-color);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 500px; /* Adjusted to fit better with central forms, consistent with login.html */
-    margin: 60px auto; /* Center with more vertical space */
-    padding: 40px; /* Reduced padding slightly for better fit */
+    max-width: 500px;
+    margin: 60px auto;
+    padding: 40px;
     text-align: center;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    gap: 25px; /* Consistent gap between elements */
+    gap: 25px;
+    animation: slideInUp 0.6s ease-out both;
 }
 
-/* Renamed h1 to .welcome-title for consistency */
+/* Welcome Title */
 .welcome-title {
     font-size: 28px;
     font-weight: 600;
-    margin-bottom: 20px; /* Adjusted margin */
+    margin-bottom: 20px;
     color: var(--text-color);
 }
 
-/* Tabs (Renamed from .tabs to .tab-buttons and .tab to .tab-button) */
+/* Tabs */
 .tab-buttons {
     display: flex;
     justify-content: center;
     margin-bottom: 25px;
-    border-bottom: 1px solid var(--border-color); /* Separator under tabs */
-    position: relative; /* For active tab underline */
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
 }
 
 .tab-button {
@@ -108,131 +103,125 @@ a:hover {
     cursor: pointer;
     transition: color 0.3s ease;
     position: relative;
-    z-index: 1; /* Ensure text is above potential underline */
+    z-index: 1;
 }
 
 .tab-button.active {
-    background-color: transparent; /* No background color, only text changes */
+    background-color: transparent;
     color: var(--text-color);
 }
 
-.tab-buttons::after { /* Active tab underline */
+.tab-buttons::after {
     content: '';
     position: absolute;
-    bottom: -1px; /* Position it on the border */
+    bottom: -1px;
     left: 0;
-    width: 50%; /* For 2 tabs (Login/Register) */
+    width: 50%;
     height: 2px;
     background-color: var(--button-background-green);
     transition: transform 0.3s ease;
 }
 
-.tab-button:nth-child(2).active ~ .tab-buttons::after { /* For 'Register' tab (second button) */
+.tab-button:nth-child(2).active ~ .tab-buttons::after {
     transform: translateX(100%);
 }
 
 .tab-button:not(.active):hover {
-    background-color: transparent; /* Changed from #444444 to transparent for consistency */
-    color: var(--text-color); /* Hover color for inactive tab */
+    background-color: transparent;
+    color: var(--text-color);
 }
 
-/* Form Layout and Inputs for Register Page (matching image_2e1499.png, renamed to .auth-form) */
+/* Auth Form - Grid Layout */
 .auth-form {
-    display: grid; /* Use CSS Grid for 2-column layout */
-    grid-template-columns: 1fr 1fr; /* Two equal columns */
-    gap: 15px; /* Consistent gap between grid items (reduced slightly) */
-    margin-bottom: 25px; /* Adjusted margin */
-    text-align: left; /* Align input labels/placeholders to the left */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+    text-align: left;
 }
 
-/* .form-row is no longer needed as inputs are direct children of the grid */
-/* .auth-form input[type="text"],
-.auth-form input[type="email"],
-.auth-form input[type="password"],
-.auth-form input[type="date"] { ... } is now simplified to: */
 .auth-form input {
     background-color: var(--button-background-gray);
-    border: none; /* Changed from 1px solid to none as per earlier discussions */
-    border-radius: 6px; /* Changed from 5px to 6px */
-    padding: 15px; /* Increased padding slightly */
+    border: none;
+    border-radius: 6px;
+    padding: 15px;
     color: var(--text-color);
     font-size: 16px;
     outline: none;
     transition: border-color 0.3s ease;
-    width: 100%; /* Ensure full width within its grid cell */
-    /* box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);  Removed for flatter look consistent with current design */
+    width: 100%;
 }
 
-/* Specific adjustments for the last row (Date of Birth and Login Link) */
+/* Date Input Specific */
 .auth-form input[type="date"] {
-    grid-column: span 1; /* Ensures date input occupies one column */
-    appearance: none; /* Remove default browser date input styling */
+    grid-column: span 1;
+    appearance: none;
     -webkit-appearance: none;
     position: relative;
     padding-right: 15px;
     text-align: left;
 }
 
-/* Remove default browser date placeholder color/styling */
 .auth-form input[type="date"]::-webkit-datetime-edit-year-field:not([aria-valuenow]),
 .auth-form input[type="date"]::-webkit-datetime-edit-month-field:not([aria-valuenow]),
 .auth-form input[type="date"]::-webkit-datetime-edit-day-field:not([aria-valuenow]) {
-    color: var(--additional-text); /* Use additional-text for placeholder */
-}
-.auth-form input[type="date"]::-webkit-input-placeholder { /* For other browsers */
     color: var(--additional-text);
 }
+
+.auth-form input[type="date"]::-webkit-input-placeholder {
+    color: var(--additional-text);
+}
+
 .auth-form input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(1); /* Invert color for dark background */
+    filter: invert(1);
     cursor: pointer;
-    font-size: 18px; /* Make calendar icon larger */
+    font-size: 18px;
 }
 
 .auth-form input:focus {
-    /* If border is none, this will have no effect unless you add a box-shadow or something */
     border-color: var(--button-background-green);
 }
 
+/* Placeholder Text */
 .auth-form input::placeholder {
     color: var(--additional-text);
-    opacity: 0.7; /* Changed from 0.6 to 0.7 for consistency */
+    opacity: 0.7;
 }
 
 /* Login Link */
 .login-link {
-    grid-column: span 1; /* Ensures login link occupies one column */
+    grid-column: span 1;
     color: var(--additional-text);
     font-size: 14px;
-    text-align: right; /* Align to the right within its grid cell */
-    white-space: nowrap; /* Prevent wrapping if space is tight */
-    align-self: center; /* Vertically align with the date input */
+    text-align: right;
+    white-space: nowrap;
+    align-self: center;
 }
 
 .login-link a {
-    color: var(--button-background-green); /* Make the link text green */
-    text-decoration: none; /* No underline by default */
+    color: var(--button-background-green);
+    text-decoration: none;
     font-weight: 500;
 }
 
 .login-link a:hover {
-    text-decoration: underline; /* Underline on hover */
+    text-decoration: underline;
 }
 
-/* Register Button (placed after the grid layout, but within .auth-container) */
-.auth-form .btn-login { /* Target the button within the form to ensure it spans 2 columns */
-    grid-column: span 2; /* Make the register button span both columns */
-    margin-top: 5px; /* Adjusted margin */
-    margin-bottom: 0; /* No bottom margin inside form */
+/* Register Button spans both columns */
+.auth-form .btn-login {
+    grid-column: span 2;
+    margin-top: 5px;
+    margin-bottom: 0;
 }
 
-
-/* Divider (Renamed from .divider to .or-separator) */
+/* Divider */
 .or-separator {
     color: var(--additional-text);
     margin: 15px 0;
     position: relative;
     text-align: center;
-    opacity: 1; /* Changed from 0.8 to 1 */
+    opacity: 1;
 }
 
 .or-separator::before,
@@ -253,94 +242,99 @@ a:hover {
     right: 0;
 }
 
-/* Alternative Login Buttons (Renamed from .alt-login to .social-login and .alt-btn to .social-button) */
+/* Social Login Buttons */
 .social-login {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Reduced gap for compact buttons */
+    gap: 10px;
 }
 
 .social-button {
-    width: 100%; /* Explicitly ensure full width */
+    width: 100%;
     background-color: var(--button-background-gray);
-    border: none; /* Changed from 1px solid to none */
-    border-radius: 6px; /* Changed from 5px to 6px */
-    padding: 15px; /* Increased padding */
-    color: var(--additional-text); /* Adjusted text color for consistency */
+    border: none;
+    border-radius: 6px;
+    padding: 15px;
+    color: var(--additional-text);
     font-size: 16px;
-    font-weight: 500; /* Added font weight */
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Added color transition */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .social-button:hover {
-    background-color: #3b4535; /* Slightly darker gray on hover */
-    color: var(--text-color); /* Text color becomes white on hover */
-    border-color: transparent; /* No border change on hover */
+    background-color: #3b4535;
+    color: var(--text-color);
+    border-color: transparent;
 }
 
-/* Responsive Adjustments for Register Content */
+/* Responsive Styles */
 @media (max-width: 900px) {
-    /* Removed nav.page-nav responsive styles as they are now in potfolio.css */
-    /* Removed .search-container responsive styles as they are now in potfolio.css */
-
     .auth-container {
         max-width: 450px;
         padding: 30px;
-        margin: 40px auto; /* Adjusted margin for consistency */
+        margin: 40px auto;
     }
+
     .welcome-title {
         font-size: 24px;
     }
+
     .tab-button {
         font-size: 16px;
         padding: 8px 15px;
     }
 
-    /* Change grid to single column on smaller screens */
     .auth-form {
-        grid-template-columns: 1fr; /* Single column layout */
+        grid-template-columns: 1fr;
     }
+
     .auth-form input,
-    .btn-login, /* Applies to the register button */
+    .btn-login,
     .social-button {
         font-size: 15px;
         padding: 12px;
     }
-    .auth-form input[type="date"] {
-        grid-column: span 1; /* Ensure date input occupies one column */
-    }
+
+    .auth-form input[type="date"],
     .login-link {
-        grid-column: span 1; /* Ensure login link occupies one column */
-        text-align: left; /* Align to left on single column */
+        grid-column: span 1;
+    }
+
+    .login-link {
+        text-align: left;
     }
 }
 
 @media (max-width: 600px) {
-    /* Removed nav.page-nav responsive styles as they are now in potfolio.css */
     .auth-container {
         padding: 20px;
         margin: 20px auto;
-        gap: 15px; /* Adjusted gap */
+        gap: 15px;
     }
+
     .welcome-title {
         font-size: 20px;
     }
+
     .tab-button {
         font-size: 14px;
         padding: 6px 10px;
     }
+
     .auth-form input,
-    .btn-login, /* Applies to the register button */
+    .btn-login,
     .social-button {
         padding: 10px;
         font-size: 14px;
     }
+
     .or-separator {
         font-size: 14px;
     }
 }
 
+/* Animations */
 @keyframes slideInUp {
     from {
         opacity: 0;
@@ -350,8 +344,4 @@ a:hover {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-.auth-container {
-    animation: slideInUp 0.6s ease-out both;
 }
