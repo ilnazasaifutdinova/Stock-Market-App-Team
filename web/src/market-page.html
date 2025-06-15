@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StockVision - Market News</title>
+
+    <!-- Fonts and Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="css/potfolio.css">
     <link rel="stylesheet" href="css/market-news.css">
+
+    <style>
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -114,5 +124,8 @@
             </div>
         </section>
     </main>
+
+    <!-- Fade out logic -->
+    <script src="js/pages/fade-out-animation.js" defer></script>
 </body>
 </html>

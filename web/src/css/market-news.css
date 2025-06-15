@@ -1,10 +1,6 @@
 /* css/market-news.css */
 
 /* Universal Styles & Variables */
-/* These variables are generally consistent across your theme.
-   Ideally, they should be defined once in a central file like potfolio.css
-   and then used universally. For now, keeping them here as they were in your
-   original inline style, but note that duplication can lead to maintenance issues. */
 :root {
     --bg-color: #121712;
     --card-bg-color: #242424;
@@ -13,11 +9,10 @@
     --additional-text:#A6B5A1;
     --button-background-green:#54D12B;
     --button-background-gray:#2E3829;
-    --search-bar-bg: #333333; /* Renamed to auth-tab-bg for clarity in auth forms */
+    --search-bar-bg: #333333;
     --border-color: #444444;
     --light-border-color: #383838;
 }
-
 
 /* Main Content Structure */
 .main-content {
@@ -26,23 +21,39 @@
     padding: 0 20px;
     display: grid;
     gap: 30px;
+
+    /* Page fade-in */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInPage 0.8s ease forwards;
+    animation-delay: 0.2s;
 }
 
-.page-title { /* New: for main page heading "Market News & Stock Snapshot" */
+/* Title and Heading Animations */
+.page-title,
+.section-heading {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.page-title {
     font-size: 32px;
     font-weight: 700;
     margin-bottom: 20px;
     color: var(--text-color);
+    animation-delay: 0.3s;
 }
 
-.section-heading { /* For "Market News" and "Stock Snapshot" sub-headings */
+.section-heading {
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 20px;
     color: var(--text-color);
+    animation-delay: 0.4s;
 }
 
-.card { /* Basic card style, defined for consistency across app */
+.card {
     background-color: var(--card-bg-color);
     border-radius: 8px;
     padding: 25px;
@@ -52,23 +63,28 @@
 /* Market News Section */
 .market-news-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 5 columns or wrap */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
-    margin-bottom: 40px; /* Space below this section */
+    margin-bottom: 40px;
 }
 
 .news-card {
-    background-color: var(--card-bg-color); /* Same as main cards */
+    background-color: var(--card-bg-color);
     border: 1px solid var(--light-border-color);
     border-radius: 8px;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Pushes content and icon to ends */
-    align-items: flex-start; /* Align text left */
+    justify-content: space-between;
+    align-items: flex-start;
     gap: 15px;
     cursor: pointer;
     transition: border-color 0.2s ease, transform 0.2s ease;
+
+    /* Animation */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInCard 0.6s ease forwards;
 }
 
 .news-card:hover {
@@ -80,7 +96,7 @@
     font-size: 18px;
     color: var(--text-color);
     opacity: 0.7;
-    margin-bottom: 5px; /* Space between icon and text */
+    margin-bottom: 5px;
 }
 
 .news-card h3 {
@@ -90,9 +106,23 @@
     line-height: 1.4;
 }
 
+/* Staggered news cards */
+.news-card:nth-child(1) { animation-delay: 0.5s; }
+.news-card:nth-child(2) { animation-delay: 0.6s; }
+.news-card:nth-child(3) { animation-delay: 0.7s; }
+.news-card:nth-child(4) { animation-delay: 0.8s; }
+.news-card:nth-child(5) { animation-delay: 0.9s; }
+
 /* Stock Snapshot Table */
+.stock-snapshot-table {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: 0.6s;
+}
+
 .stock-snapshot-table .table-wrapper {
-    overflow-x: auto; /* Enable horizontal scroll for small screens */
+    overflow-x: auto;
 }
 
 .stock-snapshot-table table {
@@ -133,7 +163,7 @@
     font-weight: 500;
 }
 
-/* Basic Responsiveness for Market News & Stock Snapshot sections */
+/* Responsive */
 @media (max-width: 900px) {
     .main-content {
         padding: 0 15px;
@@ -141,7 +171,7 @@
     }
 
     .market-news-grid {
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Adjust min-width for news cards */
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     }
 }
 
@@ -162,5 +192,49 @@
     .stock-snapshot-table td {
         padding: 12px 10px;
         font-size: 13px;
+    }
+}
+
+/* Hero Overlay Animation */
+.hero-overlay {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.3s;
+}
+
+/* Header Fade */
+.header-left,
+.header-right {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.5s;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInPage {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInCard {
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
