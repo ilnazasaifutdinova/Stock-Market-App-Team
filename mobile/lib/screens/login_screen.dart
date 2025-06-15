@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -21,16 +20,15 @@ class StockVisionApp extends StatelessWidget {
     );
   }
 }
-import 'package:flutter/material.dart';
-
-class StockVisionLoginScreen extends StatefulWidget {
-  const StockVisionLoginScreen({Key? key}) : super(key: key);
+// Login Screen
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<StockVisionLoginScreen> createState() => _StockVisionLoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _StockVisionLoginScreenState extends State<StockVisionLoginScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _obscurePassword = true;
@@ -70,11 +68,9 @@ class _StockVisionLoginScreenState extends State<StockVisionLoginScreen> {
               ),
             ),
             
-            // Main content
             SafeArea(
               child: Column(
                 children: [
-                  // Top title
                   Container(
                     padding: const EdgeInsets.only(top: 20),
                     child: const Text(
@@ -92,13 +88,11 @@ class _StockVisionLoginScreenState extends State<StockVisionLoginScreen> {
                   
                   const Spacer(flex: 2),
                   
-                  // Login form
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 25),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        // Email field
                         Container(
                           height: 56,
                           margin: const EdgeInsets.only(bottom: 16),
@@ -130,7 +124,6 @@ class _StockVisionLoginScreenState extends State<StockVisionLoginScreen> {
                           ),
                         ),
                         
-                        // Password field
                         Container(
                           height: 56,
                           margin: const EdgeInsets.only(bottom: 8),
@@ -173,14 +166,12 @@ class _StockVisionLoginScreenState extends State<StockVisionLoginScreen> {
                           ),
                         ),
                         
-                        // Forgot password
                         Container(
                           alignment: Alignment.centerLeft,
                           padding: const EdgeInsets.only(left: 4, bottom: 24),
                           child: GestureDetector(
                             onTap: () {
                               // Handle forgot password
-                              print('Forgot password pressed');
                             },
                             child: const Text(
                               'Forgot Password?',
@@ -195,16 +186,15 @@ class _StockVisionLoginScreenState extends State<StockVisionLoginScreen> {
                           ),
                         ),
                         
-                        // Login button
                         Container(
                           height: 48,
                           margin: const EdgeInsets.only(bottom: 12),
                           child: ElevatedButton(
                             onPressed: () {
-                              // Handle login
-                              print('Login pressed');
-                              print('Email: ${_emailController.text}');
-                              print('Password: ${_passwordController.text}');
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (context) => const MainNavigation()),
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF14B75B),
@@ -226,13 +216,14 @@ class _StockVisionLoginScreenState extends State<StockVisionLoginScreen> {
                           ),
                         ),
                         
-                        // Register button
                         Container(
                           height: 48,
                           child: ElevatedButton(
                             onPressed: () {
-                              // Handle register
-                              print('Register pressed');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const RegisterScreen()),
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF234733),
@@ -273,24 +264,4 @@ class _StockVisionLoginScreenState extends State<StockVisionLoginScreen> {
     _passwordController.dispose();
     super.dispose();
   }
-}
-
-// Example usage in main.dart
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'StockVision',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        fontFamily: 'Manrope',
-      ),
-      home: const StockVisionLoginScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-void main() {
-  runApp(MyApp());
 }
