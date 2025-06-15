@@ -14,6 +14,13 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/potfolio.css">
     <link rel="stylesheet" href="css/login-style.css"> 
+
+    <style>
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -22,11 +29,11 @@
             <span class="logo-text">StockVision</span>
             <nav class="header-nav">
                 <ul>
-                    <li><a href="portfolio-page.html">My Stocks</a></li>
+                    <li><a id="mystocks-btn" href="portfolio-page.html">My Stocks</a></li>
                     <li class="separator"></li>
-                    <li><a href="market-page.html">News</a></li>
+                    <li><a id="news-btn" href="market-page.html">News</a></li>
                     <li class="separator"></li>
-                    <li><a href="pro-version.html">Pro Version</a></li>
+                    <li><a id="proversion-btn" href="pro-version.html">Pro Version</a></li>
                 </ul>
             </nav>
         </div>
@@ -58,5 +65,25 @@
             </div>
         </div>
     </main>
+
+    <!-- Fade-out script -->
+    <script>
+        function enableFadeOutLink(selector) {
+            const link = document.querySelector(selector);
+            if (!link) return;
+            link.addEventListener('click', function (e) {
+                e.preventDefault(); // stop the instant jump
+                const url = this.getAttribute('href'); // destination
+                document.body.classList.add('fade-out'); // start CSS transition
+                setTimeout(() => { window.location.href = url;}, 500);
+            })
+        }
+
+        // Hook up the three links that need the effect
+        enableFadeOutLink('#mystocks-btn');
+        enableFadeOutLink('#news-btn');
+        enableFadeOutLink('#proversion-btn');
+        
+    </script>
 </body>
 </html>
