@@ -272,3 +272,80 @@
         transform: translateY(0);
     }
 }
+
+
+.bar-chart {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end; /* Bars start from the bottom */
+    width: 100%;
+    height: 200px; /* Fixed height for the chart area */
+    gap: 15px; /* MODIFIED: Increased space between bars for better label breathing room */
+    border-bottom: 1px solid var(--border-color); /* Axis line */
+    padding-bottom: 5px;
+    padding-left: 5px; /* ADDED: Small padding to prevent categories from hugging the left edge */
+    padding-right: 5px; /* ADDED: Small padding to prevent categories from hugging the right edge */
+}
+
+.bar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end; /* Ensure bar is at the bottom */
+    flex: 1; /* Distribute space equally */
+    max-width: 80px; /* MODIFIED: Increased max-width for each bar item to give more room for text */
+}
+
+.bar {
+    /* ... (no changes in this block) ... */
+}
+
+.category {
+    margin-top: 10px; /* MODIFIED: Increased margin from the bar for better separation */
+    font-size: 0.9em;
+    color: var(--text-color);
+    opacity: 0.8;
+    text-align: center;
+    word-break: normal; /* MODIFIED: Prevent words from breaking awkwardly, prefer wrapping if needed */
+    white-space: normal; /* ADDED: Allow text to wrap naturally */
+    line-height: 1.2; /* ADDED: Adjust line height for wrapped text */
+    padding: 0 2px; /* ADDED: Small horizontal padding to prevent text from touching edges of its container */
+}
+
+/* Responsive Design Adjustments for Categories */
+@media (max-width: 992px) {
+    /* ... existing rules ... */
+    .bar-chart {
+        gap: 10px; /* MODIFIED: Adjusted gap for smaller screens */
+    }
+    .bar-item {
+        max-width: 70px; /* MODIFIED: Adjusted max-width for smaller screens */
+    }
+    .category {
+        font-size: 0.85em; /* MODIFIED: Slightly smaller font for better fit */
+    }
+}
+
+@media (max-width: 600px) {
+    /* ... existing rules ... */
+    .bar-chart {
+        /* height: 150px; (no change here) */
+        gap: 8px; /* MODIFIED: Further reduce gap on very small screens */
+    }
+    .bar-item {
+        max-width: 60px; /* MODIFIED: Further reduce max-width on very small screens */
+    }
+    .category {
+        /* font-size: 0.8em; (no change here) */
+    }
+}
+
+@media (max-width: 400px) {
+    /* ... existing rules ... */
+    .bar-item {
+        max-width: 50px; /* MODIFIED: Even smaller max-width for tiny screens */
+    }
+    .category {
+        /* font-size: 0.75em; (no change here) */
+    }
+}
