@@ -50,6 +50,18 @@ a:hover {
     background-color: #008f5a;
 }
 
+/* Price Change Colors */
+.change-positive {
+    color: var(--button-background-green); /* Using your defined green variable */
+    font-weight: 500;
+}
+
+.change-negative {
+    color: #FF4D4D; /* Defining a red color, you can add this to your :root variables as --accent-red if you prefer */
+    font-weight: 500;
+}
+
+
 /* Auth Container */
 .auth-container {
     background-color: var(--card-bg-color);
