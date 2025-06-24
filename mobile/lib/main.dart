@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stock_market_app/providers/auth_provider.dart';
+import 'package:stock_market_app/providers/portfolio_provider.dart';
+import 'package:stock_market_app/providers/market_data_provider.dart';
 import 'package:stock_market_app/screens/splash_screen.dart';
 
 void main() {
@@ -8,6 +10,8 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => PortfolioProvider()),
+        ChangeNotifierProvider(create: (_) => MarketDataProvider()),
       ],
       child: const MyApp(),
     ),
@@ -24,6 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
         fontFamily: 'Manrope',
+        scaffoldBackgroundColor: const Color(0xFF12211A),
       ),
       home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
