@@ -53,9 +53,10 @@ class ApiService {
   }
 
   /// Получает данные по конкретной акции (symbol); возвращает JSON-объект
-  static Future<Map<String, dynamic>> getMarketData(
-      String token, String symbol) async {
-    final uri = Uri.parse('$_baseUrl/marketdata/$symbol');
+  static Future<Map<String, dynamic>> getMarketData(String token, String symbol, [String timeframe = '1M']) async {
+    // Consider whether you still need this method or if it should be modified
+    // to work with Finnhub data
+    final uri = Uri.parse('$_baseUrl/marketdata/$symbol?timeframe=$timeframe');
     final response = await http.get(
       uri,
       headers: {

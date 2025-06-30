@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:stock_market_app/models/chart_data_point.dart';
 import 'package:stock_market_app/providers/market_data_provider.dart';
+
 
 class StockChartWidget extends StatefulWidget {
   final List<ChartDataPoint> data;
@@ -108,8 +110,12 @@ class _StockChartWidgetState extends State<StockChartWidget>
       ),
       titlesData: FlTitlesData(
         show: true,
-        rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-        topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        rightTitles: AxisTitles(
+            sideTitles: SideTitles(showTitles: false),
+        ),
+        topTitles: AxisTitles(
+            sideTitles: SideTitles(showTitles: false),
+        ),
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(
             showTitles: true,

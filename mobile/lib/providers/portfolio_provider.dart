@@ -40,6 +40,22 @@ class PortfolioProvider extends ChangeNotifier {
     _overallPerformance = newPerformance;
     notifyListeners();
   }
+
+  List<String> getStockSymbols() {
+    // Get unique symbols from the portfolio holdings
+    final Set<String> symbols = {};
+
+    // Add symbols from your portfolio data
+    // If you're using mock data for now:
+    symbols.addAll(['AAPL', 'TSLA', 'MSFT', 'GOOGL', 'NVDA']);
+
+    // If you have actual portfolio data, you would get symbols from there:
+    // for (var holding in portfolios) {
+    //   symbols.add(holding.symbol);
+    // }
+
+    return symbols.toList();
+  }
 }
 
 class Portfolio {

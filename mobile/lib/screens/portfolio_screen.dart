@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:stock_market_app/providers/market_data_provider.dart';
 import 'package:stock_market_app/providers/portfolio_provider.dart';
 import 'package:stock_market_app/providers/auth_provider.dart';
 import 'package:stock_market_app/widgets/animated_gradient_background.dart';
@@ -46,14 +47,25 @@ class _PortfolioScreenState extends State<PortfolioScreen>
   void _loadPortfolioData() {
     final authProvider = context.read<AuthProvider>();
     final portfolioProvider = context.read<PortfolioProvider>();
-    
+    final marketDataProvider = context.read<MarketDataProvider>();
+
     if (authProvider.token != null) {
-      portfolioProvider.fetchPortfolios(authProvider.token!).catchError((error) {
+      portfolioProvider.fetchPortfolios(authProvider.token!).then((_) {
+        // After portfolios are loaded, fetch market data for each stock
+        for (var symbol in portfolioProvider.getStockSymbols()) {
+          marketDataProvider.fetchStockData(
+              authProvider.token!,
+              symbol,
+              selectedTimeframe // Pass the current timeframe
+          );
+        }
+      }).catchError((error) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error loading portfolio: $error'))
+            SnackBar(content: Text('Error loading portfolio: $error'))
         );
       });
     }
+
   }
 
   void _setupAnimations() {
@@ -110,8 +122,8 @@ class _PortfolioScreenState extends State<PortfolioScreen>
   Widget build(BuildContext context) {
     return AnimatedGradientBackground(
       child: SafeArea(
-        child: Consumer2<PortfolioProvider, AuthProvider>(
-          builder: (context, portfolioProvider, authProvider, child) {
+        child: Consumer3<PortfolioProvider, AuthProvider, MarketDataProvider>(
+          builder: (context, portfolioProvider, authProvider, marketDataProvider, child) {
             return SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Column(
@@ -360,6 +372,12 @@ class _PortfolioScreenState extends State<PortfolioScreen>
                 setState(() {
                   selectedTimeframe = timeframe;
                 });
+                // For market data fetching
+                final marketDataProvider = context.read<MarketDataProvider>();
+                final portfolioProvider = context.read<PortfolioProvider>();
+                for (var symbol in portfolioProvider.getStockSymbols()) {
+                  marketDataProvider.fetchHistoricalData(symbol, timeframe);
+                }
               },
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
@@ -400,8 +418,6 @@ class _PortfolioScreenState extends State<PortfolioScreen>
   }
 
   Widget _buildPerformanceChart() {
-    final List<ChartDataPoint> performanceData = _generatePerformanceData();
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -429,14 +445,27 @@ class _PortfolioScreenState extends State<PortfolioScreen>
           ],
         ),
         const SizedBox(height: 16),
-        StockChartWidget(
-          data: performanceData,
-          height: 220,
-          lineColor: const Color(0xFF0AD842),
-          gradientStartColor: const Color(0xFF0AD842),
-          gradientEndColor: Colors.transparent,
-          showGrid: true,
-          showTooltip: true,
+        Consumer<MarketDataProvider>(
+          builder: (context, marketDataProvider, child) {
+            if (marketDataProvider.isLoading) {
+              return Container(
+                height: 220,
+                alignment: Alignment.center,
+                child: const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0AD842)),
+                ),
+              );
+            }
+            return StockChartWidget(
+              data: marketDataProvider.chartData,
+              height: 220,
+              lineColor: const Color(0xFF0AD842),
+              gradientStartColor: const Color(0xFF0AD842),
+              gradientEndColor: Colors.transparent,
+              showGrid: true,
+              showTooltip: true,
+            );
+          },
         ),
       ],
     );
@@ -1101,8 +1130,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
       default:
         days = 365;
         break;
-        
-    return data;
+
     }
 
     for (int i = 0; i < days; i++) {

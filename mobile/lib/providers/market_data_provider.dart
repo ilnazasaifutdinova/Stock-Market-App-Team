@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stock_market_app/services/api_service.dart';
+import 'package:stock_market_app/services/finnhub_service.dart';
+import 'package:stock_market_app/models/chart_data_point.dart';
 
 class MarketDataProvider extends ChangeNotifier {
   Map<String, StockData> _stocksData = {};
@@ -12,15 +14,33 @@ class MarketDataProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get error => _error;
 
-  Future<void> fetchStockData(String token, String symbol) async {
+
+  Future<void> fetchStockData(String token, String symbol, [String timeframe = '1M']) async {
     _isLoading = true;
     _error = null;
     notifyListeners();
 
     try {
-      final data = await ApiService.getMarketData(token, symbol);
-      _stocksData[symbol] = StockData.fromJson(data);
-      _generateChartData(symbol);
+      final data = await ApiService.getMarketData(token, symbol, timeframe);
+
+      // Parse quote data
+      final quoteData = data['quote'];
+      _stocksData[symbol] = StockData.fromFinnhubJson(quoteData, symbol);
+
+      // Parse candle data
+      final candleData = data['candles'];
+      if (candleData['s'] == 'ok') {
+        final List<dynamic> timestamps = candleData['t'];
+        final List<dynamic> prices = candleData['c'];
+
+        _chartData = List.generate(
+          timestamps.length,
+              (i) => ChartDataPoint(
+            time: DateTime.fromMillisecondsSinceEpoch(timestamps[i] * 1000),
+            price: prices[i].toDouble(),
+          ),
+        );
+      }
     } catch (e) {
       _error = e.toString();
       // Generate mock data if API fails
@@ -28,6 +48,66 @@ class MarketDataProvider extends ChangeNotifier {
     } finally {
       _isLoading = false;
       notifyListeners();
+    }
+  }
+
+// Add a method for fetching historical data
+  Future<void> fetchHistoricalData(String symbol, String timeframe) async {
+    final now = DateTime.now();
+    final int to = (now.millisecondsSinceEpoch / 1000).round();
+    int from;
+    String resolution;
+
+    switch (timeframe) {
+      case '1W':
+        from = (now.subtract(const Duration(days: 7)).millisecondsSinceEpoch / 1000).round();
+        resolution = '30';
+        break;
+      case '1M':
+        from = (now.subtract(const Duration(days: 30)).millisecondsSinceEpoch / 1000).round();
+        resolution = 'D';
+        break;
+      case '3M':
+        from = (now.subtract(const Duration(days: 90)).millisecondsSinceEpoch / 1000).round();
+        resolution = 'D';
+        break;
+      case '6M':
+        from = (now.subtract(const Duration(days: 180)).millisecondsSinceEpoch / 1000).round();
+        resolution = 'W';
+        break;
+      case '1Y':
+      default:
+        from = (now.subtract(const Duration(days: 365)).millisecondsSinceEpoch / 1000).round();
+        resolution = 'W';
+        break;
+    }
+
+    try {
+      final candleData = await FinnhubService.getCandles(
+        symbol: symbol,
+        resolution: resolution,
+        from: from,
+        to: to,
+      );
+
+      if (candleData['s'] == 'ok') {
+        final List<dynamic> timestamps = candleData['t'];
+        final List<dynamic> prices = candleData['c'];
+
+        _chartData = List.generate(
+          timestamps.length,
+              (i) => ChartDataPoint(
+            time: DateTime.fromMillisecondsSinceEpoch(timestamps[i] * 1000),
+            price: prices[i].toDouble(),
+          ),
+        );
+
+        notifyListeners();
+      }
+    } catch (e) {
+      _error = e.toString();
+      // Fallback to mock data if API fails
+      _generateMockChartData(_stocksData[symbol]?.currentPrice ?? 100);
     }
   }
 
@@ -57,7 +137,8 @@ class MarketDataProvider extends ChangeNotifier {
   List<ChartDataPoint> _generateMockChartData(double basePrice) {
     final List<ChartDataPoint> data = [];
     double price = basePrice;
-    
+    final now = DateTime.now();
+
     for (int i = 0; i < 30; i++) {
       // Simulate price movement
       price += (price * 0.02) * (0.5 - (i % 10) / 10.0);
@@ -96,23 +177,16 @@ class StockData {
     required this.volume,
   });
 
-  factory StockData.fromJson(Map<String, dynamic> json) {
+  factory StockData.fromFinnhubJson(Map<String, dynamic> json, String symbol) {
     return StockData(
-      symbol: json['symbol'] ?? '',
-      currentPrice: (json['currentPrice'] ?? 0).toDouble(),
-      change: (json['change'] ?? 0).toDouble(),
-      changePercent: (json['changePercent'] ?? 0).toDouble(),
-      high: (json['high'] ?? 0).toDouble(),
-      low: (json['low'] ?? 0).toDouble(),
-      open: (json['open'] ?? 0).toDouble(),
-      volume: json['volume'] ?? 0,
+      symbol: symbol,
+      currentPrice: (json['c'] ?? 0).toDouble(),  // Current price
+      change: (json['d'] ?? 0).toDouble(),        // Change
+      changePercent: (json['dp'] ?? 0).toDouble(),// Percent change
+      high: (json['h'] ?? 0).toDouble(),          // High price of the day
+      low: (json['l'] ?? 0).toDouble(),           // Low price of the day
+      open: (json['o'] ?? 0).toDouble(),          // Open price of the day
+      volume: (json['v'] ?? 0).toInt(),           // Volume
     );
   }
-}
-
-class ChartDataPoint {
-  final DateTime time;
-  final double price;
-
-  ChartDataPoint({required this.time, required this.price});
 }
