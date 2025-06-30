@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class FinnhubService {
   static const String _baseUrl = 'https://finnhub.io/api/v1';
-  static const String _apiKey = 'd1hc1epr01qsvr297i60d1hc1epr01qsvr297i6g'; // your Finnhub API key
+  static const String _apiKey = 'd1hc1epr01qsvr297i60d1hc1epr01qsvr297i6g'; // Finnhub API key
 
   // Get real-time quote data
   static Future<Map<String, dynamic>> getQuote(String symbol) async {
