@@ -52,15 +52,7 @@ class PortfolioProvider extends ChangeNotifier {
       _error = null;
       notifyListeners();
 
-      // Simulate API delay
-      await Future.delayed(const Duration(milliseconds: 800));
-
-      // Initialize with empty portfolios first
-      _portfolios = [];
-      _totalValue = 0.0;
-      _overallPerformance = 0.0;
-
-      // Add mock portfolios
+      // Initialize with your portfolio data
       _portfolios = [
         Portfolio(
           id: '1',
@@ -76,12 +68,6 @@ class PortfolioProvider extends ChangeNotifier {
               shares: 15,
               name: 'Microsoft Corporation',
             ),
-          ],
-        ),
-        Portfolio(
-          id: '2',
-          name: 'Tech Portfolio',
-          holdings: [
             Holding(
               symbol: 'GOOGL',
               shares: 5,
@@ -95,6 +81,13 @@ class PortfolioProvider extends ChangeNotifier {
           ],
         ),
       ];
+
+      // Fetch real-time data for all holdings using the portfolio service
+      final symbols = getStockSymbols();
+      final stockData = await PortfolioFinnhubService.getBatchQuotes(symbols);
+
+      // Update holdings with real data
+      await updatePortfolioValue(stockData);
 
       _isLoading = false;
       notifyListeners();
@@ -164,4 +157,3 @@ class Holding {
     }
   }
 }
-
