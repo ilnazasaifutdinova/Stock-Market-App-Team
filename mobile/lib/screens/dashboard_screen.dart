@@ -20,6 +20,12 @@ class _DashboardScreenState extends State<DashboardScreen>
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
 
+  final List<Map<String, dynamic>> _topHoldings = [
+    {'symbol': 'AAPL', 'shares': 10},
+    {'symbol': 'GOOGL', 'shares': 5},
+    {'symbol': 'MSFT', 'shares': 8},
+  ];
+
   @override
   void initState() {
     super.initState();

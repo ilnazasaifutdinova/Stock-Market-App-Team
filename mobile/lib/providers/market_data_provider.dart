@@ -8,13 +8,22 @@ import 'package:stock_market_app/models/stock_data.dart';
 class MarketDataProvider extends ChangeNotifier {
   final _stocksData = <String, StockData>{};
   final _chartData = <ChartDataPoint>[];
-  bool _isLoading = false;
+  //bool _isLoading = false;
   String? _error;
 
   Map<String, StockData> get stocksData => _stocksData;
   List<ChartDataPoint> get chartData => _chartData;
-  bool get isLoading => _isLoading;
+  //bool get isLoading => _isLoading;
   String? get error => _error;
+
+  // Add a map to track loading state per symbol
+  final Map<String, bool> _loadingStates = {};
+
+  // Modify the isLoading getter
+  bool get isLoading => _loadingStates.values.any((loading) => loading);
+
+  // Add a method to check if specific symbol is loading
+  bool isSymbolLoading(String symbol) => _loadingStates[symbol] ?? false;
 
   // Rate limiting
   static const _rateLimitDelay = Duration(milliseconds: 100);
@@ -45,18 +54,26 @@ class MarketDataProvider extends ChangeNotifier {
 
   Future<void> fetchStockData(String symbol, String timeframe) async {
     try {
-      _isLoading = true;
-      notifyListeners();
+      if (!_isCacheValid(symbol)) {
+        //_isLoading = true;
+        _loadingStates[symbol] = true;
+        notifyListeners();
 
-      final data = await FinnhubService.getQuote(symbol);
-      _stocksData[symbol] = data;
+        await _checkRateLimit(symbol);  // Respect API rate limits
+        final data = await FinnhubService.getQuote(symbol);
 
-      await fetchHistoricalData(symbol, timeframe);
-      _isLoading = false;
-      notifyListeners();
+        _stocksData[symbol] = data;
+        _lastUpdateTime[symbol] = DateTime.now();
+
+        //_isLoading = false;
+        _loadingStates[symbol] = false;
+        notifyListeners();
+      }
     } catch (e) {
-      _error = e.toString();
-      _isLoading = false;
+      print('Error fetching $symbol: $e'); // Add this debug log
+      _error = 'Error fetching $symbol: ${e.toString()}';
+      //_isLoading = false;
+      _loadingStates[symbol] = false;
       notifyListeners();
     }
   }

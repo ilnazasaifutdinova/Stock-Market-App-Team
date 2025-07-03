@@ -5,7 +5,7 @@ import 'package:stock_market_app/models/chart_data_point.dart';
 
 class FinnhubService {
   static const String _baseUrl = 'https://finnhub.io/api/v1';
-  static const String _apiKey = 'd1ijn81r01qhbuvqeklgd1ijn81r01qhbuvqekm0'; // Finnhub API key
+  static const String _apiKey = 'd1jbpipr01qkl9jbai10d1jbpipr01qkl9jbai1g'; // Finnhub API key
 
   // Get real-time quote data
   static Future<StockData> getQuote(String symbol) async {
@@ -20,8 +20,9 @@ class FinnhubService {
         },
       );
 
-      print('Response status code: ${response.statusCode}'); // Debug log
-      print('Response body: ${response.body}'); // Debug log
+      print('Response for $symbol:');
+      print('Status code: ${response.statusCode}'); // Debug log
+      print('Body: ${response.body}'); // Debug log
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
