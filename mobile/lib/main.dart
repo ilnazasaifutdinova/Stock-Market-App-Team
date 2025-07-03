@@ -4,6 +4,7 @@ import 'package:stock_market_app/providers/auth_provider.dart';
 import 'package:stock_market_app/providers/portfolio_provider.dart';
 import 'package:stock_market_app/providers/market_data_provider.dart';
 import 'package:stock_market_app/screens/splash_screen.dart';
+import 'package:stock_market_app/screens/stock_test_screen.dart';
 
 void main() {
   runApp(
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Manrope',
         scaffoldBackgroundColor: const Color(0xFF12211A),
       ),
-      home: const SplashScreen(),
+      //home: const SplashScreen(),
+      home: const StockTestScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

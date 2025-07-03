@@ -33,6 +33,14 @@ class _PortfolioScreenState extends State<PortfolioScreen>
   void initState() {
     super.initState();
     _setupAnimations();
+    // Call fetchStockData here instead of didChangeDependencies
+    final authProvider = context.read<AuthProvider>();
+    final portfolioProvider = context.read<PortfolioProvider>();
+    final marketDataProvider = context.read<MarketDataProvider>();
+
+    if (authProvider.token != null) {
+      _loadPortfolioData();
+    }
   }
 
   @override
@@ -44,44 +52,45 @@ class _PortfolioScreenState extends State<PortfolioScreen>
     }
   }
 
-  void _loadPortfolioData() {
+  void _loadPortfolioData() async {
     final authProvider = context.read<AuthProvider>();
     final portfolioProvider = context.read<PortfolioProvider>();
     final marketDataProvider = context.read<MarketDataProvider>();
 
-    if (authProvider.token != null) {
-      portfolioProvider.fetchPortfolios(authProvider.token!).then((_) {
-        // After portfolios are loaded, fetch market data for each stock
-        for (var symbol in portfolioProvider.getStockSymbols()) {
-          marketDataProvider.fetchStockData(
-              authProvider.token!,
-              symbol,
-              selectedTimeframe // Pass the current timeframe
-          );
-        }
-      }).catchError((error) {
+    try {
+      await portfolioProvider.fetchPortfolios(authProvider.token!);
+      // Fetch data for all symbols in parallel
+      final symbols = portfolioProvider.getStockSymbols();
+      await Future.wait(
+          symbols.map((symbol) =>
+              marketDataProvider.fetchStockData(symbol, selectedTimeframe)
+          )
+      );
+      // Update portfolio value with real stock data
+      await portfolioProvider.updatePortfolioValue(marketDataProvider.stocksData);
+    } catch (e) {
+      if (mounted) {  // Check if widget is still mounted
         ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error loading portfolio: $error'))
+            SnackBar(content: Text('Error loading portfolio: $e'))
         );
-      });
+      }
     }
-
   }
 
   void _setupAnimations() {
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 1500),
       vsync: this,
+      duration: const Duration(milliseconds: 1500),
     );
 
     _chartAnimationController = AnimationController(
-      duration: const Duration(milliseconds: 2000),
       vsync: this,
+      duration: const Duration(milliseconds: 2000),
     );
 
     _pieAnimationController = AnimationController(
-      duration: const Duration(milliseconds: 2500),
       vsync: this,
+      duration: const Duration(milliseconds: 2500),
     );
 
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -799,59 +808,77 @@ class _PortfolioScreenState extends State<PortfolioScreen>
   }
 
   Widget _buildHoldingsList(PortfolioProvider provider) {
-    final mockHoldings = _getMockHoldings();
+    return Consumer<MarketDataProvider>(
+      builder: (context, marketDataProvider, _) {
+        List<Map<String, dynamic>> holdings = [];
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        for (var portfolio in provider.portfolios) {
+          for (var holding in portfolio.holdings) {
+            var stockData = marketDataProvider.stocksData[holding.symbol];
+            if (stockData != null) {
+              holdings.add({
+                'symbol': holding.symbol,
+                'shares': holding.shares,
+                'value': '\$${(stockData.currentPrice * holding.shares).toStringAsFixed(2)}',
+                'performance': stockData.changePercent,
+              });
+            }
+          }
+        }
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Holdings',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontFamily: 'Manrope',
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                // Navigate to detailed holdings view
-              },
-              child: const Text(
-                'View All',
-                style: TextStyle(
-                  color: Color(0xFF0AD842),
-                  fontSize: 14,
-                  fontFamily: 'Manrope',
-                  fontWeight: FontWeight.w600,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Holdings',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontFamily: 'Manrope',
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 16),
-        ...mockHoldings.asMap().entries.map((entry) {
-          final index = entry.key;
-          final holding = entry.value;
-          return TweenAnimationBuilder<double>(
-            duration: Duration(milliseconds: 500 + (index * 100)),
-            tween: Tween(begin: 0.0, end: 1.0),
-            curve: Curves.easeOutBack,
-            builder: (context, animation, child) {
-              return Transform.translate(
-                offset: Offset(0, 20 * (1 - animation)),
-                child: Opacity(
-                  opacity: animation,
-                  child: _buildHoldingItem(holding),
+                TextButton(
+                  onPressed: () {
+                    // Navigate to detailed holdings view
+                  },
+                  child: const Text(
+                    'View All',
+                    style: TextStyle(
+                      color: Color(0xFF0AD842),
+                      fontSize: 14,
+                      fontFamily: 'Manrope',
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            ...holdings.asMap().entries.map((entry) {
+              final index = entry.key;
+              final holding = entry.value;
+              return TweenAnimationBuilder<double>(
+                duration: Duration(milliseconds: 500 + (index * 100)),
+                tween: Tween(begin: 0.0, end: 1.0),
+                curve: Curves.easeOutBack,
+                builder: (context, animation, child) {
+                  return Transform.translate(
+                    offset: Offset(0, 20 * (1 - animation)),
+                    child: Opacity(
+                      opacity: animation,
+                      child: _buildHoldingItem(holding),
+                    ),
+                  );
+                },
               );
-            },
-          );
-        }).toList(),
-      ],
+            }).toList(),
+          ],
+        );
+      },
     );
   }
 
