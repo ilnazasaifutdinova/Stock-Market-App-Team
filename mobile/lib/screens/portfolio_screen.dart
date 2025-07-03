@@ -4,6 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:stock_market_app/providers/market_data_provider.dart';
 import 'package:stock_market_app/providers/portfolio_provider.dart';
 import 'package:stock_market_app/providers/auth_provider.dart';
+import 'package:stock_market_app/services/finnhub_service.dart';
 import 'package:stock_market_app/widgets/animated_gradient_background.dart';
 import 'package:stock_market_app/widgets/stock_chart_widget.dart';
 import 'package:stock_market_app/models/chart_data_point.dart';
@@ -265,7 +266,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
               ),
               Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: const Color(0xFF0AD842).withOpacity(0.2),
                   borderRadius: BorderRadius.circular(20),
@@ -397,12 +398,12 @@ class _PortfolioScreenState extends State<PortfolioScreen>
                   borderRadius: BorderRadius.circular(18),
                   boxShadow: isSelected
                       ? [
-                          const BoxShadow(
-                            color: Color(0x19000000),
-                            blurRadius: 4,
-                            offset: Offset(0, 2),
-                          ),
-                        ]
+                    const BoxShadow(
+                      color: Color(0x19000000),
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ]
                       : null,
                 ),
                 child: Center(
@@ -679,7 +680,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
                     label,
                     style: TextStyle(
                       color:
-                          isSelected ? Colors.white : const Color(0xFF93C6AA),
+                      isSelected ? Colors.white : const Color(0xFF93C6AA),
                       fontSize: 12,
                       fontFamily: 'Manrope',
                       fontWeight: FontWeight.w500,
@@ -808,23 +809,27 @@ class _PortfolioScreenState extends State<PortfolioScreen>
   }
 
   Widget _buildHoldingsList(PortfolioProvider provider) {
-    return Consumer<MarketDataProvider>(
-      builder: (context, marketDataProvider, _) {
-        List<Map<String, dynamic>> holdings = [];
-
-        for (var portfolio in provider.portfolios) {
-          for (var holding in portfolio.holdings) {
-            var stockData = marketDataProvider.stocksData[holding.symbol];
-            if (stockData != null) {
-              holdings.add({
-                'symbol': holding.symbol,
-                'shares': holding.shares,
-                'value': '\$${(stockData.currentPrice * holding.shares).toStringAsFixed(2)}',
-                'performance': stockData.changePercent,
-              });
-            }
-          }
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: _getMockHoldings(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0AD842)),
+            ),
+          );
         }
+
+        if (snapshot.hasError) {
+          return Center(
+            child: Text(
+              'Error loading holdings: ${snapshot.error}',
+              style: const TextStyle(color: Colors.red),
+            ),
+          );
+        }
+
+        final holdings = snapshot.data ?? [];
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1174,39 +1179,33 @@ class _PortfolioScreenState extends State<PortfolioScreen>
     return data;
   }
 
-  List<Map<String, dynamic>> _getMockHoldings() {
-    return [
-      {
-        'symbol': 'AAPL',
-        'shares': 25,
-        'value': '\$4,387.50',
-        'performance': 5.2,
-      },
-      {
-        'symbol': 'TSLA',
-        'shares': 8,
-        'value': '\$1,976.00',
-        'performance': -2.1,
-      },
-      {
-        'symbol': 'MSFT',
-        'shares': 15,
-        'value': '\$4,957.50',
-        'performance': 3.8,
-      },
-      {
-        'symbol': 'GOOGL',
-        'shares': 5,
-        'value': '\$1,324.75',
-        'performance': 1.9,
-      },
-      {
-        'symbol': 'NVDA',
-        'shares': 12,
-        'value': '\$8,234.40',
-        'performance': 12.7,
-      },
-    ];
+  Future<List<Map<String, dynamic>>> _getMockHoldings() async {
+    try {
+      final portfolioProvider = context.read<PortfolioProvider>();
+      final holdings = <Map<String, dynamic>>[];
+
+      for (var portfolio in portfolioProvider.portfolios) {
+        for (var holding in portfolio.holdings) {
+          try {
+            final quote = await PortfolioFinnhubService.getQuote(holding.symbol);
+            holdings.add({
+              'symbol': holding.symbol,
+              'shares': holding.shares,
+              'value': '\$${(quote.currentPrice * holding.shares).toStringAsFixed(2)}',
+              'performance': quote.changePercent,
+              'currentPrice': quote.currentPrice,
+            });
+          } catch (e) {
+            print('Error fetching data for ${holding.symbol}: $e');
+          }
+        }
+      }
+
+      return holdings;
+    } catch (e) {
+      print('Error fetching holdings data: $e');
+      return [];
+    }
   }
 
   List<Map<String, dynamic>> _getMockTransactions() {
@@ -1246,4 +1245,3 @@ class _PortfolioScreenState extends State<PortfolioScreen>
     ];
   }
 }
-
