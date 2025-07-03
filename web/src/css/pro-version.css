@@ -1,0 +1,434 @@
+/* css/pro-version.css */
+
+/* Universal Styles & Variables */
+:root {
+    --bg-color: #121712;
+    --card-bg-color: #242424;
+    --text-color: #FFFFFF;
+    --button-text:#121712;
+    --additional-text:#A6B5A1;
+    --button-background-green:#54D12B;
+    --button-background-gray:#2E3829;
+    --search-bar-bg: #333333; /* This variable name is used in .tabs background in this file */
+    --border-color: #444444;
+    --light-border-color: #383838;
+    /* Removed positive/negative colors as they are for portfolio only, or should be in potfolio.css */
+}
+body {
+    padding-top: 70px;
+    font-family: 'Manrope', sans-serif;
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--accent-green);
+}
+
+/* Main Content Structure for Pro Version Page */
+.main-content {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+}
+
+.page-heading {
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.page-description {
+    font-size: 18px;
+    color: var(--text-color);
+    opacity: 0.8;
+    max-width: 700px;
+    margin-bottom: 20px;
+}
+
+.section-heading {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+/* Features Grid */
+.features-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    width: 100%;
+    margin-bottom: 40px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.feature-card {
+    flex-shrink: 0;
+    width: 300px;
+    max-width: 100%;
+    background-color: var(--card-bg-color);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+}
+
+.feature-card .icon {
+    font-size: 48px;
+    color: var(--accent-green);
+    margin-bottom: 10px;
+}
+
+.feature-card h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.feature-card p {
+    font-size: 15px;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+/* Pricing Grid - MODIFIED TO BE A ROW */
+.pricing-grid {
+    display: flex; /* Changed from grid to flex */
+    flex-wrap: nowrap; /* Prevents wrapping, forcing a single row */
+    justify-content: center; /* Centers the cards horizontally */
+    align-items: flex-start; /* Aligns cards to the top if they have different heights */
+    gap: 40px;
+    width: 100%;
+    margin-bottom: 50px;
+    overflow-x: auto; /* Allows horizontal scrolling if cards overflow */
+    padding-bottom: 10px; /* Space for scrollbar */
+}
+
+.pricing-card {
+    flex-shrink: 0; /* Prevents cards from shrinking */
+    width: 380px; /* Give a fixed width for desktop view, adjust as needed */
+    max-width: 100%; /* Ensures it doesn't overflow on small screens before media query */
+    background-color: var(--card-bg-color);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.pricing-card h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.pricing-card .price {
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--accent-green);
+    margin-bottom: 25px;
+}
+
+.pricing-card .price small {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.pricing-card ul {
+    list-style: none;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+
+.pricing-card ul li {
+    font-size: 16px;
+    color: var(--text-color);
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+}
+
+.pricing-card ul li i {
+    color: var(--accent-green);
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.pricing-card button {
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+}
+
+.pricing-card .current-plan {
+    background-color: var(--search-bar-bg);
+    color: var(--text-color);
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.pricing-card .upgrade-btn {
+    background-color: var(--button-background-green);
+    color: var(--bg-color);
+}
+
+.pricing-card .upgrade-btn:hover {
+    background-color: #008F5A;
+    transform: translateY(-2px);
+}
+
+.pricing-card.pro {
+    border: 2px solid var(--accent-green);
+    box-shadow: 0 0 20px rgba(0, 168, 107, 0.4);
+}
+
+.best-value-tag {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--accent-green);
+    color: var(--bg-color);
+    padding: 8px 15px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 0 12px 0 12px;
+    transform: translateY(-50%) rotate(45deg);
+    transform-origin: 100% 0%;
+    top: 15px;
+    right: -20px;
+    width: 150px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.upgrade-full-btn {
+    background-color: var(--button-background-green);
+    color: var(--bg-color);
+    padding: 18px 40px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.upgrade-full-btn:hover {
+    background-color: #008F5A;
+    transform: translateY(-3px);
+}
+
+
+/* Responsive Adjustments for Pro Version Page */
+@media (max-width: 900px) {
+    .main-content {
+        margin: 30px auto;
+        padding: 0 15px;
+        gap: 20px;
+    }
+    .page-heading {
+        font-size: 32px;
+    }
+    .page-description {
+        font-size: 16px;
+    }
+    .section-heading {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    /* Features Grid for tablets and smaller - allow wrapping */
+    .features-grid {
+        flex-wrap: wrap;
+        justify-content: center;
+        overflow-x: hidden;
+        padding-bottom: 0;
+    }
+    .feature-card {
+        width: calc(50% - 15px); /* Two cards per row with gap */
+        padding: 25px;
+        gap: 10px;
+    }
+    .feature-card .icon {
+        font-size: 40px;
+    }
+    .feature-card h3 {
+        font-size: 20px;
+    }
+    /* Pricing Grid for tablets and smaller - allow wrapping, or stack if preferred */
+    .pricing-grid {
+        flex-wrap: wrap; /* Allow cards to wrap */
+        justify-content: center; /* Center them when wrapped */
+        overflow-x: hidden;
+        padding-bottom: 0;
+    }
+    .pricing-card {
+        width: calc(50% - 20px); /* Two cards per row with gap */
+        padding: 30px;
+    }
+    .pricing-card h3 {
+        font-size: 24px;
+    }
+    .pricing-card .price {
+        font-size: 48px;
+    }
+    .pricing-card .price small {
+        font-size: 16px;
+    }
+    .pricing-card ul li {
+        font-size: 15px;
+    }
+    .upgrade-full-btn {
+        padding: 15px 30px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 600px) {
+    .main-content {
+        margin: 20px auto;
+        padding: 0 10px;
+        gap: 15px;
+    }
+    .page-heading {
+        font-size: 26px;
+    }
+    .page-description {
+        font-size: 14px;
+    }
+    .section-heading {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    /* Features Grid for very small screens - single column */
+    .features-grid {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+    .feature-card {
+        width: 100%;
+        padding: 20px;
+    }
+    .feature-card .icon {
+        font-size: 36px;
+    }
+    .feature-card h3 {
+        font-size: 18px;
+    }
+    /* Pricing Grid for very small screens - single column */
+    .pricing-grid {
+        flex-direction: column; /* Stack cards vertically */
+        flex-wrap: nowrap; /* Disable wrapping for vertical stack */
+        align-items: center; /* Center stacked cards */
+    }
+    .pricing-card {
+        width: 100%; /* Full width when stacked */
+        padding: 25px;
+    }
+    .pricing-card .price {
+        font-size: 40px;
+    }
+    .pricing-card .price small {
+        font-size: 14px;
+    }
+    .pricing-card ul li {
+        font-size: 14px;
+    }
+    .upgrade-full-btn {
+        padding: 12px 25px;
+        font-size: 16px;
+    }
+}
+
+/* Main Content Structure */
+.main-content {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: grid;
+    gap: 30px;
+
+    /* Page fade-in */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInPage 0.8s ease forwards;
+    animation-delay: 0.2s;
+}
+
+
+/* Header Fade */
+.header-left,
+.header-right {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.5s;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInPage {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInCard {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

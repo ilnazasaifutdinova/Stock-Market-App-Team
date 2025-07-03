@@ -1,0 +1,361 @@
+/* css/stock-info.css */
+
+/* Universal Styles & Variables specific to this page if any, otherwise rely on global */
+/* NOTE: It's usually best to define all variables in one global file (like potfolio.css)
+   if they are used across multiple pages. Keeping them here means you'd need to update
+   them in multiple places if they change. */
+:root {
+    --bg-color: #121712;
+    --card-bg-color: #242424;
+    --text-color: #FFFFFF;
+    --button-text:#121712;
+    --additional-text:#A6B5A1;
+    --button-background-green:#54D12B;
+    --button-background-gray:#2E3829;
+    --search-bar-bg: #333333; /* Renamed to auth-tab-bg for clarity in auth forms */
+    --border-color: #444444;
+    --light-border-color: #383838;
+}
+
+/* Main Content Structure */
+.main-content {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: grid;
+    gap: 30px;
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.card {
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Company Info Section */
+.company-info h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 10%;
+    margin-bottom: 5px;
+}
+
+.company-info p {
+    font-size: 15px;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 20px;
+    max-width: 800px; /* Limit width of description */
+}
+
+/* Tab Navigation */
+.tab-nav {
+    display: flex;
+    border-bottom: 1px solid var(--light-border-color);
+    margin-bottom: 30px; /* Space below tabs */
+}
+
+.tab-nav a {
+    padding: 10px 0;
+    margin-right: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-color);
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.tab-nav a.active {
+    color: var(--accent-green);
+    border-bottom-color: var(--accent-green);
+}
+
+.tab-nav a:hover:not(.active) {
+    border-bottom-color: var(--border-color);
+}
+
+/* Stock Price & Chart Section */
+.stock-price-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.stock-price-details h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.current-price {
+    font-size: 48px;
+    font-weight: 700;
+    margin-right: 20px;
+}
+
+.price-change {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--accent-red); /* Assuming negative change is red */
+}
+
+/* Chart Placeholder - Using a background image to simulate the chart lines */
+.chart-container {
+    background-color: var(--card-bg-color); /* Same as card background */
+    height: 300px; /* Fixed height for the chart area */
+    border-radius: 8px; /* Match card border-radius */
+    margin-top: 20px; /* Space between price and chart */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ensure lines don't go outside */
+
+    /* Simulate chart lines */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><path d="M 0 200 C 100 150, 200 180, 300 120 S 400 220, 500 150 S 600 100, 700 180 S 800 130, 900 190 S 1000 140, 1100 170 S 1200 120, 1300 170" fill="none" stroke="%2300A86B" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>');
+    background-repeat: no-repeat;
+    background-position: center bottom; /* Align the SVG to the bottom */
+    background-size: 100% auto; /* Ensure it covers full width */
+}
+
+/* Time Period Filters */
+.time-filters {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px; /* Space below chart */
+    padding-left: 25px; /* Align with card content */
+}
+
+.time-filters button {
+    background-color: var(--search-bar-bg); /* Darker button background */
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.time-filters button:hover {
+    background-color: var(--border-color);
+}
+
+.time-filters button.active {
+    background-color: var(--accent-green);
+    color: var(--bg-color); /* Darker text on green background */
+    font-weight: 600;
+}
+
+/* Metrics Table */
+.metrics-table .table-wrapper {
+    /* If you want to force scroll on small screens: */
+    overflow-x: auto;
+}
+
+.metrics-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.metrics-table th,
+.metrics-table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--light-border-color);
+}
+
+.metrics-table th {
+    background-color: var(--table-header-bg);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.metrics-table td {
+    font-size: 14px;
+}
+
+.metrics-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Related News Section */
+.news-grid {
+    display: flex; /* Changed from grid to flex for simpler column stacking */
+    flex-direction: column;
+    gap: 20px;
+}
+
+.news-item {
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center; /* Vertically align image/logo with text */
+}
+
+.news-item .text-content {
+    flex-grow: 1;
+}
+
+.news-item h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+.news-item p {
+    font-size: 13px;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.news-item .news-thumbnail {
+    width: 60px;
+    height: 60px;
+    background-color: var(--search-bar-bg); /* Placeholder background */
+    border-radius: 6px;
+    flex-shrink: 0; /* Prevent thumbnail from shrinking */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px; /* For placeholder text */
+    color: var(--text-color);
+}
+.news-item .news-thumbnail.techcorp {
+    background-color: #007BFF; /* Example color for TechCorp logo */
+    color: white;
+    font-weight: bold;
+    font-size: 10px;
+}
+.news-item .news-thumbnail.chart {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><path d="M 0 50 L 20 30 L 40 40 L 60 20 L 80 45 L 100 25" fill="none" stroke="%2300A86B" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>');
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #2F2F2F;
+}
+.news-item .news-thumbnail.ai {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23E0E0E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M16 16.5c-1.5-1-3-1.5-4-1.5s-2.5.5-4 1.5"/><path d="M8.5 10c.828 0 1.5-.672 1.5-1.5S9.328 7 8.5 7 7 7.672 7 8.5 7.672 10 8.5 10z"/><path d="M15.5 10c.828 0 1.5-.672 1.5-1.5S16.328 7 15.5 7 14 7.672 14 8.5 14.672 10 15.5 10z"/></svg>');
+    background-size: 60% 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #2F2F2F;
+}
+
+
+/* Basic Responsiveness (adjust as needed) */
+@media (max-width: 900px) {
+    /* Header responsive styles removed as they are in potfolio.css */
+
+    .main-content {
+        padding: 0 15px;
+        margin-top: 20px;
+    }
+
+    .chart-container {
+        height: 250px; /* Adjust chart height for smaller screens */
+    }
+
+    /* .news-grid { Changed to flex-direction: column for simplicity
+        grid-template-columns: 1fr;
+    } */
+}
+
+@media (max-width: 600px) {
+    /* Header responsive styles removed as they are in potfolio.css */
+
+    .company-info h1 {
+        font-size: 28px;
+    }
+
+    .current-price {
+        font-size: 40px;
+    }
+
+    .price-change {
+        font-size: 18px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .metrics-table th,
+    .metrics-table td {
+        padding: 12px 10px;
+        font-size: 13px;
+    }
+
+    .news-item {
+        flex-direction: column; /* Stack text and thumbnail on very small screens */
+        text-align: center;
+    }
+    .news-item .news-thumbnail {
+        margin-bottom: 10px;
+    }
+}
+
+
+
+/* Main Content Structure */
+.main-content {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: grid;
+    gap: 30px;
+
+    /* Page fade-in */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInPage 0.8s ease forwards;
+    animation-delay: 0.2s;
+}
+
+
+/* Header Fade */
+.header-left,
+.header-right {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.5s;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInPage {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInCard {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

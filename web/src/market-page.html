@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StockVision - Market News</title>
+
+  <!-- Fonts and Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/market-news.css"/>
+  <link rel="stylesheet" href="css/auth-common.css">
+
+  <style>
+    .fade-out {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <i class="fa-solid fa-chart-line logo-icon"></i>
+      <span class="logo-text">StockVision</span>
+      <nav class="header-nav">
+        <ul>
+          <li><a href="portfolio-page.html">My Stocks</a></li>
+          <li class="separator"></li>
+          <li><a href="market-page.html">News</a></li>
+          <li class="separator"></li>
+          <li><a href="pro-version.html">Pro Version</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" placeholder="Search" />
+      </div>
+      <i class="fa-regular fa-bell icon-button"></i>
+      <i class="fa-regular fa-user icon-button"></i>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <h1 class="page-title">Market News & Stock Snapshot</h1>
+
+    <section class="section">
+      <h2 class="section-heading">Market News</h2>
+      <div class="market-news-grid">
+        <div class="news-card">
+          <div class="icon-wrapper"><i class="fa-solid fa-square"></i></div>
+          <h3>Tech Stocks Surge Amidst Innovation Wave</h3>
+        </div>
+        <div class="news-card">
+          <div class="icon-wrapper"><i class="fa-solid fa-square"></i></div>
+          <h3>Energy Sector Faces Volatility on Supply Concerns</h3>
+        </div>
+        <div class="news-card">
+          <div class="icon-wrapper"><i class="fa-solid fa-square"></i></div>
+          <h3>Healthcare Stocks Gain on Positive Clinical Trial Results</h3>
+        </div>
+        <div class="news-card">
+          <div class="icon-wrapper"><i class="fa-solid fa-square"></i></div>
+          <h3>Retail Sector Shows Mixed Performance in Q3 Earnings</h3>
+        </div>
+        <div class="news-card">
+          <div class="icon-wrapper"><i class="fa-solid fa-square"></i></div>
+          <h3>Financial Stocks React to Interest Rate Hike Speculation</h3>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-heading">Stock Snapshot</h2>
+      <div class="card stock-snapshot-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Ticker</th>
+              <th>Company</th>
+              <th>Price</th>
+              <th>Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>TICKR1</td>
+              <td>Tech Innovators Inc.</td>
+              <td>$150.25</td>
+              <td class="change-positive">+2.5%</td>
+            </tr>
+            <tr>
+              <td>TICKR2</td>
+              <td>Energy Dynamics Corp.</td>
+              <td>$85.75</td>
+              <td class="change-negative">-1.8%</td>
+            </tr>
+            <tr>
+              <td>TICKR3</td>
+              <td>Health Solutions Ltd.</td>
+              <td>$220.50</td>
+              <td class="change-positive">+3.2%</td>
+            </tr>
+            <tr>
+              <td>TICKR4</td>
+              <td>Retail Ventures Group</td>
+              <td>$60.10</td>
+              <td class="change-positive">+0.5%</td>
+            </tr>
+            <tr>
+              <td>TICKR5</td>
+              <td>Finance Trust Co.</td>
+              <td>$110.80</td>
+              <td class="change-negative">-0.9%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Fade out logic -->
+  <script src="js/pages/fade-out-animation.js" defer></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const rows = document.querySelectorAll('.stock-snapshot-table tbody tr');
+      rows.forEach((row, index) => {
+        row.addEventListener('click', () => {
+          if (index === 0) {
+            window.location.href = 'market-pages/tech-innovators-info.html'; // Tech Innovators
+          } else if (index == 1) {
+            window.location.href = 'market-pages/energy-dynamics-info.html'; // Energy Dynamics Corp.
+          } else if (index == 2) {
+            window.location.href = 'market-pages/health-solutions-info.html';
+          } else if (index == 3) {
+            window.location.href = 'market-pages/retail-ventures-info.html';
+          } else if (index == 4) {
+            window.location.href = 'market-pages/finance-trust-info.html';
+          }
+          // else do nothing, or add other behavior if needed
+        });
+      });
+    });
+  </script>
+</body>
+</html>

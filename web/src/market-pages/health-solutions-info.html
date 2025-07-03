@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StockVision - Health Solutions Ltd. (TICKR3)</title>
+
+  <!-- Fonts and Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/stock-info.css"/>
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <i class="fa-solid fa-chart-line logo-icon"></i>
+      <span class="logo-text">StockVision</span>
+      <nav class="header-nav">
+        <ul>
+          <li><a href="portfolio-page.html">My Stocks</a></li>
+          <li class="separator"></li>
+          <li><a href="market-page.html">News</a></li>
+          <li class="separator"></li>
+          <li><a href="pro-version.html">Pro Version</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" placeholder="Search" />
+      </div>
+      <i class="fa-regular fa-bell icon-button"></i>
+      <i class="fa-regular fa-user icon-button"></i>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="company-info">
+      <h1>Health Solutions Ltd. (TICKR3)</h1>
+      <p>Health Solutions Ltd. is a global leader in healthcare technology, providing innovative medical devices and software solutions to improve patient outcomes worldwide.</p>
+
+      <nav class="tab-nav">
+        <a href="#" class="active">Summary</a>
+        <a href="#">Analysis</a>
+      </nav>
+    </section>
+
+    <section class="card stock-price-section">
+      <div class="stock-price-details">
+        <h2>Stock Price</h2>
+        <div>
+          <span class="current-price">$220.50</span>
+          <span class="price-change">Today +3.2%</span>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <!-- Placeholder for stock chart -->
+      </div>
+
+      <div class="time-filters">
+        <button>1D</button>
+        <button>1M</button>
+        <button class="active">3M</button>
+        <button>1Y</button>
+      </div>
+    </section>
+
+    <section class="card metrics-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Open</td>
+            <td>$215.00</td>
+          </tr>
+          <tr>
+            <td>Close</td>
+            <td>$220.50</td>
+          </tr>
+          <tr>
+            <td>High</td>
+            <td>$222.75</td>
+          </tr>
+          <tr>
+            <td>Low</td>
+            <td>$213.80</td>
+          </tr>
+          <tr>
+            <td>Volume</td>
+            <td>800K</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h1 class="section-title">Related News</h1>
+      <div class="news-grid">
+        <div class="news-item">
+          <div class="text-content">
+            <h3>Health Solutions Releases Next-Gen Medical Device</h3>
+            <p>The new device promises greater accuracy and improved patient monitoring capabilities.</p>
+          </div>
+          <div class="news-thumbnail medical">
+            HS
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="text-content">
+            <h3>Strong Quarterly Earnings Boost Health Solutions Stock</h3>
+            <p>Health Solutions Ltd. reported a 15% revenue increase, exceeding market expectations.</p>
+          </div>
+          <div class="news-thumbnail earnings">
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="text-content">
+            <h3>Partnership with PharmaTech Enhances R&D Pipeline</h3>
+            <p>Collaboration aims to accelerate the development of innovative healthcare treatments.</p>
+          </div>
+          <div class="news-thumbnail partnership">
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

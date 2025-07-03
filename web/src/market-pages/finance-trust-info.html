@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StockVision - Finance Trust Co. (TICKR5)</title>
+
+  <!-- Fonts and Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/stock-info.css"/>
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <i class="fa-solid fa-chart-line logo-icon"></i>
+      <span class="logo-text">StockVision</span>
+      <nav class="header-nav">
+        <ul>
+          <li><a href="portfolio-page.html">My Stocks</a></li>
+          <li class="separator"></li>
+          <li><a href="market-page.html">News</a></li>
+          <li class="separator"></li>
+          <li><a href="pro-version.html">Pro Version</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" placeholder="Search" />
+      </div>
+      <i class="fa-regular fa-bell icon-button"></i>
+      <i class="fa-regular fa-user icon-button"></i>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="company-info">
+      <h1>Finance Trust Co. (TICKR5)</h1>
+      <p>Finance Trust Co. is a major player in the financial services industry, specializing in asset management, trust services, and investment banking.</p>
+
+      <nav class="tab-nav">
+        <a href="#" class="active">Summary</a>
+        <a href="#">Analysis</a>
+      </nav>
+    </section>
+
+    <section class="card stock-price-section">
+      <div class="stock-price-details">
+        <h2>Stock Price</h2>
+        <div>
+          <span class="current-price">$110.80</span>
+          <span class="price-change price-negative">Today -0.9%</span>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <!-- Placeholder for stock chart -->
+      </div>
+
+      <div class="time-filters">
+        <button>1D</button>
+        <button>1M</button>
+        <button>3M</button>
+        <button class="active">1Y</button>
+      </div>
+    </section>
+
+    <section class="card metrics-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Open</td>
+            <td>$111.50</td>
+          </tr>
+          <tr>
+            <td>Close</td>
+            <td>$110.80</td>
+          </tr>
+          <tr>
+            <td>High</td>
+            <td>$112.00</td>
+          </tr>
+          <tr>
+            <td>Low</td>
+            <td>$109.70</td>
+          </tr>
+          <tr>
+            <td>Volume</td>
+            <td>850K</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h1 class="section-title">Related News</h1>
+      <div class="news-grid">
+        <div class="news-item">
+          <div class="text-content">
+            <h3>Finance Trust Co. Reports Q2 Earnings Beat</h3>
+            <p>The company exceeds analyst expectations, driven by strong asset inflows.</p>
+          </div>
+          <div class="news-thumbnail earnings">
+            FT
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="text-content">
+            <h3>New Regulatory Changes Impact Finance Trust’s Operations</h3>
+            <p>Company outlines compliance strategy amidst evolving regulations.</p>
+          </div>
+          <div class="news-thumbnail regulatory">
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="text-content">
+            <h3>Finance Trust Invests Heavily in Fintech Innovations</h3>
+            <p>Focus on improving customer experience and operational efficiency.</p>
+          </div>
+          <div class="news-thumbnail fintech">
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

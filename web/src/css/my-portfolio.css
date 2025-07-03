@@ -1,0 +1,351 @@
+/* css/my-portfolio.css */
+:root {
+    --bg-color: #121712;
+    --card-bg-color: #242424;
+    --text-color: #FFFFFF;
+    --button-text:#121712;
+    --additional-text:#A6B5A1;
+    --button-background-green:#54D12B;
+    --button-background-gray:#2E3829;
+    --search-bar-bg: #333333; /* This variable name is used in .tabs background in this file */
+    --border-color: #444444;
+    --light-border-color: #383838;
+    /* Removed positive/negative colors as they are for portfolio only, or should be in potfolio.css */
+}
+/* Main Content Structure */
+.main-content {
+    max-width: 1200px; /* Wider content area */
+    margin: 40px auto;
+    padding: 0 25px;
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Portfolio Distribution on left, Holdings on right */
+    gap: 30px; /* Space between sections */
+    align-items: start; /* Align sections to the top */
+}
+
+.section-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-top: 10%;
+    grid-column: span 2; /* Make title span across both columns */
+    text-align: left;
+}
+
+/* Card Styles (general for both sections) */
+.card {
+    background-color: var(--card-bg-color);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%; /* Ensure cards fill their grid cell height */
+}
+
+.card-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 15px; /* Adjust margin as it's within card-gap */
+    text-align: center; /* Center card titles */
+}
+
+/* Portfolio Distribution Card */
+.portfolio-distribution {
+    grid-column: 1; /* Place in the first column */
+    align-items: center; /* Center content within the card */
+}
+
+.distribution-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 25px;
+}
+
+.total-value {
+    font-size: 3em; /* Larger total value */
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.percentage-change {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--accent-green); /* Green for positive change */
+}
+
+/* Bar Chart */
+.bar-chart {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end; /* Bars start from the bottom */
+    width: 100%;
+    height: 200px; /* Fixed height for the chart area */
+    gap: 10px; /* Space between bars */
+    border-bottom: 1px solid var(--border-color); /* Axis line */
+    padding-bottom: 5px;
+}
+
+.bar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end; /* Ensure bar is at the bottom */
+    flex: 1; /* Distribute space equally */
+    max-width: 60px; /* Max width for each bar item */
+}
+
+.bar {
+    width: 80%; /* Width of the individual bar */
+    background-color: var(--accent-green); /* Green color for bars */
+    border-radius: 5px 5px 0 0;
+    transition: height 0.5s ease-out; /* Smooth transition for bar height */
+    min-height: 5px; /* Ensure bars are visible even with 0% height */
+}
+
+.category {
+    margin-top: 8px;
+    font-size: 0.9em;
+    color: var(--text-color);
+    opacity: 0.8;
+    text-align: center;
+    word-break: break-word; /* Allow long category names to break */
+}
+
+/* My Holdings Table */
+.holdings-table {
+    grid-column: 2; /* Place in the second column */
+    padding: 20px; /* Adjust padding for table card */
+}
+
+.holdings-table table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.holdings-table thead th {
+    background-color: var(--table-header-bg);
+    padding: 15px 20px;
+    font-weight: 600;
+    font-size: 0.95em;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.holdings-table tbody td {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--light-border-color);
+    font-size: 0.9em;
+    color: var(--text-color);
+}
+
+.holdings-table tbody tr:last-child td {
+    border-bottom: none; /* No border for the last row */
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .main-content {
+        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+        padding: 0 20px;
+        gap: 25px;
+    }
+    .section-title {
+        grid-column: span 1; /* Title spans only one column now */
+        text-align: center;
+    }
+    .portfolio-distribution,
+    .holdings-table {
+        grid-column: 1; /* Both sections now in the single column */
+    }
+    .total-value {
+        font-size: 2.5em;
+    }
+    .percentage-change {
+        font-size: 1.2em;
+    }
+    .card {
+        padding: 25px;
+    }
+    .card-title {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .main-content {
+        margin: 20px auto;
+        padding: 0 15px;
+        gap: 20px;
+    }
+    .section-title {
+        font-size: 28px;
+    }
+    .total-value {
+        font-size: 2em;
+    }
+    .percentage-change {
+        font-size: 1em;
+    }
+    .bar-chart {
+        height: 150px;
+    }
+    .bar-item {
+        max-width: 50px;
+    }
+    .category {
+        font-size: 0.8em;
+    }
+    .holdings-table thead th,
+    .holdings-table tbody td {
+        padding: 12px 15px;
+        font-size: 0.85em;
+    }
+}
+
+@media (max-width: 400px) {
+    .section-title {
+        font-size: 24px;
+    }
+    .card {
+        padding: 20px;
+    }
+    .bar-item {
+        max-width: 40px; /* Further reduce bar width on very small screens */
+    }
+}
+
+
+/* Main Content Structure */
+.main-content {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: grid;
+    gap: 30px;
+
+    /* Page fade-in */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInPage 0.8s ease forwards;
+    animation-delay: 0.2s;
+}
+
+
+/* Header Fade */
+.header-left,
+.header-right {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.5s;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInPage {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInCard {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.bar-chart {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end; /* Bars start from the bottom */
+    width: 100%;
+    height: 200px; /* Fixed height for the chart area */
+    gap: 15px; /* MODIFIED: Increased space between bars for better label breathing room */
+    border-bottom: 1px solid var(--border-color); /* Axis line */
+    padding-bottom: 5px;
+    padding-left: 5px; /* ADDED: Small padding to prevent categories from hugging the left edge */
+    padding-right: 5px; /* ADDED: Small padding to prevent categories from hugging the right edge */
+}
+
+.bar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end; /* Ensure bar is at the bottom */
+    flex: 1; /* Distribute space equally */
+    max-width: 80px; /* MODIFIED: Increased max-width for each bar item to give more room for text */
+}
+
+.bar {
+    /* ... (no changes in this block) ... */
+}
+
+.category {
+    margin-top: 10px; /* MODIFIED: Increased margin from the bar for better separation */
+    font-size: 0.9em;
+    color: var(--text-color);
+    opacity: 0.8;
+    text-align: center;
+    word-break: normal; /* MODIFIED: Prevent words from breaking awkwardly, prefer wrapping if needed */
+    white-space: normal; /* ADDED: Allow text to wrap naturally */
+    line-height: 1.2; /* ADDED: Adjust line height for wrapped text */
+    padding: 0 2px; /* ADDED: Small horizontal padding to prevent text from touching edges of its container */
+}
+
+/* Responsive Design Adjustments for Categories */
+@media (max-width: 992px) {
+    /* ... existing rules ... */
+    .bar-chart {
+        gap: 10px; /* MODIFIED: Adjusted gap for smaller screens */
+    }
+    .bar-item {
+        max-width: 70px; /* MODIFIED: Adjusted max-width for smaller screens */
+    }
+    .category {
+        font-size: 0.85em; /* MODIFIED: Slightly smaller font for better fit */
+    }
+}
+
+@media (max-width: 600px) {
+    /* ... existing rules ... */
+    .bar-chart {
+        /* height: 150px; (no change here) */
+        gap: 8px; /* MODIFIED: Further reduce gap on very small screens */
+    }
+    .bar-item {
+        max-width: 60px; /* MODIFIED: Further reduce max-width on very small screens */
+    }
+    .category {
+        /* font-size: 0.8em; (no change here) */
+    }
+}
+
+@media (max-width: 400px) {
+    /* ... existing rules ... */
+    .bar-item {
+        max-width: 50px; /* MODIFIED: Even smaller max-width for tiny screens */
+    }
+    .category {
+        /* font-size: 0.75em; (no change here) */
+    }
+}

@@ -1,0 +1,59 @@
+/* Register-specific additions */
+
+.auth-form {
+    grid-template-columns: 1fr 1fr;
+}
+
+.auth-form input[type="date"] {
+    grid-column: span 1;
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    padding-right: 15px;
+    text-align: left;
+}
+
+.auth-form input[type="date"]::-webkit-datetime-edit-year-field:not([aria-valuenow]),
+.auth-form input[type="date"]::-webkit-datetime-edit-month-field:not([aria-valuenow]),
+.auth-form input[type="date"]::-webkit-datetime-edit-day-field:not([aria-valuenow]) {
+    color: var(--additional-text);
+}
+
+.auth-form input[type="date"]::-webkit-input-placeholder {
+    color: var(--additional-text);
+}
+
+.auth-form input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.login-link {
+    grid-column: span 1;
+    color: var(--additional-text);
+    font-size: 14px;
+    text-align: right;
+    white-space: nowrap;
+    align-self: center;
+}
+
+.login-link a {
+    color: var(--button-background-green);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+.auth-form .btn-login {
+    grid-column: span 2;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.social-login {
+    gap: 10px;
+}
