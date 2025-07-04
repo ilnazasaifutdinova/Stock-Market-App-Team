@@ -44,7 +44,7 @@ extension TimeframeExtension on String {
 
 class FinnhubService {
   static const String _baseUrl = 'https://finnhub.io/api/v1';
-  static const String _apiKey = ''; // Finnhub API key
+  static const String _apiKey = 'd1jgmk1r01qvg5guebvgd1jgmk1r01qvg5guec00'; // Finnhub API key
 
   // Get real-time quote data
   static Future<StockData> getQuote(String symbol) async {
@@ -163,7 +163,7 @@ class FinnhubService {
 
 class PortfolioFinnhubService {
   static const String _baseUrl = 'https://finnhub.io/api/v1';
-  static const String _apiKey = '';
+  static const String _apiKey = 'd1jgn61r01qvg5guefegd1jgn61r01qvg5gueff0';
 
   // Get real-time quote data
   static Future<StockData> getQuote(String symbol) async {
