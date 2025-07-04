@@ -250,3 +250,19 @@
         transform: translateY(0);
     }
 }
+
+.news-description {
+    font-size: 0.9em;
+    color: #666;
+    margin: 8px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.news-source {
+    font-size: 0.8em;
+    color: #888;
+    margin-top: 8px;
+}

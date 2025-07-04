@@ -5,7 +5,6 @@ import 'package:stock_market_app/providers/news_provider.dart';
 import 'package:stock_market_app/providers/portfolio_provider.dart';
 import 'package:stock_market_app/providers/market_data_provider.dart';
 import 'package:stock_market_app/screens/splash_screen.dart';
-import 'package:stock_market_app/screens/stock_test_screen.dart';
 
 void main() {
   runApp(

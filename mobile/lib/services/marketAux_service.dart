@@ -24,7 +24,7 @@ class NewsArticle {
 
 class MarketauxService {
   static const String _baseUrl = 'https://api.marketaux.com/v1';
-  static const String _apiKey = 'E1CkaLgZrSmBttqceEqoCs3FA5eqykOtFeBfdXcP'; // MarketAux API key
+  static const String _apiKey = ''; // MarketAux API key
 
   // For Market News (Dashboard)
   static Future<List<NewsArticle>> getMarketNews() async {
@@ -118,7 +118,7 @@ class MarketauxService {
 
 class DashboardMarketauxService {
   static const String _baseUrl = 'https://api.marketaux.com/v1';
-  static const String _apiKey = 'rOHWPqAP3DXzfCdnfcXQ1upYhVL07usSqGQAEy9c'; // Second API key for dashboard
+  static const String _apiKey = ''; // Second API key for dashboard
 
   static Future<List<NewsArticle>> getDashboardNews() async {
     return _fetchNews('/news/all', {

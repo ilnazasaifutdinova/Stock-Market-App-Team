@@ -126,29 +126,51 @@
     </section>
   </main>
 
+  <!-- API and Data Update Scripts -->
+  <script type="module">
+    import {
+      fetchStockData,
+      fetchMarketNews,
+      updateStockTable,
+      updateNewsCards,
+      startDataUpdates
+    } from './js/api.js';
+
+    // Update stock table data
+    const stocks = [
+      { symbol: 'AAPL', name: 'Apple Inc.' },
+      { symbol: 'GOOGL', name: 'Alphabet Inc.' },
+      { symbol: 'MSFT', name: 'Microsoft Corporation' },
+      { symbol: 'AMZN', name: 'Amazon.com Inc.' },
+      { symbol: 'META', name: 'Meta Platforms Inc.' }
+    ];
+
+    // Initialize the table with company names
+    const tbody = document.querySelector('.stock-snapshot-table tbody');
+    tbody.innerHTML = stocks.map(stock => `
+        <tr>
+            <td>${stock.symbol}</td>
+            <td>${stock.name}</td>
+            <td>Loading...</td>
+            <td>Loading...</td>
+        </tr>
+    `).join('');
+
+    // Add click handlers for rows
+    const rows = document.querySelectorAll('.stock-snapshot-table tbody tr');
+    rows.forEach((row, index) => {
+      row.addEventListener('click', () => {
+        const symbol = stocks[index].symbol;
+        window.location.href = `market-pages/${symbol.toLowerCase()}-info.html`;
+      });
+    });
+
+    // Start the data updates
+    startDataUpdates();
+  </script>
+
   <!-- Fade out logic -->
   <script src="js/pages/fade-out-animation.js" defer></script>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const rows = document.querySelectorAll('.stock-snapshot-table tbody tr');
-      rows.forEach((row, index) => {
-        row.addEventListener('click', () => {
-          if (index === 0) {
-            window.location.href = 'market-pages/tech-innovators-info.html'; // Tech Innovators
-          } else if (index == 1) {
-            window.location.href = 'market-pages/energy-dynamics-info.html'; // Energy Dynamics Corp.
-          } else if (index == 2) {
-            window.location.href = 'market-pages/health-solutions-info.html';
-          } else if (index == 3) {
-            window.location.href = 'market-pages/retail-ventures-info.html';
-          } else if (index == 4) {
-            window.location.href = 'market-pages/finance-trust-info.html';
-          }
-          // else do nothing, or add other behavior if needed
-        });
-      });
-    });
-  </script>
 </body>
 </html>
