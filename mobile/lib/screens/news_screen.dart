@@ -1,7 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/news_provider.dart';
+import '../services/marketAux_service.dart';
 
-class NewsScreen extends StatelessWidget {
+class NewsScreen extends StatefulWidget {
   const NewsScreen({Key? key}) : super(key: key);
+
+  @override
+  _NewsScreenState createState() => _NewsScreenState();
+}
+
+class _NewsScreenState extends State<NewsScreen> {
+  final List<String> watchlist = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'META'];
+  String selectedSymbol = 'AAPL';
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<NewsProvider>().fetchStockNews(selectedSymbol);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +61,42 @@ class NewsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 20),
-                  const Center(
-                    child: Text(
-                      'News',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontFamily: 'Manrope',
-                        fontWeight: FontWeight.w700,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'News',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'Manrope',
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
+                      PopupMenuButton<String>(
+                        onSelected: (String symbol) {
+                          setState(() {
+                            selectedSymbol = symbol;
+                            context.read<NewsProvider>().fetchStockNews(symbol);
+                          });
+                        },
+                        child: Chip(
+                          label: Text(
+                            selectedSymbol,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          backgroundColor: const Color(0xFF234723),
+                        ),
+                        itemBuilder: (BuildContext context) {
+                          return watchlist.map((String symbol) {
+                            return PopupMenuItem<String>(
+                              value: symbol,
+                              child: Text(symbol),
+                            );
+                          }).toList();
+                        },
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 24),
                   // Search Bar
@@ -61,9 +106,9 @@ class NewsScreen extends StatelessWidget {
                       color: const Color(0xFF234723),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Row(
+                    child: const Row(
                       children: [
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16),
                           child: Icon(
                             Icons.search,
@@ -71,7 +116,7 @@ class NewsScreen extends StatelessWidget {
                             size: 24,
                           ),
                         ),
-                        const Expanded(
+                        Expanded(
                           child: Text(
                             'Search',
                             style: TextStyle(
@@ -86,30 +131,137 @@ class NewsScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  // Featured News
-                  _buildFeaturedNews(
-                    'Tech Stocks Surge Amidst New Product Launches',
-                    'The tech sector is experiencing a significant boost as several major companies unveil innovative products, driving investor optimism.',
+                  Consumer<NewsProvider>(
+                    builder: (context, newsProvider, child) {
+                      if (newsProvider.isLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      if (newsProvider.error != null) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Error: ${newsProvider.error}',
+                                style: const TextStyle(color: Colors.red),
+                              ),
+                              const SizedBox(height: 16),
+                              ElevatedButton(
+                                onPressed: () {
+                                  context.read<NewsProvider>().fetchStockNews(selectedSymbol);
+                                },
+                                child: const Text('Retry'),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+
+                      if (newsProvider.stockNews.isEmpty) {
+                        return const Center(
+                          child: Text('No news available for this stock'),
+                        );
+                      }
+
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: newsProvider.stockNews.length,
+                        itemBuilder: (context, index) {
+                          final article = newsProvider.stockNews[index];
+                          return Card(
+                            margin: const EdgeInsets.only(bottom: 16),
+                            color: const Color(0xFF193326),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              side: const BorderSide(
+                                color: Color(0xFF234733),
+                                width: 1,
+                              ),
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                // Add URL launcher to open article.link
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            article.title,
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontFamily: 'Manrope',
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text(
+                                            article.description,
+                                            maxLines: 3,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                              color: Color(0xFF93C693),
+                                              fontSize: 14,
+                                              fontFamily: 'Manrope',
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text(
+                                            _formatDate(article.publishedDate),
+                                            style: const TextStyle(
+                                              color: Color(0xFF93C693),
+                                              fontSize: 12,
+                                              fontFamily: 'Manrope',
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(width: 16),
+                                    if (article.imageUrl.isNotEmpty)
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: Image.network(
+                                          article.imageUrl,
+                                          width: 130,
+                                          height: 148,
+                                          fit: BoxFit.cover,
+                                          errorBuilder: (context, error, stackTrace) {
+                                            return Container(
+                                              width: 130,
+                                              height: 148,
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xFF234733),
+                                                borderRadius: BorderRadius.circular(12),
+                                              ),
+                                              child: const Icon(
+                                                Icons.article,
+                                                color: Colors.white,
+                                                size: 40,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
-                  const SizedBox(height: 16),
-                  // Stock Ticker
-                  _buildStockTicker('AAPL', '\$175.20', '+1.25%'),
-                  const SizedBox(height: 16),
-                  // News Articles
-                  _buildNewsArticle(
-                    'Energy Sector Faces Challenges with Oil Price Fluctuations',
-                    'The energy market is grappling with volatility due to fluctuating oil prices, impacting stock performance across the sector.',
-                  ),
-                  const SizedBox(height: 16),
-                  _buildStockTicker('MSFT', '\$330.50', '-0.85%'),
-                  const SizedBox(height: 16),
-                  _buildDetailedNews(
-                    'Financial News',
-                    'Tech Innovators Reports Record Quarterly Earnings',
-                    'The company\'s Q2 earnings exceeded expectations, driven by strong sales in its cloud computing division.',
-                  ),
-                  const SizedBox(height: 16),
-                  _buildStockTicker('TSLA', '\$700.00', '-1.50%'),
                   const SizedBox(height: 100),
                 ],
               ),
@@ -120,237 +272,14 @@ class NewsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildFeaturedNews(String title, String description) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontFamily: 'Manrope',
-                    fontWeight: FontWeight.w700,
-                    height: 1.25,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  description,
-                  style: const TextStyle(
-                    color: Color(0xFF93C693),
-                    fontSize: 14,
-                    fontFamily: 'Manrope',
-                    fontWeight: FontWeight.w400,
-                    height: 1.50,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 16),
-          Container(
-            width: 130,
-            height: 149,
-            decoration: BoxDecoration(
-              color: const Color(0xFF234733),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Icon(
-              Icons.article,
-              color: Colors.white,
-              size: 40,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStockTicker(String symbol, String price, String change) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: const BoxDecoration(
-        color: Color(0xFF112111),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 56,
-                height: 56,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF234733),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(
-                  Icons.trending_up,
-                  color: Colors.white,
-                  size: 24,
-                ),
-              ),
-              const SizedBox(width: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    price,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontFamily: 'Manrope',
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Text(
-                    symbol,
-                    style: const TextStyle(
-                      color: Color(0xFF93C693),
-                      fontSize: 14,
-                      fontFamily: 'Manrope',
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Text(
-            change,
-            style: TextStyle(
-              color: change.startsWith('+') ? const Color(0xFF0AD842) : Colors.redAccent,
-              fontSize: 16,
-              fontFamily: 'Manrope',
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildNewsArticle(String title, String description) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontFamily: 'Manrope',
-                    fontWeight: FontWeight.w700,
-                    height: 1.25,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  description,
-                  style: const TextStyle(
-                    color: Color(0xFF93C693),
-                    fontSize: 14,
-                    fontFamily: 'Manrope',
-                    fontWeight: FontWeight.w400,
-                    height: 1.50,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 16),
-          Container(
-            width: 130,
-            height: 148,
-            decoration: BoxDecoration(
-              color: const Color(0xFF234733),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Icon(
-              Icons.energy_savings_leaf,
-              color: Colors.white,
-              size: 40,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDetailedNews(String category, String title, String description) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  category,
-                  style: const TextStyle(
-                    color: Color(0xFF93C693),
-                    fontSize: 14,
-                    fontFamily: 'Manrope',
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontFamily: 'Manrope',
-                    fontWeight: FontWeight.w700,
-                    height: 1.25,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  description,
-                  style: const TextStyle(
-                    color: Color(0xFF93C693),
-                    fontSize: 14,
-                    fontFamily: 'Manrope',
-                    fontWeight: FontWeight.w400,
-                    height: 1.50,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 16),
-          Container(
-            width: 130,
-            height: 153,
-            decoration: BoxDecoration(
-              color: const Color(0xFF234733),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Icon(
-              Icons.business,
-              color: Colors.white,
-              size: 40,
-            ),
-          ),
-        ],
-      ),
-    );
+  String _formatDate(DateTime date) {
+    final difference = DateTime.now().difference(date);
+    if (difference.inHours < 24) {
+      return '${difference.inHours} hours ago';
+    } else if (difference.inDays < 30) {
+      return '${difference.inDays} days ago';
+    } else {
+      return '${date.day}/${date.month}/${date.year}';
+    }
   }
 }
