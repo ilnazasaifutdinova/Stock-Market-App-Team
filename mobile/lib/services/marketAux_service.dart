@@ -1,9 +1,30 @@
+import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+class NewsArticle {
+  final String title;
+  final String description;
+  final DateTime publishedDate;
+  final String imageUrl;
+  final String link;
+  final String source;
+  final String sentiment;
+
+  NewsArticle({
+    required this.title,
+    required this.description,
+    required this.publishedDate,
+    required this.imageUrl,
+    required this.link,
+    required this.source,
+    required this.sentiment,
+  });
+}
+
 class MarketauxService {
   static const String _baseUrl = 'https://api.marketaux.com/v1';
-  static const String _apiKey = 'YOUR_MARKETAUX_API_KEY'; // Replace with your API key
+  static const String _apiKey = ''; // MarketAux API key
 
   // For Market News (Dashboard)
   static Future<List<NewsArticle>> getMarketNews() async {
@@ -36,12 +57,16 @@ class MarketauxService {
 
   static String _getYesterdayDate() {
     final yesterday = DateTime.now().subtract(const Duration(days: 1));
-    return yesterday.toIso8601String();
+    return '${yesterday.year}-${_padTwoDigits(yesterday.month)}-${_padTwoDigits(yesterday.day)}';
   }
 
   static String _getLastWeekDate() {
     final lastWeek = DateTime.now().subtract(const Duration(days: 7));
-    return lastWeek.toIso8601String();
+    return '${lastWeek.year}-${_padTwoDigits(lastWeek.month)}-${_padTwoDigits(lastWeek.day)}';
+  }
+
+  static String _padTwoDigits(int n) {
+    return n.toString().padLeft(2, '0');
   }
 
   static Future<List<NewsArticle>> _fetchNews(String endpoint, Map<String, String> queryParams) async {
@@ -56,7 +81,12 @@ class MarketauxService {
 
       print('Fetching news from: $uri'); // For debugging
 
-      final response = await http.get(uri);
+      final response = await http.get(uri).timeout(
+        const Duration(seconds: 10),
+        onTimeout: () {
+          throw TimeoutException('Request timed out');
+        },
+      );
 
       print('Response status: ${response.statusCode}'); // For debugging
       print('Response body: ${response.body}'); // For debugging
@@ -84,24 +114,4 @@ class MarketauxService {
       throw Exception('Failed to fetch news: $e');
     }
   }
-}
-
-class NewsArticle {
-  final String title;
-  final String description;
-  final DateTime publishedDate;
-  final String imageUrl;
-  final String link;
-  final String source;
-  final String sentiment;
-
-  NewsArticle({
-    required this.title,
-    required this.description,
-    required this.publishedDate,
-    required this.imageUrl,
-    required this.link,
-    required this.source,
-    required this.sentiment,
-  });
 }
