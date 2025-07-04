@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stock_market_app/providers/news_provider.dart';
 import 'package:stock_market_app/providers/portfolio_provider.dart';
 import 'package:stock_market_app/providers/market_data_provider.dart';
 import 'package:stock_market_app/providers/auth_provider.dart';
@@ -79,8 +80,8 @@ class _DashboardScreenState extends State<DashboardScreen>
   Widget build(BuildContext context) {
     return AnimatedGradientBackground(
       child: SafeArea(
-        child: Consumer3<PortfolioProvider, MarketDataProvider, AuthProvider>(
-          builder: (context, portfolioProvider, marketProvider, authProvider, child) {
+        child: Consumer4<PortfolioProvider, MarketDataProvider, AuthProvider, NewsProvider>(
+          builder: (context, portfolioProvider, marketProvider, authProvider, NewsProvider, child) {
             return SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Column(
@@ -592,6 +593,8 @@ class _DashboardScreenState extends State<DashboardScreen>
           const SizedBox(height: 8),
           Text(
             description,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: Color(0xFF93C6AA),
               fontSize: 12,
