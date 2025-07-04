@@ -1,6 +1,3 @@
-import 'package:stock_market_app/models/stock_data.dart';
-
-// lib/models/portfolio.dart
 class Portfolio {
   final String id;
   final String name;

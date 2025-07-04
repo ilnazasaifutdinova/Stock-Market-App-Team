@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:stock_market_app/services/api_service.dart';
 import 'package:stock_market_app/services/finnhub_service.dart';
 import 'package:stock_market_app/models/chart_data_point.dart';
 import 'package:stock_market_app/models/stock_data.dart';
@@ -8,21 +7,19 @@ import 'package:stock_market_app/models/stock_data.dart';
 class MarketDataProvider extends ChangeNotifier {
   final _stocksData = <String, StockData>{};
   final _chartData = <ChartDataPoint>[];
-  //bool _isLoading = false;
   String? _error;
 
   Map<String, StockData> get stocksData => _stocksData;
   List<ChartDataPoint> get chartData => _chartData;
-  //bool get isLoading => _isLoading;
   String? get error => _error;
 
-  // Add a map to track loading state per symbol
+  // A map to track loading state per symbol
   final Map<String, bool> _loadingStates = {};
 
-  // Modify the isLoading getter
+  // the isLoading getter
   bool get isLoading => _loadingStates.values.any((loading) => loading);
 
-  // Add a method to check if specific symbol is loading
+  // A method to check if specific symbol is loading
   bool isSymbolLoading(String symbol) => _loadingStates[symbol] ?? false;
 
   // Rate limiting
@@ -55,7 +52,6 @@ class MarketDataProvider extends ChangeNotifier {
   Future<void> fetchStockData(String symbol, String timeframe) async {
     try {
       if (!_isCacheValid(symbol)) {
-        //_isLoading = true;
         _loadingStates[symbol] = true;
         notifyListeners();
 
@@ -70,15 +66,14 @@ class MarketDataProvider extends ChangeNotifier {
         notifyListeners();
       }
     } catch (e) {
-      print('Error fetching $symbol: $e'); // Add this debug log
+      print('Error fetching $symbol: $e');
       _error = 'Error fetching $symbol: ${e.toString()}';
-      //_isLoading = false;
       _loadingStates[symbol] = false;
       notifyListeners();
     }
   }
 
-// Add a method for fetching historical data
+// A method for fetching historical data
   Future<void> fetchHistoricalData(String symbol, String timeframe) async {
     try {
       final resolution = _getResolution(timeframe);

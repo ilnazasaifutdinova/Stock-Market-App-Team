@@ -1139,7 +1139,6 @@ class _PortfolioScreenState extends State<PortfolioScreen>
     );
   }
 
-  // Helper methods for mock data
   List<ChartDataPoint> _generatePerformanceData() {
     final List<ChartDataPoint> data = [];
     double baseValue = 10000;

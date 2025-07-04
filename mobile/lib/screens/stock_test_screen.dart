@@ -8,14 +8,14 @@ import 'package:stock_market_app/widgets/animated_gradient_background.dart';
 import 'package:stock_market_app/widgets/stock_chart_widget.dart';
 import 'package:stock_market_app/models/stock_data.dart';
 
-class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+class StockTestScreen extends StatefulWidget {
+  const StockTestScreen({Key? key}) : super(key: key);
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
+  State<StockTestScreen> createState() => _DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen>
+class _DashboardScreenState extends State<StockTestScreen>
     with TickerProviderStateMixin {
   late AnimationController _fadeController;
   late AnimationController _slideController;
@@ -59,12 +59,14 @@ class _DashboardScreenState extends State<DashboardScreen>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       final marketProvider = Provider.of<MarketDataProvider>(context, listen: false);
+      final newsProvider = Provider.of<NewsProvider>(context, listen: false);
 
       if (authProvider.token != null) {
         final stocks = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'META', 'NVDA', 'TSLA'];
         for (var symbol in stocks) {
           marketProvider.fetchStockData(symbol, '1D');
         }
+        newsProvider.fetchDashboardNews(); // This will use the second API key
       }
     });
   }
@@ -550,19 +552,96 @@ class _DashboardScreenState extends State<DashboardScreen>
         ),
         const SizedBox(height: 16),
 
-        _buildNewsItem(
-          'Tech Stocks Rally as AI Sector Shows Strong Growth',
-          'Markets saw significant gains today as artificial intelligence companies reported better than expected earnings.',
-          '2h ago',
-        ),
+        Consumer<NewsProvider>(
+          builder: (context, newsProvider, child) {
+            if (newsProvider.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-        _buildNewsItem(
-          'Federal Reserve Signals Potential Rate Changes',
-          'Economic indicators suggest possible monetary policy adjustments in the coming quarter.',
-          '4h ago',
+            if (newsProvider.error != null) {
+              return Center(
+                child: Text(
+                  'Error loading news',
+                  style: TextStyle(color: Colors.red[400]),
+                ),
+              );
+            }
+
+            if (newsProvider.dashboardNews.isEmpty) {
+              return const Center(
+                child: Text(
+                  'No news available',
+                  style: TextStyle(color: Colors.white),
+                ),
+              );
+            }
+
+            return Column(
+              children: newsProvider.dashboardNews.map((article) {
+                return Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(bottom: 12),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF193326),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: const Color(0xFF234733),
+                      width: 1,
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        article.title,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontFamily: 'Manrope',
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        article.description,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: Color(0xFF93C6AA),
+                          fontSize: 12,
+                          fontFamily: 'Manrope',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        _formatNewsDate(article.publishedDate),
+                        style: const TextStyle(
+                          color: Color(0xFF93C6AA),
+                          fontSize: 10,
+                          fontFamily: 'Manrope',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
+            );
+          },
         ),
       ],
     );
+  }
+
+  String _formatNewsDate(DateTime date) {
+    final difference = DateTime.now().difference(date);
+    if (difference.inHours < 24) {
+      return '${difference.inHours}h ago';
+    } else {
+      return '${difference.inDays}d ago';
+    }
   }
 
   Widget _buildNewsItem(String title, String description, String time) {

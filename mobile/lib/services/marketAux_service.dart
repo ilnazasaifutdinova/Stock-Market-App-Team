@@ -24,7 +24,7 @@ class NewsArticle {
 
 class MarketauxService {
   static const String _baseUrl = 'https://api.marketaux.com/v1';
-  static const String _apiKey = ''; // MarketAux API key
+  static const String _apiKey = 'E1CkaLgZrSmBttqceEqoCs3FA5eqykOtFeBfdXcP'; // MarketAux API key
 
   // For Market News (Dashboard)
   static Future<List<NewsArticle>> getMarketNews() async {
@@ -111,6 +111,75 @@ class MarketauxService {
       }
     } catch (e) {
       print('Error fetching news: $e'); // For debugging
+      throw Exception('Failed to fetch news: $e');
+    }
+  }
+}
+
+class DashboardMarketauxService {
+  static const String _baseUrl = 'https://api.marketaux.com/v1';
+  static const String _apiKey = 'rOHWPqAP3DXzfCdnfcXQ1upYhVL07usSqGQAEy9c'; // Second API key for dashboard
+
+  static Future<List<NewsArticle>> getDashboardNews() async {
+    return _fetchNews('/news/all', {
+      'filter_entities': 'true',
+      'limit': '2',
+      'sectors': 'Technology,Financial',
+      'published_after': _getYesterdayDate(),
+    });
+  }
+
+  static String _getYesterdayDate() {
+    final yesterday = DateTime.now().subtract(const Duration(days: 1));
+    return '${yesterday.year}-${_padTwoDigits(yesterday.month)}-${_padTwoDigits(yesterday.day)}';
+  }
+
+  static String _padTwoDigits(int n) {
+    return n.toString().padLeft(2, '0');
+  }
+
+  static Future<List<NewsArticle>> _fetchNews(String endpoint, Map<String, String> queryParams) async {
+    try {
+      final params = {
+        ...queryParams,
+        'api_token': _apiKey,
+        'language': 'en',
+      };
+
+      final uri = Uri.parse('$_baseUrl$endpoint').replace(queryParameters: params);
+      print('Dashboard Service - Fetching news from: $uri'); // Debug print
+
+      final response = await http.get(uri).timeout(
+        const Duration(seconds: 10),
+        onTimeout: () {
+          throw TimeoutException('Request timed out');
+        },
+      );
+
+      print('Dashboard Service - Response status: ${response.statusCode}'); // Debug print
+      print('Dashboard Service - Response body: ${response.body}'); // Debug print
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> jsonData = json.decode(response.body);
+        final List<dynamic> articles = jsonData['data'];
+        print('Dashboard Service - Number of articles: ${articles.length}'); // Debug print
+
+        return articles.map((article) {
+          return NewsArticle(
+            title: article['title'] ?? '',
+            description: article['description'] ?? '',
+            publishedDate: DateTime.parse(article['published_at']),
+            imageUrl: article['image_url'] ?? '',
+            link: article['url'] ?? '',
+            source: article['source'] ?? '',
+            sentiment: article['sentiment'] ?? 'neutral',
+          );
+        }).toList();
+      } else {
+        throw Exception('Failed to load news: ${response.statusCode}\n${response.body}');
+      }
+    } catch (e) {
+      print('Dashboard Service - Error: $e'); // Debug print
       throw Exception('Failed to fetch news: $e');
     }
   }

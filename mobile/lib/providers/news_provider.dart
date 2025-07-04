@@ -5,12 +5,14 @@ class NewsProvider extends ChangeNotifier {
   List<NewsArticle> _marketNews = [];
   List<NewsArticle> _stockNews = [];
   List<NewsArticle> _generalNews = [];
+  List<NewsArticle> _dashboardNews = [];
   bool _isLoading = false;
   String? _error;
 
   List<NewsArticle> get marketNews => _marketNews;
   List<NewsArticle> get stockNews => _stockNews;
   List<NewsArticle> get generalNews => _generalNews;
+  List<NewsArticle> get dashboardNews => _dashboardNews;
   bool get isLoading => _isLoading;
   String? get error => _error;
 
@@ -61,6 +63,18 @@ class NewsProvider extends ChangeNotifier {
     _setLoading(true);
     try {
       _generalNews = await MarketauxService.getGeneralNews();
+      _error = null;
+    } catch (e) {
+      _error = e.toString();
+    }
+    _setLoading(false);
+    notifyListeners();
+  }
+
+  Future<void> fetchDashboardNews() async {
+    _setLoading(true);
+    try {
+      _dashboardNews = await DashboardMarketauxService.getDashboardNews();
       _error = null;
     } catch (e) {
       _error = e.toString();

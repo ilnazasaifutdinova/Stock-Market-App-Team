@@ -1,14 +1,12 @@
-// mobile/lib/services/api_service.dart
-
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  // Для Android-эмулятора: 10.0.2.2;
-  // Для iOS-симулятора или macOS-версии можно использовать http://localhost:4000
+  // For Android Emulator: 10.0.2.2;
+  // For iOS-Emulator or macOS-version you allow to use http://localhost:4000
   static const String _baseUrl = 'http://10.0.2.2:4000/api';
 
-  /// Выполняет логин и возвращает accessToken
+  /// Login and return accessToken
   static Future<String> login(String email, String password) async {
     final uri = Uri.parse('$_baseUrl/login');
     final response = await http.post(
@@ -24,7 +22,7 @@ class ApiService {
     }
   }
 
-  /// Выполняет регистрацию; возвращает true, если статус 201
+  /// Register, return true, if status 201
   static Future<bool> register(String email, String password) async {
     final uri = Uri.parse('$_baseUrl/register');
     final response = await http.post(
@@ -35,7 +33,7 @@ class ApiService {
     return response.statusCode == 201;
   }
 
-  /// Получает список портфелей пользователя; выбрасывает, если не 200
+  /// Get a list of user's Portfolios, if status not 200
   static Future<List<dynamic>> getPortfolios(String token) async {
     final uri = Uri.parse('$_baseUrl/portfolios');
     final response = await http.get(
@@ -52,7 +50,7 @@ class ApiService {
     }
   }
 
-  /// Получает данные по конкретной акции (symbol); возвращает JSON-объект
+  /// Get specific stock data (symbol); return JSON-object
   static Future<Map<String, dynamic>> getMarketData(String token, String symbol, [String timeframe = '1M']) async {
     // Consider whether you still need this method or if it should be modified
     // to work with Finnhub data

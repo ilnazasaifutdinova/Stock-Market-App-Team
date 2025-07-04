@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:stock_market_app/services/api_service.dart';
-import 'package:stock_market_app/models/portfolio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:stock_market_app/services/finnhub_service.dart';
 import 'package:stock_market_app/models/stock_data.dart';
@@ -52,7 +50,7 @@ class PortfolioProvider extends ChangeNotifier {
       _error = null;
       notifyListeners();
 
-      // Initialize with your portfolio data
+      // Initialise with your portfolio data
       _portfolios = [
         Portfolio(
           id: '1',

@@ -62,7 +62,7 @@ class _MainNavigationState extends State<MainNavigation> {
       ),
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
-          backgroundColor: const Color(0xFF193326), // Use your preferred color
+          backgroundColor: const Color(0xFF193326), // Use preferred color
           labelTextStyle: labelTextStyle,
           iconTheme: iconTheme,
           indicatorColor: const Color(0xFF234733),

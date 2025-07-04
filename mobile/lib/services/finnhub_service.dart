@@ -44,7 +44,7 @@ extension TimeframeExtension on String {
 
 class FinnhubService {
   static const String _baseUrl = 'https://finnhub.io/api/v1';
-  static const String _apiKey = ''; // Finnhub API key
+  static const String _apiKey = 'd1jgmk1r01qvg5guebvgd1jgmk1r01qvg5guec00'; // Finnhub API key
 
   // Get real-time quote data
   static Future<StockData> getQuote(String symbol) async {
@@ -136,7 +136,7 @@ class FinnhubService {
 
         return candles;
       } else if (response.statusCode == 403) {
-        print('API Key being used: $_apiKey'); // temporary debug line
+        print('API Key being used: $_apiKey'); // Temporary debug line
         throw Exception('Authentication failed. Please check your API key.');
       } else {
         throw Exception('Failed to load candle data: ${response.statusCode} - ${response.body}');
@@ -163,7 +163,7 @@ class FinnhubService {
 
 class PortfolioFinnhubService {
   static const String _baseUrl = 'https://finnhub.io/api/v1';
-  static const String _apiKey = '';
+  static const String _apiKey = 'd1jgn61r01qvg5guefegd1jgn61r01qvg5gueff0';
 
   // Get real-time quote data
   static Future<StockData> getQuote(String symbol) async {
@@ -269,7 +269,6 @@ class PortfolioFinnhubService {
       try {
         final data = await getHistoricalData(holding.symbol, timeframe);
         history[holding.symbol] = data;
-        // Add delay to avoid rate limiting
         await Future.delayed(const Duration(milliseconds: 200));
       } catch (e) {
         print('Error fetching history for ${holding.symbol}: $e');
@@ -301,7 +300,6 @@ class PortfolioFinnhubService {
     for (var symbol in symbols) {
       try {
         results[symbol] = await getQuote(symbol);
-        // Add a small delay between requests to avoid rate limiting
         await Future.delayed(const Duration(milliseconds: 200));
       } catch (e) {
         print('Portfolio Service Error fetching $symbol: $e');
