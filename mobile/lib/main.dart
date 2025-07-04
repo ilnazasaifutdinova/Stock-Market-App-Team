@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stock_market_app/providers/auth_provider.dart';
+import 'package:stock_market_app/providers/news_provider.dart';
 import 'package:stock_market_app/providers/portfolio_provider.dart';
 import 'package:stock_market_app/providers/market_data_provider.dart';
 import 'package:stock_market_app/screens/splash_screen.dart';
@@ -13,6 +14,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => PortfolioProvider()),
         ChangeNotifierProvider(create: (_) => MarketDataProvider()),
+        ChangeNotifierProvider(create: (_) => NewsProvider()),
       ],
       child: const MyApp(),
     ),
@@ -31,8 +33,8 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Manrope',
         scaffoldBackgroundColor: const Color(0xFF12211A),
       ),
-      //home: const SplashScreen(),
-      home: const StockTestScreen(),
+      home: const SplashScreen(),
+      //home: const StockTestScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -5,6 +5,7 @@ import 'package:stock_market_app/providers/market_data_provider.dart';
 import 'package:stock_market_app/providers/auth_provider.dart';
 import 'package:stock_market_app/widgets/animated_gradient_background.dart';
 import 'package:stock_market_app/widgets/stock_chart_widget.dart';
+import 'package:stock_market_app/models/stock_data.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -56,14 +57,13 @@ class _DashboardScreenState extends State<DashboardScreen>
   void _loadData() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
-      final portfolioProvider = Provider.of<PortfolioProvider>(context, listen: false);
       final marketProvider = Provider.of<MarketDataProvider>(context, listen: false);
 
       if (authProvider.token != null) {
-        portfolioProvider.fetchPortfolios(authProvider.token!);
-        marketProvider.fetchStockData(authProvider.token!, 'AAPL');
-        marketProvider.fetchStockData(authProvider.token!, 'TSLA');
-        marketProvider.fetchStockData(authProvider.token!, 'MSFT');
+        final stocks = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'META', 'NVDA', 'TSLA'];
+        for (var symbol in stocks) {
+          marketProvider.fetchStockData(symbol, '1D');
+        }
       }
     });
   }
@@ -87,8 +87,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 20),
-                  
-                  // Header
+
                   FadeTransition(
                     opacity: _fadeAnimation,
                     child: _buildHeader(authProvider),
@@ -96,7 +95,6 @@ class _DashboardScreenState extends State<DashboardScreen>
 
                   const SizedBox(height: 40),
 
-                  // Portfolio Overview
                   SlideTransition(
                     position: _slideAnimation,
                     child: FadeTransition(
@@ -107,18 +105,16 @@ class _DashboardScreenState extends State<DashboardScreen>
 
                   const SizedBox(height: 32),
 
-                  // Performance Chart
                   SlideTransition(
                     position: _slideAnimation,
                     child: FadeTransition(
                       opacity: _fadeAnimation,
-                      child: _buildPerformanceChart(marketProvider),
+                      child: _buildMarketOverview(marketProvider),
                     ),
                   ),
 
                   const SizedBox(height: 32),
 
-                  // Top Stocks Section
                   SlideTransition(
                     position: _slideAnimation,
                     child: FadeTransition(
@@ -129,7 +125,6 @@ class _DashboardScreenState extends State<DashboardScreen>
 
                   const SizedBox(height: 32),
 
-                  // Recent News Section
                   SlideTransition(
                     position: _slideAnimation,
                     child: FadeTransition(
@@ -252,7 +247,7 @@ class _DashboardScreenState extends State<DashboardScreen>
             ],
           ),
           const SizedBox(height: 8),
-          
+
           TweenAnimationBuilder<double>(
             duration: const Duration(milliseconds: 2000),
             tween: Tween(begin: 0, end: provider.totalValue),
@@ -311,12 +306,12 @@ class _DashboardScreenState extends State<DashboardScreen>
     );
   }
 
-  Widget _buildPerformanceChart(MarketDataProvider provider) {
+  Widget _buildMarketOverview(MarketDataProvider provider) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Portfolio Performance',
+          'Market Overview',
           style: TextStyle(
             color: Colors.white,
             fontSize: 18,
@@ -325,21 +320,32 @@ class _DashboardScreenState extends State<DashboardScreen>
           ),
         ),
         const SizedBox(height: 16),
-        
-        StockChartWidget(
-          data: provider.chartData,
-          height: 200,
-          lineColor: const Color(0xFF0AD842),
-          gradientStartColor: const Color(0xFF0AD842),
-          gradientEndColor: Colors.transparent,
+
+        Container(
+          height: 150,
+          decoration: BoxDecoration(
+            color: const Color(0xFF193326),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: const Color(0xFF234733),
+              width: 1,
+            ),
+          ),
+          child: StockChartWidget(
+            data: provider.chartData,
+            height: 200,
+            lineColor: const Color(0xFF0AD842),
+            gradientStartColor: const Color(0xFF0AD842).withOpacity(0.2),
+            gradientEndColor: Colors.transparent,
+          ),
         ),
       ],
     );
   }
 
   Widget _buildTopStocksSection(MarketDataProvider provider) {
-    final topStocks = ['AAPL', 'TSLA', 'MSFT'];
-    
+    final topStocks = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'META', 'NVDA', 'TSLA'];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -347,7 +353,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text(
-              'Top Holdings',
+              'Top Stocks',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,
@@ -372,15 +378,30 @@ class _DashboardScreenState extends State<DashboardScreen>
           ],
         ),
         const SizedBox(height: 16),
-        
-        ...topStocks.map((symbol) => _buildStockItem(symbol, provider)).toList(),
+
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: topStocks.length,
+          itemBuilder: (context, index) {
+            final symbol = topStocks[index];
+            final stockData = provider.getStockData(symbol);
+
+            if (stockData == null) {
+              provider.fetchStockData(symbol, '1D');
+              return const SizedBox.shrink();
+            }
+
+            return _buildStockItem(symbol, stockData);
+          },
+        ),
       ],
     );
   }
 
-  Widget _buildStockItem(String symbol, MarketDataProvider provider) {
-    final stockData = provider.getStockData(symbol);
-    
+  Widget _buildStockItem(String symbol, StockData stockData) {
+    final isPositive = stockData.changePercent >= 0;
+
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 12),
@@ -414,7 +435,7 @@ class _DashboardScreenState extends State<DashboardScreen>
             ),
           ),
           const SizedBox(width: 16),
-          
+
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -441,14 +462,12 @@ class _DashboardScreenState extends State<DashboardScreen>
               ],
             ),
           ),
-          
+
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                stockData != null 
-                    ? '\$${stockData.currentPrice.toStringAsFixed(2)}'
-                    : '\$150.00',
+                '\$${stockData.currentPrice.toStringAsFixed(2)}',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
@@ -457,18 +476,24 @@ class _DashboardScreenState extends State<DashboardScreen>
                 ),
               ),
               const SizedBox(height: 4),
-              Text(
-                stockData != null 
-                    ? '${stockData.changePercent >= 0 ? '+' : ''}${stockData.changePercent.toStringAsFixed(2)}%'
-                    : '+2.1%',
-                style: TextStyle(
-                  color: (stockData?.changePercent ?? 2.1) >= 0 
-                      ? const Color(0xFF0AD842) 
-                      : Colors.red,
-                  fontSize: 14,
-                  fontFamily: 'Manrope',
-                  fontWeight: FontWeight.w600,
-                ),
+              Row(
+                children: [
+                  Icon(
+                    isPositive ? Icons.arrow_upward : Icons.arrow_downward,
+                    color: isPositive ? const Color(0xFF0AD842) : Colors.red,
+                    size: 12,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    '${isPositive ? '+' : ''}${stockData.changePercent.toStringAsFixed(2)}%',
+                    style: TextStyle(
+                      color: isPositive ? const Color(0xFF0AD842) : Colors.red,
+                      fontSize: 14,
+                      fontFamily: 'Manrope',
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -478,16 +503,16 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   String _getCompanyName(String symbol) {
-    switch (symbol) {
-      case 'AAPL':
-        return 'Apple Inc.';
-      case 'TSLA':
-        return 'Tesla Inc.';
-      case 'MSFT':
-        return 'Microsoft Corp.';
-      default:
-        return 'Technology';
-    }
+    final Map<String, String> companies = {
+      'AAPL': 'Apple Inc.',
+      'GOOGL': 'Alphabet Inc.',
+      'MSFT': 'Microsoft Corp.',
+      'AMZN': 'Amazon.com Inc.',
+      'META': 'Meta Platforms Inc.',
+      'NVDA': 'NVIDIA Corp.',
+      'TSLA': 'Tesla Inc.',
+    };
+    return companies[symbol] ?? 'Unknown Company';
   }
 
   Widget _buildRecentNewsSection() {
@@ -523,13 +548,13 @@ class _DashboardScreenState extends State<DashboardScreen>
           ],
         ),
         const SizedBox(height: 16),
-        
+
         _buildNewsItem(
           'Tech Stocks Rally as AI Sector Shows Strong Growth',
           'Markets saw significant gains today as artificial intelligence companies reported better than expected earnings.',
           '2h ago',
         ),
-        
+
         _buildNewsItem(
           'Federal Reserve Signals Potential Rate Changes',
           'Economic indicators suggest possible monetary policy adjustments in the coming quarter.',
