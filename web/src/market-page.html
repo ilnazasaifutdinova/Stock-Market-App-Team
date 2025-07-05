@@ -24,139 +24,131 @@
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="header-left">
-      <i class="fa-solid fa-chart-line logo-icon"></i>
-      <span class="logo-text">StockVision</span>
-      <nav class="header-nav">
-        <ul>
-          <li><a href="portfolio-page.html">My Stocks</a></li>
-          <li class="separator"></li>
-          <li><a href="market-page.html">News</a></li>
-          <li class="separator"></li>
-          <li><a href="pro-version.html">Pro Version</a></li>
-        </ul>
-      </nav>
+<header class="header">
+  <div class="header-left">
+    <i class="fa-solid fa-chart-line logo-icon"></i>
+    <span class="logo-text">StockVision</span>
+    <nav class="header-nav">
+      <ul>
+        <li><a href="portfolio-page.html">My Stocks</a></li>
+        <li class="separator"></li>
+        <li><a href="market-page.html">News</a></li>
+        <li class="separator"></li>
+        <li><a href="pro-version.html">Pro Version</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="header-right">
+    <div class="search-bar">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text" placeholder="Search" />
     </div>
-    <div class="header-right">
-      <div class="search-bar">
-        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" placeholder="Search" />
-      </div>
-      <i class="fa-regular fa-bell icon-button"></i>
-      <i class="fa-regular fa-user icon-button"></i>
+    <i class="fa-regular fa-bell icon-button"></i>
+    <i class="fa-regular fa-user icon-button"></i>
+  </div>
+</header>
+
+<main class="main-content">
+  <h1 class="page-title">Market News & Stock Snapshot</h1>
+
+  <section class="section">
+    <h2 class="section-heading">Market News</h2>
+    <div class="market-news-grid">
+      <!-- News cards will be dynamically populated -->
     </div>
-  </header>
+  </section>
 
-  <main class="main-content">
-    <h1 class="page-title">Market News & Stock Snapshot</h1>
+  <section class="section">
+    <h2 class="section-heading">Stock Snapshot</h2>
+    <div class="card stock-snapshot-table">
+      <table>
+        <thead>
+        <tr>
+          <th>Ticker</th>
+          <th>Company</th>
+          <th>Price</th>
+          <th>Change</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Stock data will be dynamically populated -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
 
-    <section class="section">
-      <h2 class="section-heading">Market News</h2>
-      <div class="market-news-grid">
-        <div class="news-card">
-          <div class="icon-wrapper"><i class="fa-solid fa-square"></i></div>
-          <h3>Tech Stocks Surge Amidst Innovation Wave</h3>
-        </div>
-        <div class="news-card">
-          <div class="icon-wrapper"><i class="fa-solid fa-square"></i></div>
-          <h3>Energy Sector Faces Volatility on Supply Concerns</h3>
-        </div>
-        <div class="news-card">
-          <div class="icon-wrapper"><i class="fa-solid fa-square"></i></div>
-          <h3>Healthcare Stocks Gain on Positive Clinical Trial Results</h3>
-        </div>
-        <div class="news-card">
-          <div class="icon-wrapper"><i class="fa-solid fa-square"></i></div>
-          <h3>Retail Sector Shows Mixed Performance in Q3 Earnings</h3>
-        </div>
-        <div class="news-card">
-          <div class="icon-wrapper"><i class="fa-solid fa-square"></i></div>
-          <h3>Financial Stocks React to Interest Rate Hike Speculation</h3>
-        </div>
-      </div>
-    </section>
+<!-- API and Data Update Scripts -->
+<script type="module">
+  import {
+    fetchStockData,
+    fetchMarketNews,
+    updateStockTable,
+    updateNewsCards,
+    startDataUpdates
+  } from './js/api.js';
 
-    <section class="section">
-      <h2 class="section-heading">Stock Snapshot</h2>
-      <div class="card stock-snapshot-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Ticker</th>
-              <th>Company</th>
-              <th>Price</th>
-              <th>Change</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>TICKR1</td>
-              <td>Tech Innovators Inc.</td>
-              <td>$150.25</td>
-              <td class="change-positive">+2.5%</td>
-            </tr>
-            <tr>
-              <td>TICKR2</td>
-              <td>Energy Dynamics Corp.</td>
-              <td>$85.75</td>
-              <td class="change-negative">-1.8%</td>
-            </tr>
-            <tr>
-              <td>TICKR3</td>
-              <td>Health Solutions Ltd.</td>
-              <td>$220.50</td>
-              <td class="change-positive">+3.2%</td>
-            </tr>
-            <tr>
-              <td>TICKR4</td>
-              <td>Retail Ventures Group</td>
-              <td>$60.10</td>
-              <td class="change-positive">+0.5%</td>
-            </tr>
-            <tr>
-              <td>TICKR5</td>
-              <td>Finance Trust Co.</td>
-              <td>$110.80</td>
-              <td class="change-negative">-0.9%</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-  </main>
+  // Real stock data for major tech companies
+  const stocks = [
+    { symbol: 'AAPL', name: 'Apple Inc.' },
+    { symbol: 'GOOGL', name: 'Alphabet Inc.' },
+    { symbol: 'MSFT', name: 'Microsoft Corporation' },
+    { symbol: 'AMZN', name: 'Amazon.com Inc.' },
+    { symbol: 'META', name: 'Meta Platforms Inc.' }
+  ];
 
-  <!-- API and Data Update Scripts -->
-  <script type="module">
-    import {
-      fetchStockData,
-      fetchMarketNews,
-      updateStockTable,
-      updateNewsCards,
-      startDataUpdates
-    } from './js/api.js';
+  // Initialize loading states
+  function showLoading(element) {
+    element.innerHTML = '<div class="loading-spinner">Loading...</div>';
+  }
 
-    // Update stock table data
-    const stocks = [
-      { symbol: 'AAPL', name: 'Apple Inc.' },
-      { symbol: 'GOOGL', name: 'Alphabet Inc.' },
-      { symbol: 'MSFT', name: 'Microsoft Corporation' },
-      { symbol: 'AMZN', name: 'Amazon.com Inc.' },
-      { symbol: 'META', name: 'Meta Platforms Inc.' }
-    ];
+  function showError(element, message) {
+    element.innerHTML = `<div class="error-message">${message}</div>`;
+  }
 
-    // Initialize the table with company names
+  // Initialize the stock table
+  function initializeStockTable() {
     const tbody = document.querySelector('.stock-snapshot-table tbody');
     tbody.innerHTML = stocks.map(stock => `
         <tr>
-            <td>${stock.symbol}</td>
-            <td>${stock.name}</td>
-            <td>Loading...</td>
-            <td>Loading...</td>
+          <td>${stock.symbol}</td>
+          <td>${stock.name}</td>
+          <td><div class="loading-spinner">Loading...</div></td>
+          <td><div class="loading-spinner">Loading...</div></td>
         </tr>
-    `).join('');
+      `).join('');
+  }
 
-    // Add click handlers for rows
+  // Initialize news cards with loading state
+  function initializeNewsCards() {
+    const newsGrid = document.querySelector('.market-news-grid');
+    newsGrid.innerHTML = Array(5).fill(0).map(() => `
+        <div class="news-card">
+          <div class="icon-wrapper"><i class="fa-solid fa-newspaper"></i></div>
+          <h3><div class="loading-spinner">Loading news...</div></h3>
+        </div>
+      `).join('');
+  }
+
+  // Handle data refresh
+  async function refreshData() {
+    try {
+      await Promise.all([
+        updateStockTable(),
+        updateNewsCards()
+      ]);
+    } catch (error) {
+      console.error('Error refreshing data:', error);
+    }
+  }
+
+  // Start the application
+  document.addEventListener('DOMContentLoaded', async () => {
+    // Initialize with loading states
+    initializeStockTable();
+    initializeNewsCards();
+
+    // Set up click handlers for stock rows
     const rows = document.querySelectorAll('.stock-snapshot-table tbody tr');
     rows.forEach((row, index) => {
       row.addEventListener('click', () => {
@@ -165,12 +157,20 @@
       });
     });
 
-    // Start the data updates
-    startDataUpdates();
-  </script>
+    // Initial data load
+    try {
+      await refreshData();
 
-  <!-- Fade out logic -->
-  <script src="js/pages/fade-out-animation.js" defer></script>
+      // Set up periodic updates
+      setInterval(refreshData, 60000); // Update every minute
+    } catch (error) {
+      console.error('Error starting updates:', error);
+      showError(document.querySelector('.market-news-grid'), 'Error loading market data. Please refresh the page.');
+    }
+  });
+</script>
 
+<!-- Fade out logic -->
+<script src="js/pages/fade-out-animation.js" defer></script>
 </body>
 </html>

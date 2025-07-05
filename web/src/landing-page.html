@@ -17,69 +17,69 @@
     <!-- <link rel="stylesheet" href="css/auth-common.css"> -->
 
     <!-- Fade-out helper -->
-     <style>
+    <style>
         .fade-out {
             opacity: 0;
             transition: opacity 0.5s ease;
         }
-     </style>
+    </style>
 </head>
 <body>
 
-    <header class="header">
-        <div class="header-left">
-            <i class="fa-solid fa-chart-line logo-icon"></i>
-            <span class="logo-text">StockVision</span>
-            <nav class="header-nav">
-                <ul>
-                    <li><a id="news-btn" href="market-page.html">News</a></li>
-                    <li class="separator"></li>
-                    <li><a id="mystocks-btn" href="portfolio-page.html">Portfolio</a></li>
-                    <li class="separator"></li>
-                    <li><a id="proversion-btn" href="pro-version.html">Pro Version</a></li>
-                </ul>
-            </nav>
-        </div>
-        <div class="header-right">
-            <a id="signup-btn" href="register-page.html" class="btn btn-signup-get-started">Sign Up</a>
-            <a id="login-btn" href="login-page.html" class="btn btn-login">Log In</a>
-        </div>
-    </header>
+<header class="header">
+    <div class="header-left">
+        <i class="fa-solid fa-chart-line logo-icon"></i>
+        <span class="logo-text">StockVision</span>
+        <nav class="header-nav">
+            <ul>
+                <li><a id="news-btn" href="market-page.html">News</a></li>
+                <li class="separator"></li>
+                <li><a id="mystocks-btn" href="portfolio-page.html">Portfolio</a></li>
+                <li class="separator"></li>
+                <li><a id="proversion-btn" href="pro-version.html">Pro Version</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="header-right">
+        <a id="signup-btn" href="register-page.html" class="btn btn-signup-get-started">Sign Up</a>
+        <a id="login-btn" href="login-page.html" class="btn btn-login">Log In</a>
+    </div>
+</header>
 
-    <section class="hero">
-        <div class="hero-overlay">
-            <h1>Welcome to StockVision</h1>
-            <p>Your all-in-one platform for tracking and analyzing your stock portfolio. Stay informed with the latest insights, and take your investment strategy to the next level with our Pro feature.</p>
-            <a id="getstarted-btn" href="register-page.html" class="btn btn-signup-get-started">Get Started</a>
-        </div>
-    </section>
+<section class="hero">
+    <div class="hero-overlay">
+        <h1>Welcome to StockVision</h1>
+        <p>Your all-in-one platform for tracking and analyzing your stock portfolio. Stay informed with the latest insights, and take your investment strategy to the next level with our Pro feature.</p>
+        <a id="getstarted-btn" href="register-page.html" class="btn btn-signup-get-started">Get Started</a>
+    </div>
+</section>
 
-    <!-- Fade-out script -->
-    <script>
-        function enableFadeOutLink(selector) {
-            const link = document.querySelector(selector);
-            if (!link) return;
-            link.addEventListener('click', function (e) {
-                e.preventDefault(); // stop the instant jump
-                const url = this.getAttribute('href'); // destination
-                document.body.classList.add('fade-out'); // start CSS transition
-                setTimeout(() => { window.location.href = url;}, 500);
-            })
-        }
+<!-- Fade-out script -->
+<script>
+    function enableFadeOutLink(selector) {
+        const link = document.querySelector(selector);
+        if (!link) return;
+        link.addEventListener('click', function (e) {
+            e.preventDefault(); // stop the instant jump
+            const url = this.getAttribute('href'); // destination
+            document.body.classList.add('fade-out'); // start CSS transition
+            setTimeout(() => { window.location.href = url;}, 500);
+        })
+    }
 
-        // Hook up the links that need the effect
-        enableFadeOutLink('#signup-btn');
-        enableFadeOutLink('#login-btn');
-        enableFadeOutLink('#getstarted-btn');
-        enableFadeOutLink('#news-btn');
-        enableFadeOutLink('#mystocks-btn');
-        enableFadeOutLink('#proversion-btn');
-        
-    </script>
+    // Hook up the links that need the effect
+    enableFadeOutLink('#signup-btn');
+    enableFadeOutLink('#login-btn');
+    enableFadeOutLink('#getstarted-btn');
+    enableFadeOutLink('#news-btn');
+    enableFadeOutLink('#mystocks-btn');
+    enableFadeOutLink('#proversion-btn');
 
-    <!-- Fade out logic -->
-    <script src="js/pages/fade-out-animation.js" defer></script>
+</script>
 
-    
+<!-- Fade out logic -->
+<script src="js/pages/fade-out-animation.js" defer></script>
+
+
 </body>
 </html>

@@ -1,45 +1,33 @@
-/* css/market-news.css */
-
 /* Universal Styles & Variables */
 :root {
     --bg-color: #121712;
     --card-bg-color: #242424;
     --text-color: #FFFFFF;
-    --button-text:#121712;
-    --additional-text:#A6B5A1;
-    --button-background-green:#54D12B;
-    --button-background-gray:#2E3829;
+    --button-text: #121712;
+    --additional-text: #A6B5A1;
+    --button-background-green: #54D12B;
+    --button-background-gray: #2E3829;
     --search-bar-bg: #333333;
     --border-color: #444444;
     --light-border-color: #383838;
+    --accent-green: #54D12B;
+    --accent-red: #ff4444;
+    --table-header-bg: rgba(36, 36, 36, 0.9);
 }
 
 /* Main Content Structure */
 .main-content {
     width: 70%;
-    max-width: 1600px; /* or 1400px depending on how wide you want it */
+    max-width: 1600px;
     margin: 30px auto;
     padding: 0 20px;
     display: grid;
     gap: 30px;
-
     opacity: 0;
     transform: translateY(30px);
     animation: fadeInPage 0.8s ease forwards;
     animation-delay: 0.2s;
 }
-
-/* Make table rows look clickable */
-    .stock-snapshot-table tbody tr {
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .stock-snapshot-table tbody tr:hover {
-      background-color: var(--button-background-gray);
-    }
-
-
 
 /* Title and Heading Animations */
 .page-title {
@@ -47,9 +35,6 @@
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 0.6s ease forwards;
-}
-
-.page-title {
     font-size: 32px;
     font-weight: 700;
     margin-bottom: 20px;
@@ -92,11 +77,10 @@
     gap: 15px;
     cursor: pointer;
     transition: border-color 0.2s ease, transform 0.2s ease;
-
-    /* Animation */
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInCard 0.6s ease forwards;
+    min-height: 180px;
 }
 
 .news-card:hover {
@@ -116,6 +100,31 @@
     font-weight: 500;
     color: var(--text-color);
     line-height: 1.4;
+}
+
+.news-card .news-description {
+    color: var(--text-color);
+    opacity: 0.7;
+    font-size: 0.9em;
+    margin: 8px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.news-card .news-time {
+    color: var(--text-color);
+    opacity: 0.5;
+    font-size: 0.8em;
+    margin-top: auto;
+}
+
+.news-card .news-source {
+    color: var(--text-color);
+    opacity: 0.6;
+    font-size: 0.8em;
+    margin-top: 8px;
 }
 
 /* Staggered news cards */
@@ -147,17 +156,26 @@
     padding: 15px 20px;
     text-align: left;
     border-bottom: 1px solid var(--light-border-color);
+    color: var(--text-color);
 }
 
 .stock-snapshot-table th {
     background-color: var(--table-header-bg);
     font-size: 15px;
     font-weight: 600;
-    color: var(--text-color);
 }
 
 .stock-snapshot-table td {
     font-size: 14px;
+}
+
+.stock-snapshot-table tbody tr {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.stock-snapshot-table tbody tr:hover {
+    background-color: var(--button-background-gray);
 }
 
 .stock-snapshot-table tbody tr:last-child td {
@@ -175,52 +193,27 @@
     font-weight: 500;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-    .main-content {
-        padding: 0 15px;
-        margin-top: 20px;
-    }
-
-    .market-news-grid {
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    }
+/* Loading and Error States */
+.loading-spinner {
+    text-align: center;
+    color: var(--text-color);
+    opacity: 0.7;
+    padding: 10px;
+    font-size: 0.9em;
 }
 
-@media (max-width: 600px) {
-    .page-title {
-        font-size: 28px;
-    }
-    .section-heading {
-        font-size: 22px;
-    }
-    .news-card {
-        padding: 15px;
-    }
-    .news-card h3 {
-        font-size: 14px;
-    }
-    .stock-snapshot-table th,
-    .stock-snapshot-table td {
-        padding: 12px 10px;
-        font-size: 13px;
-    }
+.loading-spinner::after {
+    content: "...";
+    animation: loading 1.5s infinite;
 }
 
-/* Hero Overlay Animation */
-.hero-overlay {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 1s ease forwards;
-    animation-delay: 0.3s;
-}
-
-/* Header Fade */
-.header-left,
-.header-right {
-    opacity: 0;
-    animation: fadeIn 1s ease forwards;
-    animation-delay: 0.5s;
+.error-message {
+    color: var(--accent-red);
+    background: rgba(255, 68, 68, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin: 10px 0;
 }
 
 /* Animations */
@@ -251,18 +244,50 @@
     }
 }
 
-.news-description {
-    font-size: 0.9em;
-    color: #666;
-    margin: 8px 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+@keyframes loading {
+    0% { content: "."; }
+    33% { content: ".."; }
+    66% { content: "..."; }
 }
 
-.news-source {
-    font-size: 0.8em;
-    color: #888;
-    margin-top: 8px;
+/* Responsive Design */
+@media (max-width: 900px) {
+    .main-content {
+        width: 90%;
+        padding: 0 15px;
+        margin-top: 20px;
+    }
+
+    .market-news-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .page-title {
+        font-size: 28px;
+        margin-top: 5%;
+    }
+
+    .section-heading {
+        font-size: 22px;
+    }
+
+    .news-card {
+        padding: 15px;
+    }
+
+    .news-card h3 {
+        font-size: 14px;
+    }
+
+    .stock-snapshot-table th,
+    .stock-snapshot-table td {
+        padding: 12px 10px;
+        font-size: 13px;
+    }
+
+    .news-card .news-description {
+        font-size: 0.85em;
+    }
 }
