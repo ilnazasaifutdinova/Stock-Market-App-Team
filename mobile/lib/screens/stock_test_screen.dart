@@ -200,17 +200,17 @@ class _DashboardScreenState extends State<StockTestScreen>
           end: Alignment.bottomRight,
           colors: [
             const Color(0xFF193326),
-            const Color(0xFF234733).withOpacity(0.8),
+            const Color(0xFF234733),
           ],
         ),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: const Color(0xFF0AD842).withOpacity(0.3),
+          color: const Color(0xFF0AD842),
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF0AD842).withOpacity(0.1),
+            color: const Color(0xFF0AD842),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -234,7 +234,7 @@ class _DashboardScreenState extends State<StockTestScreen>
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF0AD842).withOpacity(0.2),
+                  color: const Color(0xFF0AD842),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
