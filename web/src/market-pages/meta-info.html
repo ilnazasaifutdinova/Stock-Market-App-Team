@@ -1,156 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StockVision - TechCorp (TCC)</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StockVision - Meta Platforms Inc. (META)</title>
 
-    <!-- Fonts and Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/stock-info.css">
-
-    <style>
-    .fade-out {
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    /* Make table rows look clickable */
-    .stock-snapshot-table tbody tr {
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .stock-snapshot-table tbody tr:hover {
-      background-color: #f0f0f0;
-    }
-  </style>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/stock-info.css" />
 </head>
 <body>
-    <header class="header">
-        <div class="header-left">
-            <i class="fa-solid fa-chart-line logo-icon"></i>
-            <span class="logo-text">StockVision</span>
-            <nav class="header-nav">
-                <ul>
-                    <li><a href="portfolio-page.html">My Stocks</a></li>
-                    <li class="separator"></li>
-                    <li><a href="market-page.html">News</a></li>
-                    <li class="separator"></li>
-                    <li><a href="pro-version.html">Pro Version</a></li>
-                </ul>
-            </nav>
+  <header class="header">
+    <div class="header-left">
+      <i class="fa-solid fa-chart-line logo-icon"></i>
+      <span class="logo-text">StockVision</span>
+      <nav class="header-nav">
+        <ul>
+          <li><a href="portfolio-page.html">My Stocks</a></li>
+          <li class="separator"></li>
+          <li><a href="market-page.html">News</a></li>
+          <li class="separator"></li>
+          <li><a href="pro-version.html">Pro Version</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" placeholder="Search" />
+      </div>
+      <i class="fa-regular fa-bell icon-button"></i>
+      <i class="fa-regular fa-user icon-button"></i>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="company-info">
+      <h1>Meta Platforms Inc. (META)</h1>
+      <p>
+        Meta Platforms Inc., formerly Facebook, Inc., builds technologies that help people connect,
+        find communities, and grow businesses. Its products include Facebook, Instagram,
+        WhatsApp, Messenger, and the Quest VR headsets, focusing on building the metaverse.
+      </p>
+
+      <nav class="tab-nav">
+        <a href="#" class="active">Summary</a>
+        <a href="#">Analysis</a>
+      </nav>
+    </section>
+
+    <section class="card stock-price-section">
+      <div class="stock-price-details">
+        <h2>Stock Price</h2>
+        <div>
+          <span class="current-price">$515.80</span>
+          <span class="price-change change-positive">Today +2.15%</span>
         </div>
-        <div class="header-right">
-            <div class="search-bar">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" placeholder="Search">
-            </div>
-            <i class="fa-regular fa-bell icon-button"></i>
-            <i class="fa-regular fa-user icon-button"></i>
+      </div>
+
+      <div class="chart-container">
         </div>
-    </header>
 
-    <main class="main-content">
-        <section class="company-info">
-            <h1>TechCorp (TCC)</h1>
-            <p>TechCorp is a leading technology company specializing in software development and cloud computing services.</p>
+      <div class="time-filters">
+        <button>1D</button>
+        <button class="active">1M</button>
+        <button>3M</button>
+        <button>1Y</button>
+      </div>
+    </section>
 
-            <nav class="tab-nav">
-                <a href="#" class="active">Summary</a>
-                <a href="#">Analysis</a>
-            </nav>
-        </section>
+    <section class="card metrics-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Open</td>
+            <td>$505.00</td>
+          </tr>
+          <tr>
+            <td>Close</td>
+            <td>$515.80</td>
+          </tr>
+          <tr>
+            <td>High</td>
+            <td>$517.50</td>
+          </tr>
+          <tr>
+            <td>Low</td>
+            <td>$503.20</td>
+          </tr>
+          <tr>
+            <td>Volume</td>
+            <td>38.7M</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
-        <section class="card stock-price-section">
-            <div class="stock-price-details">
-                <h2>Stock Price</h2>
-                <div>
-                    <span class="current-price">$150.25</span>
-                    <span class="price-change">Today -2.5%</span>
-                </div>
-            </div>
-
-            <div class="chart-container">
-            </div>
-
-            <div class="time-filters">
-                <button>1D</button>
-                <button class="active">1M</button>
-                <button>3M</button>
-                <button>1Y</button>
-            </div>
-        </section>
-
-        <section class="card metrics-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Metric</th>
-                        <th>Value</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Open</td>
-                        <td>$148.50</td>
-                    </tr>
-                    <tr>
-                        <td>Close</td>
-                        <td>$150.25</td>
-                    </tr>
-                    <tr>
-                        <td>High</td>
-                        <td>$151.00</td>
-                    </tr>
-                    <tr>
-                        <td>Low</td>
-                        <td>$147.75</td>
-                    </tr>
-                    <tr>
-                        <td>Volume</td>
-                        <td>1.2M</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <section class="section">
-            <h1 class="section-title">Related News</h1>
-            <div class="news-grid">
-                <div class="news-item">
-                    <div class="text-content">
-                        <h3>TechCorp Announces New Cloud Service</h3>
-                        <p>TechCorp has unveiled its new cloud service, aiming to enhance its market position.</p>
-                    </div>
-                    <div class="news-thumbnail techcorp">
-                        TC
-                    </div>
-                </div>
-                <div class="news-item">
-                    <div class="text-content">
-                        <h3>TechCorp Stock Surges on Positive Earnings Report</h3>
-                        <p>TechCorp's stock price jumped following a strong earnings report, exceeding analysts' expectations.</p>
-                    </div>
-                    <div class="news-thumbnail chart">
-                    </div>
-                </div>
-                <div class="news-item">
-                    <div class="text-content">
-                        <h3>TechCorp Expands into AI Research</h3>
-                        <p>TechCorp is investing heavily in artificial intelligence research to drive future innovation.</p>
-                    </div>
-                    <div class="news-thumbnail ai">
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+    <section class="section">
+      <h1 class="section-title">Related News</h1>
+      <div class="news-grid">
+        <div class="news-item">
+          <div class="text-content">
+            <h3>Meta's Reality Labs Reports Progress in Metaverse Development</h3>
+            <p>
+              The company's investment in virtual and augmented reality is showing
+              promising advancements in hardware and software.
+            </p>
+          </div>
+          <div class="news-thumbnail vr">
+            <i class="fa-solid fa-vr-cardboard"></i> </div>
+        </div>
+        <div class="news-item">
+          <div class="text-content">
+            <h3>Instagram Rolls Out New Features to Boost Creator Economy</h3>
+            <p>
+              Updates to the popular photo-sharing app are designed to empower
+              content creators and enhance user engagement.
+            </p>
+          </div>
+          <div class="news-thumbnail social">
+            <i class="fa-solid fa-users"></i> </div>
+        </div>
+        <div class="news-item">
+          <div class="text-content">
+            <h3>Meta Platforms Beats Earnings Expectations with Ad Revenue Growth</h3>
+            <p>
+              Strong performance in its advertising business contributes to a
+              positive financial quarter for the tech giant.
+            </p>
+          </div>
+          <div class="news-thumbnail financial">
+            <i class="fa-solid fa-chart-bar"></i> </div>
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
