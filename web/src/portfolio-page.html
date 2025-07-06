@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StockVision - My Portfolio</title>
 
-    <!-- Fonts and Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <!-- Stylesheets -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/my-portfolio.css">
     <link rel="stylesheet" href="css/auth-common.css">
@@ -21,6 +19,62 @@
             opacity: 0;
             transition: opacity 0.5s ease;
         }
+
+        /* Basic styling for the location display */
+        .location-info {
+            background-color: var(--card-bg-color); /* Assuming a CSS variable for card background */
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px; /* Space below this card */
+            font-size: 0.95rem;
+            color: var(--text-color-secondary); /* Assuming secondary text color */
+        }
+        .location-info strong {
+            color: var(--text-color-primary); /* Assuming primary text color */
+        }
+        .location-info .loading-spinner {
+            font-style: italic;
+            color: #888;
+        }
+        .location-info .error-message {
+            color: var(--red-color); /* Assuming a red color for errors */
+        }
+
+        /* --- CRUCIAL NEW/MODIFIED CSS FOR LAYOUT --- */
+        .main-content {
+            display: flex;
+            flex-direction: column; /* Stack children (sections, divs) vertically */
+            gap: 20px; /* Add space between these vertically stacked items */
+            padding: 20px; /* Add some padding to the main content area if not already present */
+        }
+
+        /* Ensure the main title takes full width */
+        .main-content .section-title {
+            width: 100%;
+            margin-bottom: 0; /* Adjust as gap property will handle spacing */
+        }
+
+        /* Container for the two cards in the second row */
+        .two-column-row {
+            display: flex;
+            gap: 20px; /* Space between Portfolio and Holdings cards */
+            flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+            width: 100%; /* Ensure this row takes full width */
+        }
+
+        /* Make cards within the two-column row share space */
+        .two-column-row > .section {
+            flex: 1; /* Allows them to grow and shrink */
+            min-width: 300px; /* Minimum width before wrapping */
+        }
+
+        /* Ensure individual sections within main-content take full width unless in a flex container */
+        .main-content > .section {
+            width: 100%;
+        }
+        /* --- END CRUCIAL NEW/MODIFIED CSS --- */
+
     </style>
 </head>
 <body>
@@ -52,91 +106,185 @@
         <h1 class="section-title">My Portfolio</h1>
 
         <section class="section">
-            <div class="card portfolio-distribution">
-                <h2 class="card-title">Portfolio Distribution</h2>
-                <div class="distribution-summary">
-                    <span class="total-value">$12,345</span>
-                    <span class="percentage-change" id="portfolio-percentage-change">+12%</span>
-                </div>
-                <div class="bar-chart">
-                    <div class="bar-item">
-                        <div class="bar" style="height: 80%;"></div>
-                        <span class="category">Tech</span>
-                    </div>
-                    <div class="bar-item">
-                        <div class="bar" style="height: 60%;"></div>
-                        <span class="category">Finance</span>
-                    </div>
-                    <div class="bar-item">
-                        <div class="bar" style="height: 70%;"></div>
-                        <span class="category">Healthcare</span>
-                    </div>
-                    <div class="bar-item">
-                        <div class="bar" style="height: 50%;"></div>
-                        <span class="category">Consumer</span>
-                    </div>
-                    <div class="bar-item">
-                        <div class="bar" style="height: 40%;"></div>
-                        <span class="category">Energy</span>
-                    </div>
-                </div>
+            <div class="card location-info">
+                <h2>Your Current Location</h2>
+                <div id="location-display" class="loading-spinner">Detecting your location...</div>
             </div>
         </section>
 
-        <section class="section">
-            <div class="card holdings-table">
-                <h2 class="card-title">My Holdings</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Ticker</th>
-                            <th>Quantity</th>
-                            <th>Total Value</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>TSLA</td>
-                            <td>10</td>
-                            <td>$2,000</td>
-                        </tr>
-                        <tr>
-                            <td>AAPL</td>
-                            <td>5</td>
-                            <td>$1,500</td>
-                        </tr>
-                        <tr>
-                            <td>MSFT</td>
-                            <td>8</td>
-                            <td>$2,400</td>
-                        </tr>
-                        <tr>
-                            <td>AMZN</td>
-                            <td>2</td>
-                            <td>$1,200</td>
-                        </tr>
-                        <tr>
-                            <td>GOOG</td>
-                            <td>5</td>
-                            <td>$1,800</td>
-                        </tr>
-                        <tr>
-                            <td>NFLX</td>
-                            <td>3</td>
-                            <td>$900</td>
-                        </tr>
-                        <tr>
-                            <td>NVDA</td>
-                            <td>7</td>
-                            <td>$3,500</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+        <div class="two-column-row">
+            <section class="section">
+                <div class="card portfolio-distribution">
+                    <h2 class="card-title">Portfolio Distribution</h2>
+                    <div class="distribution-summary">
+                        <span class="total-value">$12,345</span>
+                        <span class="percentage-change" id="portfolio-percentage-change">+12%</span>
+                    </div>
+                    <div class="bar-chart">
+                        <div class="bar-item">
+                            <div class="bar" style="height: 80%;"></div>
+                            <span class="category">Tech</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 60%;"></div>
+                            <span class="category">Finance</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 70%;"></div>
+                            <span class="category">Healthcare</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 50%;"></div>
+                            <span class="category">Consumer</span>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 40%;"></div>
+                            <span class="category">Energy</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="card holdings-table">
+                    <h2 class="card-title">My Holdings</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ticker</th>
+                                <th>Quantity</th>
+                                <th>Total Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TSLA</td>
+                                <td>10</td>
+                                <td>$2,000</td>
+                            </tr>
+                            <tr>
+                                <td>AAPL</td>
+                                <td>5</td>
+                                <td>$1,500</td>
+                            </tr>
+                            <tr>
+                                <td>MSFT</td>
+                                <td>8</td>
+                                <td>$2,400</td>
+                            </tr>
+                            <tr>
+                                <td>AMZN</td>
+                                <td>2</td>
+                                <td>$1,200</td>
+                            </tr>
+                            <tr>
+                                <td>GOOG</td>
+                                <td>5</td>
+                                <td>$1,800</td>
+                            </tr>
+                            <tr>
+                                <td>NFLX</td>
+                                <td>3</td>
+                                <td>$900</td>
+                            </tr>
+                            <tr>
+                                <td>NVDA</td>
+                                <td>7</td>
+                                <td>$3,500</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
     </main>
 
-    <!-- Script for handling percentage color change. -->
     <script src="js/pages/porfolio-color-change.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const locationDisplay = document.getElementById('location-display');
+
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    // Display raw coordinates initially
+                    locationDisplay.innerHTML = `Latitude: <strong>${latitude.toFixed(4)}</strong>, Longitude: <strong>${longitude.toFixed(4)}</strong><br>Finding address...`;
+
+                    try {
+                        // OpenStreetMap Nominatim API for reverse geocoding
+                        // Usage Policy: https://operations.osmfoundation.org/policies/nominatim/
+                        // Ensure you're not abusing the service with too many requests.
+                        const nominatimUrl = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`;
+                        
+                        const response = await fetch(nominatimUrl, {
+                            headers: {
+                                'User-Agent': 'StockVision-App/1.0 (your-email@example.com)' // Replace with your actual app name and email
+                            }
+                        });
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        
+                        const data = await response.json();
+                        
+                        if (data && data.address) {
+                            const address = data.address;
+                            let locationText = '';
+                            if (address.city) locationText += address.city;
+                            else if (address.town) locationText += address.town;
+                            else if (address.village) locationText += address.village;
+
+                            if (address.state) locationText += `, ${address.state}`;
+                            if (address.country) locationText += `, ${address.country}`;
+
+                            if (locationText) {
+                                locationDisplay.innerHTML = `You are near: <strong>${locationText}</strong>`;
+                            } else {
+                                locationDisplay.innerHTML = `Location detected (Lat: <strong>${latitude.toFixed(4)}</strong>, Lon: <strong>${longitude.toFixed(4)}</strong>). <br>Could not resolve detailed address.`;
+                            }
+                        } else {
+                            locationDisplay.innerHTML = `Location detected (Lat: <strong>${latitude.toFixed(4)}</strong>, Lon: <strong>${longitude.toFixed(4)}</strong>). <br>No detailed address found.`;
+                        }
+
+                    } catch (error) {
+                        console.error('Error fetching address:', error);
+                        locationDisplay.innerHTML = `<span class="error-message">Error resolving address. Lat: <strong>${latitude.toFixed(4)}</strong>, Lon: <strong>${longitude.toFixed(4)}</strong>.</span>`;
+                    }
+
+                }, (error) => {
+                    // Geolocation error handling
+                    let errorMessage;
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMessage = "You denied permission for location access. Location data is unavailable.";
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMessage = "Location information is unavailable.";
+                            break;
+                        case error.TIMEOUT:
+                            errorMessage = "The request to get user location timed out.";
+                            break;
+                        case error.UNKNOWN_ERROR:
+                            errorMessage = "An unknown error occurred.";
+                            break;
+                        default:
+                            errorMessage = "An unexpected error occurred.";
+                    }
+                    locationDisplay.innerHTML = `<span class="error-message">${errorMessage}</span>`;
+                    console.error('Geolocation Error:', error);
+                }, {
+                    enableHighAccuracy: true, // Request more precise location
+                    timeout: 10000,           // 10 seconds timeout
+                    maximumAge: 0             // Don't use cached position
+                });
+            } else {
+                locationDisplay.innerHTML = "<span class='error-message'>Geolocation is not supported by your browser.</span>";
+            }
+        });
+    </script>
 </body>
 </html>
