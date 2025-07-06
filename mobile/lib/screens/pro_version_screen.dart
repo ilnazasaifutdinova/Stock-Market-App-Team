@@ -1,5 +1,3 @@
-// mobile/lib/screens/pro_version_screen.dart
-
 import 'package:flutter/material.dart';
 import 'package:stock_market_app/widgets/animated_gradient_background.dart';
 
@@ -29,7 +27,7 @@ class ProVersionScreen extends StatelessWidget {
               ),
               const SizedBox(height: 40),
 
-              // Hero Image placeholder
+              //Image asset
               Container(
                 width: double.infinity,
                 height: 200,
@@ -37,11 +35,14 @@ class ProVersionScreen extends StatelessWidget {
                   color: const Color(0xFF234733),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Center(
-                  child: Icon(
-                    Icons.star,
-                    color: Color(0xFF14B75B),
-                    size: 100,
+                child: Center(
+                  child: ClipOval(
+                    child: Image.asset(
+                      'images/pro_version.jpg',
+                      width: 120,
+                      height: 120,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
@@ -143,6 +144,7 @@ class ProVersionScreen extends StatelessWidget {
                       height: 40,
                       child: ElevatedButton(
                         onPressed: () {
+                          // Handle upgrade
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF234723),
@@ -164,7 +166,7 @@ class ProVersionScreen extends StatelessWidget {
                     const SizedBox(height: 24),
                     // Feature checklist
                     _buildChecklistItem('Advanced Analytics'),
-                    _buildChecklistItem('Data HIstory'),
+                    _buildChecklistItem('Real-Time Data'),
                     _buildChecklistItem('Exclusive Insights'),
                     _buildChecklistItem('Ad-Free Experience'),
                   ],
