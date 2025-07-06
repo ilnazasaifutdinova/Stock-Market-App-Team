@@ -233,17 +233,17 @@ class _PortfolioScreenState extends State<PortfolioScreen>
           end: Alignment.bottomRight,
           colors: [
             const Color(0xFF193326),
-            const Color(0xFF234733).withOpacity(0.8),
+            const Color(0xFF234733),
           ],
         ),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: const Color(0xFF0AD842).withOpacity(0.3),
+          color: const Color(0xFF0AD842),
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF0AD842).withOpacity(0.1),
+            color: const Color(0xFF0AD842),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -268,7 +268,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
                 padding:
                 const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF0AD842).withOpacity(0.2),
+                  color: const Color(0xFF0AD842),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
@@ -566,10 +566,10 @@ class _PortfolioScreenState extends State<PortfolioScreen>
                     children: [
                       _buildLegendItem(
                           'Stocks', 65, 8234.55, const Color(0xFF0AD842), 0),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 14),
                       _buildLegendItem(
                           'Bonds', 25, 3157.90, const Color(0xFF93C6AA), 1),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 14),
                       _buildLegendItem(
                           'Crypto', 10, 1252.22, const Color(0xFF234733), 2),
                     ],
@@ -630,7 +630,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.8),
+        color: Colors.black,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
@@ -658,7 +658,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: isSelected ? color.withOpacity(0.1) : Colors.transparent,
+          color: isSelected ? color : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
@@ -913,7 +913,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
                 end: Alignment.bottomRight,
                 colors: [
                   const Color(0xFF234733),
-                  const Color(0xFF0AD842).withOpacity(0.3),
+                  const Color(0xFF0AD842),
                 ],
               ),
               borderRadius: BorderRadius.circular(8),
@@ -973,8 +973,8 @@ class _PortfolioScreenState extends State<PortfolioScreen>
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 decoration: BoxDecoration(
                   color: isPositive
-                      ? const Color(0xFF0AD842).withOpacity(0.2)
-                      : Colors.red.withOpacity(0.2),
+                      ? const Color(0xFF0AD842)
+                      : Colors.red,
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(
