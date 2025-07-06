@@ -66,7 +66,7 @@ class _DashboardScreenState extends State<StockTestScreen>
         for (var symbol in stocks) {
           marketProvider.fetchStockData(symbol, '1D');
         }
-        newsProvider.fetchDashboardNews(); // This will use the second API key
+        newsProvider.fetchDashboardNews(); // Use the second API key (marketaux)
       }
     });
   }
@@ -338,7 +338,7 @@ class _DashboardScreenState extends State<StockTestScreen>
             data: provider.chartData,
             height: 200,
             lineColor: const Color(0xFF0AD842),
-            gradientStartColor: const Color(0xFF0AD842).withOpacity(0.2),
+            gradientStartColor: const Color(0xFF0AD842),
             gradientEndColor: Colors.transparent,
           ),
         ),
