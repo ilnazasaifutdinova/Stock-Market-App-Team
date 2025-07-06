@@ -10,7 +10,7 @@ class SplashScreen extends StatelessWidget {
       backgroundColor: const Color(0xFF12211A),
       body: Stack(
         children: [
-          // ... gradient circles ...
+          //background 
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
