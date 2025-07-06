@@ -7,28 +7,46 @@
     --additional-text:#A6B5A1;
     --button-background-green:#54D12B;
     --button-background-gray:#2E3829;
-    --search-bar-bg: #333333; /* This variable name is used in .tabs background in this file */
+    --search-bar-bg: #333333;
     --border-color: #444444;
     --light-border-color: #383838;
+    /* Added missing accent-green variable if it's used elsewhere for percentage-change and bar color */
+    --accent-green: #54D12B;
     /* Removed positive/negative colors as they are for portfolio only, or should be in potfolio.css */
+    /* Add table-header-bg if used in .holdings-table thead th */
+    --table-header-bg: #2b2b2b; /* Example value, adjust as needed */
 }
+
 /* Main Content Structure */
 .main-content {
     max-width: 1200px; /* Wider content area */
     margin: 40px auto;
     padding: 0 25px;
-    display: grid;
-    grid-template-columns: 1fr 2fr; /* Portfolio Distribution on left, Holdings on right */
-    gap: 30px; /* Space between sections */
-    align-items: start; /* Align sections to the top */
+    /* The problem in the screenshot might be coming from here if it's overriding the
+       display: flex; flex-direction: column; that was added in the HTML's <style> block.
+       If your HTML already has that, you might want to remove this grid setting here,
+       or make sure it applies only to the correct sections for a grid layout.
+       For the desired "column of geolocation, then 2 side-by-side",
+       the main-content should likely be flex column. */
+    /* If you want the new structure, REPLACE this block with: */
+    display: flex;
+    flex-direction: column; /* Stacks children (sections and the two-column-row) vertically */
+    gap: 30px; /* Space between the main rows/sections */
+
+    /* Page fade-in */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInPage 0.8s ease forwards;
+    animation-delay: 0.2s;
 }
+
 
 .section-title {
     font-size: 32px;
     font-weight: 700;
     color: var(--text-color);
-    margin-top: 10%;
-    grid-column: span 2; /* Make title span across both columns */
+    margin-top: 10%; /* Consider if this margin is needed or if gap in main-content is enough */
+    width: 100%; /* Ensure title takes full width */
     text-align: left;
 }
 
@@ -52,9 +70,35 @@
     text-align: center; /* Center card titles */
 }
 
+/* Geolocation Card (new section, ensure it takes full width) */
+/* Assuming 'location-info' is directly a child of .main-content now */
+.location-info {
+    width: 100%; /* Make sure it takes full available width */
+    /* Other styling is already defined in your <style> block,
+       but consider moving it here for organization. */
+}
+
+
+/* NEW: Container for the two-column row (Portfolio Distribution and My Holdings) */
+.two-column-row {
+    display: flex;
+    gap: 30px; /* MODIFIED: Use 30px gap for consistency with main-content gap */
+    flex-wrap: wrap; /* Allows cards to wrap to the next line on smaller screens */
+    width: 100%; /* Ensure this row takes full width */
+}
+
+/* Make cards in the two-column row take roughly half width */
+.two-column-row > .section {
+    flex: 1; /* Allows them to grow and shrink */
+    min-width: 400px; /* MODIFIED: Increased min-width to give more horizontal space before wrapping for content */
+    /* Consider max-width if you don't want them to stretch too much on very large screens */
+    /* max-width: calc(50% - 15px); */ /* Example for max width to fit 2 items + gap */
+}
+
+
 /* Portfolio Distribution Card */
 .portfolio-distribution {
-    grid-column: 1; /* Place in the first column */
+    /* grid-column: 1; - REMOVED, handled by flexbox */
     align-items: center; /* Center content within the card */
 }
 
@@ -67,7 +111,7 @@
 }
 
 .total-value {
-    font-size: 3em; /* Larger total value */
+    font-size: 3em;
     font-weight: 700;
     color: var(--text-color);
 }
@@ -75,51 +119,60 @@
 .percentage-change {
     font-size: 1.5em;
     font-weight: 600;
-    color: var(--accent-green); /* Green for positive change */
+    color: var(--accent-green);
 }
 
 /* Bar Chart */
 .bar-chart {
     display: flex;
     justify-content: space-around;
-    align-items: flex-end; /* Bars start from the bottom */
+    align-items: flex-end;
     width: 100%;
-    height: 200px; /* Fixed height for the chart area */
-    gap: 10px; /* Space between bars */
-    border-bottom: 1px solid var(--border-color); /* Axis line */
+    height: 200px;
+    gap: 15px; /* MODIFIED: Consistent gap */
+    border-bottom: 1px solid var(--border-color);
     padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .bar-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end; /* Ensure bar is at the bottom */
-    flex: 1; /* Distribute space equally */
-    max-width: 60px; /* Max width for each bar item */
+    justify-content: flex-end;
+    flex: 1;
+    max-width: 90px; /* MODIFIED: Increased max-width further for text. Adjust as needed. */
+    min-width: 60px; /* ADDED: Ensure a minimum width for bar-item to prevent extreme squishing */
 }
 
 .bar {
-    width: 80%; /* Width of the individual bar */
-    background-color: var(--accent-green); /* Green color for bars */
+    width: 80%;
+    background-color: var(--accent-green);
     border-radius: 5px 5px 0 0;
-    transition: height 0.5s ease-out; /* Smooth transition for bar height */
-    min-height: 5px; /* Ensure bars are visible even with 0% height */
+    transition: height 0.5s ease-out;
+    min-height: 5px;
 }
 
 .category {
-    margin-top: 8px;
+    margin-top: 10px;
     font-size: 0.9em;
     color: var(--text-color);
     opacity: 0.8;
     text-align: center;
-    word-break: break-word; /* Allow long category names to break */
+    word-break: normal; /* Preferred for normal wrapping */
+    white-space: normal; /* Allow natural line breaks */
+    overflow-wrap: break-word; /* Ensure long words break if they don't fit */
+    line-height: 1.2;
+    padding: 0 2px;
+    /* ADDED: Box-sizing can sometimes affect text rendering within constrained boxes */
+    box-sizing: border-box;
 }
 
 /* My Holdings Table */
 .holdings-table {
-    grid-column: 2; /* Place in the second column */
-    padding: 20px; /* Adjust padding for table card */
+    /* grid-column: 2; - REMOVED, handled by flexbox */
+    padding: 20px;
 }
 
 .holdings-table table {
@@ -145,24 +198,32 @@
 }
 
 .holdings-table tbody tr:last-child td {
-    border-bottom: none; /* No border for the last row */
+    border-bottom: none;
 }
 
 /* Responsive Design */
 @media (max-width: 992px) {
     .main-content {
-        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+        /* grid-template-columns: 1fr; - REMOVED from here, now flex column */
         padding: 0 20px;
         gap: 25px;
     }
     .section-title {
-        grid-column: span 1; /* Title spans only one column now */
+        /* grid-column: span 1; - REMOVED, now takes 100% width automatically */
         text-align: center;
     }
-    .portfolio-distribution,
-    .holdings-table {
-        grid-column: 1; /* Both sections now in the single column */
+    /* .portfolio-distribution, .holdings-table { grid-column: 1; } - REMOVED */
+
+    /* Adjust two-column-row for stacking on smaller screens */
+    .two-column-row {
+        flex-direction: column; /* Stack the two cards vertically */
+        gap: 25px; /* Gap between vertically stacked cards */
     }
+    .two-column-row > .section {
+        min-width: unset; /* Remove min-width when stacking, allow full width */
+        width: 100%; /* Ensure they take full width when stacked */
+    }
+
     .total-value {
         font-size: 2.5em;
     }
@@ -174,6 +235,16 @@
     }
     .card-title {
         font-size: 20px;
+    }
+    .bar-chart {
+        gap: 10px;
+    }
+    .bar-item {
+        max-width: 80px; /* MODIFIED: Adjusted max-width for smaller screens */
+        min-width: unset; /* Remove min-width here for more flexibility */
+    }
+    .category {
+        font-size: 0.85em;
     }
 }
 
@@ -194,9 +265,10 @@
     }
     .bar-chart {
         height: 150px;
+        gap: 8px;
     }
     .bar-item {
-        max-width: 50px;
+        max-width: 70px; /* MODIFIED: Further reduce max-width */
     }
     .category {
         font-size: 0.8em;
@@ -216,24 +288,11 @@
         padding: 20px;
     }
     .bar-item {
-        max-width: 40px; /* Further reduce bar width on very small screens */
+        max-width: 60px; /* MODIFIED: Even smaller max-width */
     }
-}
-
-
-/* Main Content Structure */
-.main-content {
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 0 20px;
-    display: grid;
-    gap: 30px;
-
-    /* Page fade-in */
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInPage 0.8s ease forwards;
-    animation-delay: 0.2s;
+    .category {
+        font-size: 0.75em; /* Slightly smaller for very small screens */
+    }
 }
 
 
@@ -270,82 +329,5 @@
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-
-.bar-chart {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end; /* Bars start from the bottom */
-    width: 100%;
-    height: 200px; /* Fixed height for the chart area */
-    gap: 15px; /* MODIFIED: Increased space between bars for better label breathing room */
-    border-bottom: 1px solid var(--border-color); /* Axis line */
-    padding-bottom: 5px;
-    padding-left: 5px; /* ADDED: Small padding to prevent categories from hugging the left edge */
-    padding-right: 5px; /* ADDED: Small padding to prevent categories from hugging the right edge */
-}
-
-.bar-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end; /* Ensure bar is at the bottom */
-    flex: 1; /* Distribute space equally */
-    max-width: 80px; /* MODIFIED: Increased max-width for each bar item to give more room for text */
-}
-
-.bar {
-    /* ... (no changes in this block) ... */
-}
-
-.category {
-    margin-top: 10px; /* MODIFIED: Increased margin from the bar for better separation */
-    font-size: 0.9em;
-    color: var(--text-color);
-    opacity: 0.8;
-    text-align: center;
-    word-break: normal; /* MODIFIED: Prevent words from breaking awkwardly, prefer wrapping if needed */
-    white-space: normal; /* ADDED: Allow text to wrap naturally */
-    line-height: 1.2; /* ADDED: Adjust line height for wrapped text */
-    padding: 0 2px; /* ADDED: Small horizontal padding to prevent text from touching edges of its container */
-}
-
-/* Responsive Design Adjustments for Categories */
-@media (max-width: 992px) {
-    /* ... existing rules ... */
-    .bar-chart {
-        gap: 10px; /* MODIFIED: Adjusted gap for smaller screens */
-    }
-    .bar-item {
-        max-width: 70px; /* MODIFIED: Adjusted max-width for smaller screens */
-    }
-    .category {
-        font-size: 0.85em; /* MODIFIED: Slightly smaller font for better fit */
-    }
-}
-
-@media (max-width: 600px) {
-    /* ... existing rules ... */
-    .bar-chart {
-        /* height: 150px; (no change here) */
-        gap: 8px; /* MODIFIED: Further reduce gap on very small screens */
-    }
-    .bar-item {
-        max-width: 60px; /* MODIFIED: Further reduce max-width on very small screens */
-    }
-    .category {
-        /* font-size: 0.8em; (no change here) */
-    }
-}
-
-@media (max-width: 400px) {
-    /* ... existing rules ... */
-    .bar-item {
-        max-width: 50px; /* MODIFIED: Even smaller max-width for tiny screens */
-    }
-    .category {
-        /* font-size: 0.75em; (no change here) */
     }
 }
