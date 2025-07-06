@@ -43,7 +43,7 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      // For demo purposes, accept demo credentials or simulate API call
+      // For demo purposes
       if (email == 'demo@stockvision.com' && password == 'demo123') {
         _token = 'demo_jwt_token_${DateTime.now().millisecondsSinceEpoch}';
         _userEmail = email;
@@ -81,9 +81,6 @@ class AuthProvider extends ChangeNotifier {
     try {
       // For demo purposes, simulate successful registration
       await Future.delayed(const Duration(seconds: 1));
-      
-      // In a real app, you would call:
-      // final success = await ApiService.register(email, password);
       
       _isLoading = false;
       notifyListeners();
