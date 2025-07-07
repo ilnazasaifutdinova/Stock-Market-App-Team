@@ -27,7 +27,7 @@ class _PortfolioScreenState extends State<PortfolioScreen>
 
   int selectedChartIndex = -1;
   String selectedTimeframe = '1Y';
-  final List<String> timeframes = ['1W', '1M', '3M', '6M', '1Y'];
+  final List<String> timeframes = ['1D', '1W'];
   bool _isDataLoaded = false;
 
   @override
@@ -1145,19 +1145,19 @@ class _PortfolioScreenState extends State<PortfolioScreen>
     int days;
 
     switch (selectedTimeframe) {
-      case '1W':
+      case '1D':
         days = 7;
         break;
-      case '1M':
-        days = 30;
-        break;
-      case '3M':
-        days = 90;
-        break;
-      case '6M':
-        days = 180;
-        break;
-      case '1Y':
+      //case '1M':
+        //days = 30;
+       // break;
+      //case '3M':
+        //days = 90;
+       // break;
+      //case '6M':
+        //days = 180;
+        //break;
+      case '1W':
       default:
         days = 365;
         break;
