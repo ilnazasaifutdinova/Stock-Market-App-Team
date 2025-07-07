@@ -12,7 +12,7 @@ class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
+  State createState() => _DashboardScreenState();
 }
 
 class _DashboardScreenState extends State<DashboardScreen>
@@ -38,11 +38,9 @@ class _DashboardScreenState extends State<DashboardScreen>
       duration: const Duration(milliseconds: 1200),
       vsync: this,
     );
-
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _fadeController, curve: Curves.easeOut),
     );
-
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.3),
       end: Offset.zero,
@@ -50,7 +48,6 @@ class _DashboardScreenState extends State<DashboardScreen>
       parent: _slideController,
       curve: Curves.easeOutCubic,
     ));
-
     _fadeController.forward();
     _slideController.forward();
   }
@@ -59,7 +56,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       final marketProvider = Provider.of<MarketDataProvider>(context, listen: false);
-
       if (authProvider.token != null) {
         final stocks = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'META', 'NVDA', 'TSLA'];
         for (var symbol in stocks) {
@@ -81,21 +77,18 @@ class _DashboardScreenState extends State<DashboardScreen>
     return AnimatedGradientBackground(
       child: SafeArea(
         child: Consumer4<PortfolioProvider, MarketDataProvider, AuthProvider, NewsProvider>(
-          builder: (context, portfolioProvider, marketProvider, authProvider, NewsProvider, child) {
+          builder: (context, portfolioProvider, marketProvider, authProvider, newsProvider, child) {
             return SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 20),
-
                   FadeTransition(
                     opacity: _fadeAnimation,
                     child: _buildHeader(authProvider),
                   ),
-
                   const SizedBox(height: 40),
-
                   SlideTransition(
                     position: _slideAnimation,
                     child: FadeTransition(
@@ -103,9 +96,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       child: _buildPortfolioOverview(portfolioProvider),
                     ),
                   ),
-
                   const SizedBox(height: 32),
-
                   SlideTransition(
                     position: _slideAnimation,
                     child: FadeTransition(
@@ -113,9 +104,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       child: _buildMarketOverview(marketProvider),
                     ),
                   ),
-
                   const SizedBox(height: 32),
-
                   SlideTransition(
                     position: _slideAnimation,
                     child: FadeTransition(
@@ -123,9 +112,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       child: _buildTopStocksSection(marketProvider),
                     ),
                   ),
-
                   const SizedBox(height: 32),
-
                   SlideTransition(
                     position: _slideAnimation,
                     child: FadeTransition(
@@ -133,7 +120,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                       child: _buildRecentNewsSection(),
                     ),
                   ),
-
                   const SizedBox(height: 100),
                 ],
               ),
@@ -150,8 +136,8 @@ class _DashboardScreenState extends State<DashboardScreen>
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
+          children: const [
+            Text(
               'Good Morning',
               style: TextStyle(
                 color: Color(0xFF93C6AA),
@@ -160,8 +146,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                 fontWeight: FontWeight.w400,
               ),
             ),
-            const SizedBox(height: 4),
-            const Text(
+            SizedBox(height: 4),
+            Text(
               'Welcome back!',
               style: TextStyle(
                 color: Colors.white,
@@ -248,7 +234,6 @@ class _DashboardScreenState extends State<DashboardScreen>
             ],
           ),
           const SizedBox(height: 8),
-
           TweenAnimationBuilder<double>(
             duration: const Duration(milliseconds: 2000),
             tween: Tween(begin: 0, end: provider.totalValue),
@@ -265,9 +250,7 @@ class _DashboardScreenState extends State<DashboardScreen>
               );
             },
           ),
-
           const SizedBox(height: 16),
-
           Row(
             children: [
               _buildQuickStat('Today\'s Change', '+\$127.45', true),
@@ -321,7 +304,6 @@ class _DashboardScreenState extends State<DashboardScreen>
           ),
         ),
         const SizedBox(height: 16),
-
         Container(
           height: 150,
           decoration: BoxDecoration(
@@ -346,7 +328,6 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   Widget _buildTopStocksSection(MarketDataProvider provider) {
     final topStocks = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'META', 'NVDA', 'TSLA'];
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -379,7 +360,6 @@ class _DashboardScreenState extends State<DashboardScreen>
           ],
         ),
         const SizedBox(height: 16),
-
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
@@ -387,12 +367,10 @@ class _DashboardScreenState extends State<DashboardScreen>
           itemBuilder: (context, index) {
             final symbol = topStocks[index];
             final stockData = provider.getStockData(symbol);
-
             if (stockData == null) {
               provider.fetchStockData(symbol, '1D');
               return const SizedBox.shrink();
             }
-
             return _buildStockItem(symbol, stockData);
           },
         ),
@@ -402,7 +380,6 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   Widget _buildStockItem(String symbol, StockData stockData) {
     final isPositive = stockData.changePercent >= 0;
-
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 12),
@@ -436,7 +413,6 @@ class _DashboardScreenState extends State<DashboardScreen>
             ),
           ),
           const SizedBox(width: 16),
-
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -463,7 +439,6 @@ class _DashboardScreenState extends State<DashboardScreen>
               ],
             ),
           ),
-
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -549,13 +524,11 @@ class _DashboardScreenState extends State<DashboardScreen>
           ],
         ),
         const SizedBox(height: 16),
-
         _buildNewsItem(
           'Tech Stocks Rally as AI Sector Shows Strong Growth',
           'Markets saw significant gains today as artificial intelligence companies reported better than expected earnings.',
           '2h ago',
         ),
-
         _buildNewsItem(
           'Federal Reserve Signals Potential Rate Changes',
           'Economic indicators suggest possible monetary policy adjustments in the coming quarter.',
