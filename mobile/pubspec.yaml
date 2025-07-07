@@ -34,7 +34,6 @@ dependencies:
   # HTTP-клиент
   # http: ^0.13.0
   http: ^1.1.0
-  shared_preferences: ^2.2.2
 
   # State management через Provider
   provider: ^6.0.0
